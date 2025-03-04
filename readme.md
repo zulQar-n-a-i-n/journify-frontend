@@ -1,1 +1,1 @@
-repository for frontend of FYP
+repository for frontend
