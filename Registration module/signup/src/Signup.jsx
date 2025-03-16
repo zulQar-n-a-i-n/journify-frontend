@@ -1,7 +1,44 @@
-import React from "react";
-import { MdEmail, MdLock } from "react-icons/md"; // Import icons
+import React, { useState } from "react";
+import { MdEmail, MdLock } from "react-icons/md";
+import axios from "axios";
 
 function Signup() {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone_number: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:8000/api/register/", {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+        phone_number: formData.phone_number,
+      });
+      console.log("User registered successfully:", response.data);
+      alert("Registration successful!");
+    } catch (error) {
+      console.error("Registration failed:", error.response.data);
+      alert("Registration failed. Please try again.");
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-300">
       <div className="flex w-full max-w-6xl bg-gray-200 p-0 relative rounded-lg shadow-lg">
@@ -9,10 +46,9 @@ function Signup() {
         <div className="w-full sm:w-1/2 p-6 bg-white rounded-lg shadow-lg">
           <h2 className="text-center text-2xl font-bold text-black">Sign Up</h2>
 
-          <form action="#" method="POST" className="space-y-6 mt-6">
-
-          <div>
-              <label htmlFor="password" className="block text-sm font-medium text-black">
+          <form onSubmit={handleSubmit} className="space-y-6 mt-6">
+            <div>
+              <label htmlFor="username" className="block text-sm font-medium text-black">
                 Username
               </label>
               <div className="mt-2 relative">
@@ -22,6 +58,8 @@ function Signup() {
                   name="username"
                   type="text"
                   placeholder="Enter your name"
+                  value={formData.username}
+                  onChange={handleChange}
                   className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                 />
               </div>
@@ -38,6 +76,8 @@ function Signup() {
                   name="email"
                   type="email"
                   placeholder="Enter email"
+                  value={formData.email}
+                  onChange={handleChange}
                   className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                 />
               </div>
@@ -54,6 +94,8 @@ function Signup() {
                   name="password"
                   type="password"
                   placeholder="Enter password"
+                  value={formData.password}
+                  onChange={handleChange}
                   className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                 />
               </div>
@@ -67,9 +109,11 @@ function Signup() {
                 <MdLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
                 <input
                   id="confirm-password"
-                  name="confirm-password"
+                  name="confirmPassword"
                   type="password"
                   placeholder="Confirm password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
                   className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                 />
               </div>
