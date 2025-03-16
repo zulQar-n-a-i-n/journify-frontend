@@ -4,7 +4,8 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 
 import Loginn from "./Login2.jsx"
-import Signup from './Signup.jsx'
+
+
 
 
 createRoot(document.getElementById('root')).render(
@@ -13,6 +14,5 @@ createRoot(document.getElementById('root')).render(
    
    <Loginn/>
    
-   <Signup/>
   </StrictMode>,
 )
