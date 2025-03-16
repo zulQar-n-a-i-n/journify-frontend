@@ -10,6 +10,23 @@ function Signup() {
           <h2 className="text-center text-2xl font-bold text-black">Sign Up</h2>
 
           <form action="#" method="POST" className="space-y-6 mt-6">
+
+          <div>
+              <label htmlFor="password" className="block text-sm font-medium text-black">
+                Username
+              </label>
+              <div className="mt-2 relative">
+                <MdLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  placeholder="Enter your name"
+                  className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
+                />
+              </div>
+            </div>
+
             <div>
               <label htmlFor="email" className="text-left block text-sm font-medium text-black">
                 Email Address
