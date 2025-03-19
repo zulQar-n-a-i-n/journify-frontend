@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { MdEmail, MdLock } from "react-icons/md";
 import axios from "axios";
+import Lottie from "lottie-react";
+import animationData from "./animation.json"; // Replace with your Lottie JSON file
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -8,7 +10,6 @@ function Signup() {
     email: "",
     password: "",
     confirmPassword: "",
-    phone_number: "",
   });
 
   const handleChange = (e) => {
@@ -29,12 +30,11 @@ function Signup() {
         username: formData.username,
         email: formData.email,
         password: formData.password,
-        phone_number: formData.phone_number,
       });
       console.log("User registered successfully:", response.data);
       alert("Registration successful!");
     } catch (error) {
-      console.error("Registration failed:", error.response.data);
+      console.error("Registration failed:", error.response?.data);
       alert("Registration failed. Please try again.");
     }
   };
@@ -120,30 +120,31 @@ function Signup() {
             </div>
 
             <div>
-              <button
-                type="submit"
-                className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Register
-              </button>
-            </div>
+  <button
+    type="submit"
+    className="w-full rounded-md bg-[#8FBF7F] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#7BAF6F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8FBF7F]"
+  >
+    Register
+  </button>
+</div>
+
           </form>
 
           <p className="mt-6 text-center text-sm text-black">
             Already have an Account?{' '}
-            <a href="#" className="font-bold text-1xl text-indigo-600 hover:text-indigo-500">
+            <a href="#" className="font-semibold text-black hover:text-indigo-500">
               Login
             </a>
           </p>
         </div>
 
-        {/* Animation Section with Full Half Screen */}
+        {/* Animation Section */}
         <div className="hidden sm:flex w-1/2 justify-center items-center relative bg-gray-300 overflow-hidden">
-          {/* Animated Element */}
-          <div className="w-52 h-52 bg-gradient-to-tr from-violet-500 to-green-500 rounded-full animate-bounce "></div>
+          {/* Lottie Animation */}
+          <Lottie animationData={animationData} className="w-3/4 h-3/4" />
 
           {/* Bottom Half Section (blurred) */}
-          <div className="absolute bottom-0 left-0 w-full h-1/2 backdrop-blur-md rounded-b-lg"></div>
+          {/* <div className="absolute bottom-0 left-0 w-full h-1/2 backdrop-blur-md rounded-b-lg"></div> */}
         </div>
       </div>
     </div>
