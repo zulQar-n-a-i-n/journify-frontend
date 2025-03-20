@@ -1,7 +1,9 @@
 
 import React from "react";
 import { MdEmail, MdLock } from "react-icons/md"; // Import icons
-    
+import axios from "axios";
+import Lottie from "lottie-react";
+import animationData from "./animation.json"; // Replace with your Lottie JSON file
 
 function Loginn() {
   
@@ -18,16 +20,16 @@ function Loginn() {
             
                       <form action="#" method="POST" className="space-y-6 mt-6">
                         <div>
-                          <label htmlFor="email" className="text-left block text-sm font-medium text-black">
-                            Email Address
+                          <label htmlFor="username" className="text-left block text-sm font-medium text-black">
+                            Username
                           </label>
                           <div className="mt-2 relative">
                             <MdEmail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
                             <input
-                              id="email"
-                              name="email"
-                              type="email"
-                              placeholder="Enter email"
+                              id="username"
+                              name="username"
+                              type="username"
+                              placeholder="Enter username"
                               className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                             />
                           </div>
@@ -61,11 +63,13 @@ function Loginn() {
                         <div>
                           <button
                             type="submit"
-                            className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="w-full rounded-md bg-[#8FBF7F] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#7BAF6F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8FBF7F]"
                           >
                             Sign in
                           </button>
                         </div>
+
+
                       </form>
             
                       {/* Footer */}
@@ -78,13 +82,14 @@ function Loginn() {
                     </div>
             
                     {/* Animation Section with Gray Background */}
-                    <div className="hidden sm:flex w-1/2 justify-center items-center relative bg-gradient-to-tr from-violet-300 to-green-300">
-                      {/* Centered Animation */}
-                      <div className="w-52 h-52 bg-gradient-to-tr from-violet-500 to-green-500 rounded-full animate-bounce relative "></div>
-            
-                      {/* Bottom Half Section (blurred) */}
-                      <div className="absolute bottom-0 left-0 w-full h-1/2 backdrop-blur-sm rounded-b-lg"></div>
-                    </div>
+                    {/* Animation Section */}
+        <div className="hidden sm:flex w-1/2 justify-center items-center relative bg-gray-300 overflow-hidden">
+          {/* Lottie Animation */}
+          <Lottie animationData={animationData} className="w-3/4 h-3/4" />
+
+          {/* Bottom Half Section (blurred) */}
+          {/* <div className="absolute bottom-0 left-0 w-full h-1/2 backdrop-blur-md rounded-b-lg"></div> */}
+        </div>
                   </div>
                 </div>
       );
@@ -94,6 +99,3 @@ function Loginn() {
    
 
 export default Loginn
-
-
-
