@@ -1,11 +1,40 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { MdEmail, MdLock } from "react-icons/md"; // Import icons
 import axios from "axios";
+import { FaUserCircle } from "react-icons/fa";
 import Lottie from "lottie-react";
 import animationData from "./animation.json"; // Replace with your Lottie JSON file
 
 function Loginn() {
+  const [username, setUsername] =useState('');
+  const [password, setPassword] =useState('');
+  
+
+  const submitHandler= async(e)=>{
+    e.preventDefault();
+    try {
+      const response =await axios.post("  ",{
+        username,
+        password
+
+      });
+      console.log("response",response.data);
+      alert("login successfuly");
+      
+    } catch (error) {
+      console.log("error occoured",error);
+      alert("login failed")
+      
+      
+    }
+   
+   
+    setUsername('');
+    setPassword('');
+  
+    
+  };
   
  
   return (
@@ -18,17 +47,26 @@ function Loginn() {
                     <div className="w-full sm:w-1/2 p-14  bg-white rounded-lg shadow-lg">
                       <h2 className="text-center text-2xl font-bold text-black">Login</h2>
             
-                      <form action="#" method="POST" className="space-y-6 mt-6">
+                      <form 
+                      onSubmit={(e)=>{submitHandler(e)}} className="space-y-6 mt-6">
+                        
+                    
                         <div>
                           <label htmlFor="username" className="text-left block text-sm font-medium text-black">
                             Username
                           </label>
                           <div className="mt-2 relative">
-                            <MdEmail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
+                            
+                            <FaUserCircle  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
                             <input
+                            onChange={(e)=>{
+                             setUsername(e.target.value)
+                            }}
                               id="username"
                               name="username"
                               type="username"
+                              value={username}
+                              
                               placeholder="Enter username"
                               className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                             />
@@ -44,9 +82,13 @@ function Loginn() {
                           <div className="mt-2 relative">
                             <MdLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
                             <input
+                            onChange={(e)=>{
+                              setPassword(e.target.value)
+                             }}
                               id="password"
                               name="password"
                               type="password"
+                              value={password}
                               placeholder="Enter password"
                               className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                             />
