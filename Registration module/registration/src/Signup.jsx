@@ -77,7 +77,8 @@ function Signup() {
                 Email Address
               </label>
               <div className="mt-2 relative">
-                <MdEmail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
+              <MdEmail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
+   
                 <input
                   id="email"
                   name="email"
@@ -142,7 +143,7 @@ function Signup() {
           {/* Navigation to Login Page */}
           <p className="mt-6 text-center text-sm text-black">
             Already have an Account?{" "}
-            <Link to="/login" className="font-semibold text-black hover:text-indigo-500">
+            <Link to="/login2" className="font-semibold text-black hover:text-indigo-500">
               Login
             </Link>
           </p>
