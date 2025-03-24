@@ -6,17 +6,32 @@ import './index.css';
 import Signup from './Signup.jsx';
 import Loginn from './Login2.jsx';
 import Homepage from './homepage.jsx';
+import ForgotPassword from './Forgotpassword.jsx';
+import ResetPassword from './Resetpassword.jsx';
+import CheckEmailpage from './CheckMail.jsx'
+import PasswordSuccess from './PasswordSuccess';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Router> {/* Wrap your app with BrowserRouter */}
+  
+
+    
+    
+    <Router>
+       
       <Routes>
         {/* Define routes for Signup and Login */}
         <Route path="/Signup" element={<Signup />} />
         <Route path="/login2" element={<Loginn/>} />
         <Route path="/homepage" element={<Homepage />} />
+        <Route path="/ForgotPassword" element={<ForgotPassword />} />
+        <Route path="/CheckEmail" element={<CheckEmailpage />} />
+        <Route path="/ResetPassword/:token" element={<ResetPassword />} />
+        <Route path="/PasswordSuccess" element={<PasswordSuccess />} />
         {/* Default route (redirects to Signup) */}
-        <Route path="/" element={<Signup />} />
+        <Route path="/" element={<Loginn />} />
+        
+        
       </Routes>
     </Router>
   </StrictMode>

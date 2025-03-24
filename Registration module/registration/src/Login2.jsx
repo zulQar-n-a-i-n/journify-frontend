@@ -98,9 +98,10 @@ function Loginn() {
                           </div>
             
                           <div className="text-sm text-right">
-                            <a href="#" className="font-semibold text-black hover:text-indigo-500">
-                              Forgot password?
-                            </a>
+                          
+                            <Link to="/Forgotpassword" className="font-semibold text-black hover:text-indigo-500">
+                           Forgot Password
+                           </Link>
                           </div>
                         </div>
             
