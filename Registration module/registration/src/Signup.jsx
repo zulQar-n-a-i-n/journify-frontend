@@ -4,7 +4,7 @@ import { FaUserCircle } from "react-icons/fa";
 import axios from "axios";
 import Lottie from "lottie-react";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
-import animationData from "./animation.json"; // Replace with your Lottie JSON file
+import animationData from "./assets/signup-animation.json"; // Replace with your Lottie JSON file
 
 function Signup() {
   const [username, setUsername] = useState("");
