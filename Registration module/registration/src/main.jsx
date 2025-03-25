@@ -26,7 +26,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/homepage" element={<Homepage />} />
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
         <Route path="/CheckEmail" element={<CheckEmailpage />} />
-        <Route path="/ResetPassword/:token" element={<ResetPassword />} />
+        <Route path="/Resetpassword/:uidb64/:token" element={<ResetPassword />} />
         <Route path="/PasswordSuccess" element={<PasswordSuccess />} />
         {/* Default route (redirects to Signup) */}
         <Route path="/" element={<Signup />} />

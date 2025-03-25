@@ -16,7 +16,7 @@ const PasswordSuccess = () => {
                                         <GrFormCheckmark className="text-3xl text-[#8FBF7F]" />
                                     </div>
                                 </div>
-                <h2 className="text-2xl font-bold text-center mb-6 text-gray-700">Check your Email</h2>
+                <h2 className="text-2xl font-bold text-center mb-6 text-gray-700">Password Reset</h2>
                 <p className="font-semibold">Your password has been successfully reset.</p>
                 <p className="text-center font-semibold">Click below to Login</p>
                 
