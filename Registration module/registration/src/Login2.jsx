@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link , useNavigate} from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import Lottie from "lottie-react";
-import animationData from "./animation.json"; // Replace with your Lottie JSON file
+import animationData from "./assets/login-animation.json"; // Replace with your Lottie JSON file
 
 function Loginn() {
   const [username, setUsername] =useState('');
