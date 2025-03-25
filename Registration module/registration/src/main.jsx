@@ -29,7 +29,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/ResetPassword/:token" element={<ResetPassword />} />
         <Route path="/PasswordSuccess" element={<PasswordSuccess />} />
         {/* Default route (redirects to Signup) */}
-        <Route path="/" element={<Loginn />} />
+        <Route path="/" element={<Signup />} />
         
         
       </Routes>
