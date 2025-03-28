@@ -8,9 +8,35 @@ const ResetPassword = () => {
     const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+     const [errors, setErrors] = useState({ });
+
+     const passwordRegex = /^[A-Za-z0-9][A-Za-z0-9@$!%*?&]{5,}$/;
+
+
+     const validate = () => {
+        let valid = true;
+        let newErrors = { password: "" };
+        if (!passwordRegex.test(password)) {
+            newErrors.password ="Password must be at least 6 characters, leters,numbers and special characters(not at start)";
+               valid = false;
+          }
+          if (password !== confirmPassword) {
+            newErrors.confirmPassword = "Passwords do not match!";
+            valid = false;
+          }
+
+          setErrors(newErrors);
+          return valid;
+        };
+      
+
+     
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!validate()) return;
+
 
         if (password !== confirmPassword) {
             alert("Passwords do not match!");
@@ -61,7 +87,8 @@ const ResetPassword = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
-                        </div>
+                        </div>{errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+          
                     </div>
                     <div>
                         <label htmlFor="confirm-password" className="block text-sm font-medium text-black mb-2">
@@ -78,7 +105,9 @@ const ResetPassword = () => {
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 required
                             />
-                        </div>
+                        </div>{errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
+        
+
                     </div>
                     <button
                         type="submit"

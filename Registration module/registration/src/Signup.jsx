@@ -11,11 +11,45 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate(); // Initialize the navigate function
+
+
+  const usernameRegex = /^[A-Za-z][A-Za-z0-9 ]{3,}$/;
+  const emailRegex = /^[a-zA-Z][a-zA-Z0-9._%+-]*@gmail\.com$/;
+
+  const passwordRegex = /^[A-Za-z0-9][A-Za-z0-9@$!%*?&]{5,}$/;
+
+  const validate = () => {
+    let valid = true;
+    let newErrors = { username: "" , email: "" , password: "" };
+    if (!usernameRegex.test(username)) {
+      newErrors.username = "Username must be at least 4 characters and cannot start with number and a space.";
+      valid = false;
+    }
+    if (!emailRegex.test(email)) {
+      newErrors.email = "Invalid email format.";
+      valid = false;
+    }
+    if (!passwordRegex.test(password)) {
+      newErrors.password ="Password must be at least 6 characters, leters,numbers and special characters(not at start)";
+         valid = false;
+    }
+    if (password !== confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match!";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("hello");
+    
+    if (!validate()) return;
+    
 
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
@@ -65,10 +99,12 @@ function Signup() {
                   type="text"
                   placeholder="Enter your name"
                   value={username}
+                  required
                   onChange={(e) => setUsername(e.target.value)}
                   className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                 />
-              </div>
+              </div>{errors.username && <p className="text-red-500 text-xs mt-1">{errors.username}</p>}
+          
             </div>
 
             {/* Email Field */}
@@ -85,10 +121,12 @@ function Signup() {
                   type="email"
                   placeholder="Enter email"
                   value={email}
+                  required
                   onChange={(e) => setEmail(e.target.value)}
                   className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                 />
-              </div>
+              </div>{errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+        
             </div>
 
             {/* Password Field */}
@@ -104,10 +142,12 @@ function Signup() {
                   type="password"
                   placeholder="Enter password"
                   value={password}
+                  required
                   onChange={(e) => setPassword(e.target.value)}
                   className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                 />
-              </div>
+              </div> {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+          
             </div>
 
             {/* Confirm Password Field */}
@@ -123,10 +163,12 @@ function Signup() {
                   type="password"
                   placeholder="Confirm password"
                   value={confirmPassword}
+                  required
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                 />
-              </div>
+              </div>{errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
+        
             </div>
 
             {/* Register Button */}

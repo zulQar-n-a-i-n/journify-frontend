@@ -10,11 +10,37 @@ import animationData from "./assets/login-animation.json"; // Replace with your 
 function Loginn() {
   const [username, setUsername] =useState('');
   const [password, setPassword] =useState('');
+  const [errors, setErrors] = useState({ username: "", password: "" });
   const navigate = useNavigate(); // Initialize the navigate function
+
+
+  const usernameRegex = /^[A-Za-z][A-Za-z0-9 ]{3,}$/;
+  const passwordRegex = /^[A-Za-z0-9][A-Za-z0-9@$!%*?&]{5,}$/;
+
+  const validate = () => {
+    let valid = true;
+    let newErrors = { username: "", password: "" };
+
+    if (!usernameRegex.test(username)) {
+      newErrors.username = "Username must be at least 4 characters and cannot start with number and a space.";
+     
+    }
+
+    if (!passwordRegex.test(password)) {
+      newErrors.password = "Password must be at least 6 characters, leters,numbers and special characters(not at start)";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
   
 
   const submitHandler= async(e)=>{
     e.preventDefault();
+
+    if (!validate()) return;
     try {
       const response =await axios.post("http://127.0.0.1:8000/api/login/  ",{
         username,
@@ -69,11 +95,15 @@ function Loginn() {
                               name="username"
                               type="username"
                               value={username}
+                              required
                               
                               placeholder="Enter username"
                               className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                             />
-                          </div>
+                          </div>{errors.username && <p className="text-red-500 text-xs mt-1">{errors.username}</p>}
+
+                      
+
                         </div>
             
                         <div>
@@ -92,10 +122,11 @@ function Loginn() {
                               name="password"
                               type="password"
                               value={password}
+                              required
                               placeholder="Enter password"
                               className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                             />
-                          </div>
+                          </div> {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
             
                           <div className="text-sm text-right">
                           
