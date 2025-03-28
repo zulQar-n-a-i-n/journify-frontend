@@ -6,10 +6,28 @@ import { Link , useNavigate} from "react-router-dom";
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState("");
+    const [errors, setErrors] = useState({});
      const navigate = useNavigate();
+     const emailRegex = /^[a-zA-Z][a-zA-Z0-9._%+-]*@gmail\.com$/;
+
+     const validate = () => {
+        let valid = true;
+        let newErrors = {   email: "" };
+
+        if (!emailRegex.test(email)) {
+            newErrors.email = "Invalid email format.";
+            valid = false;
+        }
+
+        setErrors(newErrors);
+        return valid;
+      };
+           
+        
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent page reload
+        e.preventDefault();
+        if (!validate()) return; 
 
         try {
             const response = await axios.post("http://127.0.0.1:8000/api/forgot-password/", { email });
@@ -47,7 +65,8 @@ const ForgotPassword = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
                             />
-                        </div>
+                        </div>{errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+        
                     </div>
                     <button
                         type="submit"
