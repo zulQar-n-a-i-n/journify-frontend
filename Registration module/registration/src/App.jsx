@@ -68,7 +68,7 @@ const App = () => {
         {/* <Route path="/homepage" element={<Homepage />} /> */}
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
         <Route path="/CheckEmail" element={<CheckEmailpage />} />
-        <Route path="/ResetPassword/:token" element={<ResetPassword />} />
+        <Route path="/ResetPassword/:uidb64/:token" element={<ResetPassword />} />
         <Route path="/PasswordSuccess" element={<PasswordSuccess />} />
 
         <Route path="/login2" element={<Loginn/>} />
