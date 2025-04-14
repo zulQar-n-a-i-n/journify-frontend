@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate,Link } from "react-router-dom";
 import { MdEmail, MdLock } from "react-icons/md";
 import axios from "axios";
 
 const ResetPassword = () => {
-    const { token } = useParams();
+    const { uidb64, token } = useParams();
     const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -44,12 +44,12 @@ const ResetPassword = () => {
         }
 
         try {
-            const response = await axios.post(`http://127.0.0.1:8000/api/reset-password/${token}/`, { password });
+            const response = await axios.post(`http://127.0.0.1:8000/api/reset-password/${uidb64}/${token}/`, { password });
             
 
             console.log("Response:", response.data);
             alert("Password reset successful!");
-            navigate("/login"); // Redirect to login page
+            navigate("/PasswordSuccess"); // Redirect to login page
         } catch (error) {
             console.error("Error resetting password:", error);
             alert("Failed to reset password!");
@@ -81,7 +81,7 @@ const ResetPassword = () => {
 
                                 className="w-full p-2 pl-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 id="password"
-                                type="email"
+                                type="password"
                                 placeholder="Enter your Password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
@@ -92,7 +92,7 @@ const ResetPassword = () => {
                     </div>
                     <div>
                         <label htmlFor="confirm-password" className="block text-sm font-medium text-black mb-2">
-                            Email Address
+                            Confirm Password
                         </label>
                         <div className="relative">
                             <MdLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
@@ -100,7 +100,7 @@ const ResetPassword = () => {
                                 type="password"
                                 id="confirm-password"
                                 className="w-full p-2 pl-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                placeholder="Confirm Password"
+                                placeholder="Re-enter Password"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 required

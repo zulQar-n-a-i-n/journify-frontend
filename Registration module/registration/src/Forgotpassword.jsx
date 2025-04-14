@@ -33,8 +33,8 @@ const ForgotPassword = () => {
             const response = await axios.post("http://127.0.0.1:8000/api/forgot-password/", { email });
 
             console.log("Response:", response.data);
-            alert("Password reset link sent! Check your email.");
-            navigate("/CheckEmailpage");
+            // alert("Password reset link sent! Check your email.");
+            navigate("/CheckEmail");
         } catch (error) {
             console.error("Error sending reset link:", error);
             alert("Failed to send reset link!");
