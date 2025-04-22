@@ -1,161 +1,3 @@
-// import React, { useState } from 'react';
-
-// import Calendar from 'react-calendar';
-// import 'react-calendar/dist/Calendar.css';
-
-// function Dasboard() {
-//   // States for new entry
-//   const [title, setTitle] = useState('');
-//   const [content, setContent] = useState('');
-//   const [date, setDate] = useState(new Date());
-
-//   // States for calendar selection
-//   const [selectedDate, setSelectedDate] = useState(new Date());
-
-//   // Handle new entry form submission
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     // For now, log the entry (You can connect this to the backend later)
-//     console.log({ title, content, date });
-//     // Reset form
-//     setTitle('');
-//     setContent('');
-//   };
-
-//   return (
-//     <div className="flex flex-col md:flex-row w-full h-screen p-4">
-//       {/* New Entry Form */}
-//       <div className="md:w-1/2 p-4 bg-white rounded-lg shadow-lg space-y-4">
-//         <h2 className="text-2xl font-semibold text-center">New Diary Entry</h2>
-//         <form onSubmit={handleSubmit} className="space-y-4">
-//           <input
-//             type="text"
-//             placeholder="Title (optional)"
-//             value={title}
-//             onChange={(e) => setTitle(e.target.value)}
-//             className="w-full p-2 border border-gray-300 rounded"
-//           />
-//           <textarea
-//             placeholder="Write your thoughts..."
-//             value={content}
-//             onChange={(e) => setContent(e.target.value)}
-//             className="w-full p-2 border border-gray-300 rounded h-32"
-//           />
-//           <button
-//             type="submit"
-//             className="w-full p-2 bg-blue-500 text-white rounded"
-//           >
-//             Save Entry
-//           </button>
-//         </form>
-//       </div>
-
-//       {/* Calendar View */}
-//       <div className="md:w-1/2 p-4 bg-white rounded-lg shadow-lg space-y-4">
-//         <h2 className="text-2xl font-semibold text-center">Calendar View</h2>
-//         <Calendar
-//           onChange={setSelectedDate}
-//           value={selectedDate}
-//           tileClassName={({ date }) => {
-//             // Highlight dates (For now, mock data: highlight weekends)
-//             if (date.getDay() === 0 || date.getDay() === 6) {
-//               return 'bg-yellow-200';
-//             }
-//           }}
-//         />
-//         <div className="mt-4 text-center">
-//           <h3 className="text-xl">Selected Date: {selectedDate.toDateString()}</h3>
-//           <p>View Entry for {selectedDate.toDateString()}</p>
-//           {/* Add code here to fetch the entry for the selected date */}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Dasboard;
-
-
-
-
-
-
-
-
-// import React from 'react';
-
-// const Dashboard = () => {
-//     return (
-//         <div className="min-h-screen bg-gray-100 p-6">
-//             {/* Header */}
-//             <div className="flex justify-between items-center mb-6">
-//                 <h1 className="text-2xl font-bold">Sales statistics</h1>
-//                 <p className="text-gray-500">Updated 1 days ago</p>
-//             </div>
-
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//                 {/* First Section - Monthly Stats */}
-//                 <div className="bg-white rounded-lg shadow p-6">
-
-
-//                 </div>
-
-//                 {/* Second Section - Recent Transactions */}
-//                 <div className="bg-white rounded-lg shadow p-6">
-
-//                 </div>
-
-//                 {/* Third Section - Market Forecast */}
-//                 <div className="bg-white rounded-lg shadow p-6">
-//                     <h2 className="font-semibold mb-4">Market forecast</h2>
-//                     <div className="space-y-3">
-//                         <div className="flex justify-between">
-//                             <span>2023</span>
-//                             <span className="font-medium">Explosive growth of DeFi</span>
-//                         </div>
-//                         <div className="flex justify-between">
-//                             <span>2024</span>
-//                             <span className="font-medium">Mainstream adoption of CBDCs</span>
-//                         </div>
-//                         <div className="flex justify-between">
-//                             <span>2025</span>
-//                             <span className="font-medium">1 BTC reaches $500K</span>
-//                         </div>
-//                         <div className="flex justify-between">
-//                             <span>2027</span>
-//                             <span className="font-medium">Widespread retail use</span>
-//                         </div>
-//                     </div>
-//                 </div>
-
-//                 {/* Fourth Section - BTC Stats */}
-//                 <div className="bg-white rounded-lg shadow p-6">
-//                     <div className="flex justify-between items-start mb-4">
-//                         <div>
-//                             <h2 className="font-semibold">BTC price</h2>
-//                             <p className="text-2xl font-bold">21,105$</p>
-//                         </div>
-//                         <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full">
-//                             <span>+28.21%</span>
-//                         </div>
-//                     </div>
-//                     <div>
-//                         <p className="text-gray-500">Market cap forecast</p>
-//                         <p className="text-xl font-semibold">1,3trln$</p>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default Dashboard;
-
-// import Navbar from "../components/Navbar/Navbar.jsx"
-
-
-
-
 
 import React, { useState } from "react";
 import Calendar from "react-calendar";
@@ -196,6 +38,11 @@ const Dashboard = () => {
     setEditingEntry(null);
     setForm({ title: "", content: "" });
     setShowEntryForm(false);
+  };
+
+  const handleDeleteEntry = (id) => {
+    setEntries(entries.filter((entry) => entry.id !== id));
+    setShowModal(false);  // Close the modal after deleting
   };
 
   const getEntriesByDate = (date) =>
@@ -250,13 +97,13 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
-      <Navbar />
+    <div className="min-h-screen  bg-gray-300">
+      <Navbar className=" bg-gray-300   " />
 
-      <div className="container mx-auto px-4 sm:px-8 lg:px-16 xl:px-20 2xl:px-24 py-10">
-        <div className="grid md:grid-cols-2 gap-8">
+      <div className="container   bg-gray-300 mx-auto px-4 sm:px-8 lg:px-16 xl:px-20 2xl:px-24 py-0">
+        <div className="grid md:grid-cols-2  gap-2 ">
           {/* Entry Form Card */}
-          <div className="bg-white p-6 rounded-2xl shadow-lg h-[180px]">
+          <div className="bg-gradient-to-br from-lime-400 to-red-300 p-6 rounded-3xl shadow-lg h-[180px]">
             {!showEntryForm ? (
               <button
                 onClick={() => {
@@ -267,7 +114,7 @@ const Dashboard = () => {
                 }}
                 className="w-full h-full flex flex-col items-center justify-center group"
               >
-                <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 mb-2">
+                <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-amber-700 mb-2">
                   Create New Entry
                 </h2>
                 <p className="text-gray-500 group-hover:text-gray-600 transition">
@@ -275,13 +122,13 @@ const Dashboard = () => {
                 </p>
               </button>
             ) : (
-              <div className="fixed inset-0 bg-[url('bg1.jpg')] bg-cover z-50 p-6 flex items-center justify-center">
+              <div className="fixed inset-0 backdrop-blur-sm bg-cover z-50 p-6 flex items-center justify-center">
                 <div className="bg-white w-[900px] h-full rounded-none p-6 shadow-2xl overflow-auto">
                   <div className="flex justify-center items-center mb-6 relative">
-                    <h2 className="text-3xl font-bold text-orange-300 text-center w-full">
+                    <h2 className="text-3xl font-bold text-amber-500 text-center w-full">
                       {editingEntry
                         ? `Edit Diary Entry`
-                        : `New Diary Entry for ${selectedDate.toDateString()}`}
+                        : ` Diary Entry for ${selectedDate.toDateString()}`}
                     </h2>
                     <button
                       onClick={() => setShowEntryForm(false)}
@@ -331,17 +178,30 @@ const Dashboard = () => {
               </div>
             )}
           </div>
+          
+
+          {/* Empty Section 2 - Placeholder */}
+          <div className="bg-gray-200 p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
+            <h2 className="text-xl font-bold mb-4 text-gray-500">Emotions</h2>
+            {/* This section doesn't contain any data */}
+          </div>
 
           {/* Calendar Card */}
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center border border-gray-300">
-            <h2 className="text-xl font-semibold mb-4 text-blue-600">📅 Your Mood Calendar</h2>
+          <div className="bg-gradient-to-br from-red-700 to-yellow-200 p-6 rounded-3xl shadow-lg text-center border border-gray-300">
+            <h2 className="text-xl font-bold mb-4 text-transparent bg-clip-text bg-black"> My Calendar</h2>
             <Calendar
               onClickDay={handleDateSelect}
               tileContent={tileContent}
               tileClassName={tileClassName}
-              className="rounded-xl mx-auto"
+              className="rounded-xl   mx-auto"
             />
           </div>
+
+          <div className="bg-gray-200 p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
+            <h2 className="text-xl font-bold mb-4 text-gray-500">Recomendation</h2>
+            {/* This section doesn't contain any data */}
+          </div>
+          
         </div>
 
         {/* Modal */}
@@ -365,12 +225,20 @@ const Dashboard = () => {
                       <h3 className="font-semibold">{entry.title}</h3>
                       <p className="text-gray-700 mt-2">{entry.content}</p>
                       {isCurrentDate(selectedDate) && (
-                        <button
-                          onClick={() => handleEditEntry(entry)}
-                          className="mt-2 px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
-                        >
-                          Edit
-                        </button>
+                        <div className="flex space-x-2 mt-2">
+                          <button
+                            onClick={() => handleEditEntry(entry)}
+                            className="px-3 py-1 bg-gradient-to-br from-yellow-600 to-green-500 text-white rounded text-sm hover:bg-green-700"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDeleteEntry(entry.id)}
+                            className="px-3 py-1 bg-gradient-to-br from-yellow-600 to-green-500 text-white rounded text-sm hover:bg-red-700"
+                          >
+                            Delete
+                          </button>
+                        </div>
                       )}
                     </div>
                   ))}
@@ -387,7 +255,7 @@ const Dashboard = () => {
                     setEditingEntry(null);
                     setForm({ title: "", content: "" });
                   }}
-                  className="w-full py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                  className="w-full py-2 bg-gradient-to-br from-yellow-600 to-green-500 text-white rounded hover:bg-blue-500 "
                 >
                   New Entry
                 </button>
