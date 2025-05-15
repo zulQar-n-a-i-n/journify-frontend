@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import Navbar from "../components/Navbar/Navbar.jsx";
+import Dashnav from "../components/Navbar/Dashnav.jsx";
 
 const Dashboard = () => {
   const [entries, setEntries] = useState([]);
@@ -97,13 +97,17 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen  bg-gray-300">
-      <Navbar className=" bg-gray-300   " />
+    <div className=" min-h-screen  bg-gray-300">
 
-      <div className="container   bg-gray-300 mx-auto px-4 sm:px-8 lg:px-16 xl:px-20 2xl:px-24 py-0">
-        <div className="grid md:grid-cols-2  gap-2 ">
+     <div >
+      <Dashnav/>
+      </div> 
+      
+
+      <div className="  bg-gray-300 mx-auto md:px-6  py-6">
+        <div className="grid md:grid-cols-2  md:grid-rows-3 gap-3">
           {/* Entry Form Card */}
-          <div className="bg-gradient-to-br from-lime-400 to-red-300 p-6 rounded-3xl shadow-lg h-[180px]">
+          <div className="bg-gradient-to-br from-gray-950 to-gray-800 p-6 rounded-3xl shadow-lg h-[180px]">
             {!showEntryForm ? (
               <button
                 onClick={() => {
@@ -180,21 +184,24 @@ const Dashboard = () => {
           </div>
           
 
-          {/* Empty Section 2 - Placeholder */}
-          <div className="bg-gray-200 p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
-            <h2 className="text-xl font-bold mb-4 text-gray-500">Emotions</h2>
-            {/* This section doesn't contain any data */}
-          </div>
+         
 
           {/* Calendar Card */}
-          <div className="bg-gradient-to-br from-red-700 to-yellow-200 p-6 rounded-3xl shadow-lg text-center border border-gray-300">
-            <h2 className="text-xl font-bold mb-4 text-transparent bg-clip-text bg-black"> My Calendar</h2>
+          <div className="row-span-2 bg-gradient-to-br from-stone-600 to-slate-900 p-6 rounded-3xl shadow-lg text-center border border-gray-300">
+            <h2 className="text-2xl font-bold mb-4 text-red-400 bg-clip-text"> My Calendar</h2>
             <Calendar
               onClickDay={handleDateSelect}
               tileContent={tileContent}
               tileClassName={tileClassName}
               className="rounded-xl   mx-auto"
             />
+          </div>
+
+
+          {/* Empty Section 2 - Placeholder */}
+          <div className="row-span-2 bg-gray-200 p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
+            <h2 className="text-xl font-bold mb-4 text-gray-500">Emotions</h2>
+            {/* This section doesn't contain any data */}
           </div>
 
           <div className="bg-gray-200 p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
