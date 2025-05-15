@@ -30,14 +30,14 @@ const NavbarMenu = [
     link: "",
   },
 ];
-const Navbar = () => {
+const Navbar = ({ className = "" } ) => {
   return (
-    <nav className="relative z-20">
+    <nav className={`relative z-20 ${className}`}>
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
-        className="container mx-auto px-4 sm:px-8 lg:px-16 xl:px-20 2xl:px-24 py-10 flex justify-between items-center"
-      >
+        className="container mx-auto px-4 sm:px-8 lg:px-16 xl:px-20 2xl:px-24 py-10 flex justify-between items-center ">
+      
         {/* Logo section */}
         <div>
           <h1 className="font-bold text-2xl">personal dairy </h1>
