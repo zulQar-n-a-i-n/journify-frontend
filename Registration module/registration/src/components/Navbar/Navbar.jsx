@@ -40,7 +40,7 @@ const Navbar = ({ className = "" } ) => {
       
         {/* Logo section */}
         <div>
-          <h1 className="font-bold text-2xl">personal dairy </h1>
+          <h1 className="font-bold text-2xl">Journify</h1>
         </div>
         {/* Menu section */}
         <div className="hidden lg:block">
