@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { HiMiniPencilSquare } from "react-icons/hi2";
 import Dashnav from "../components/Navbar/Dashnav.jsx";
 
 const Dashboard = () => {
@@ -66,11 +67,11 @@ const Dashboard = () => {
       const entriesCount = getEntriesByDate(date).length;
       if (entriesCount > 0) {
         return (
-          <div className="flex justify-center mt-1">
+          <div className="flex  justify-center mt-1">
             {[...Array(Math.min(entriesCount, 3))].map((_, i) => (
               <div key={i} className="w-1 h-1 bg-green-500 rounded-full mx-0.5" />
             ))}
-            {entriesCount > 3 && <span className="text-xs">+{entriesCount - 3}</span>}
+            {entriesCount > 3 && <span className=" text-xs">+{entriesCount - 3}</span>}
           </div>
         );
       }
@@ -97,17 +98,19 @@ const Dashboard = () => {
   };
 
   return (
-    <div className=" min-h-screen  bg-gray-300">
+    <div className=" min-h-screen  bg-gray-200">
 
-     <div >
-      <Dashnav/>
-      </div> 
-      
+      <div >
+        <Dashnav />
+      </div>
 
-      <div className="  bg-gray-300 mx-auto md:px-6  py-6">
-        <div className="grid md:grid-cols-2  md:grid-rows-3 gap-3">
+
+      <div className="  bg-gray-200 mx-auto md:px-64  py-6">
+        <div className="grid md:grid-cols-2  md:grid-rows-3 gap-6">
+
           {/* Entry Form Card */}
-          <div className="bg-gradient-to-br from-gray-950 to-gray-800 p-6 rounded-3xl shadow-lg h-[180px]">
+          <div className="flex bg-white p-6 rounded-3xl shadow-lg h-[180px]">
+
             {!showEntryForm ? (
               <button
                 onClick={() => {
@@ -118,21 +121,24 @@ const Dashboard = () => {
                 }}
                 className="w-full h-full flex flex-col items-center justify-center group"
               >
-                <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-amber-700 mb-2">
-                  Create New Entry
-                </h2>
-                <p className="text-gray-500 group-hover:text-gray-600 transition">
-                  Click to start writing...
-                </p>
+                <div className="bg-black w-full rounded-lg">
+                  <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-white mb-2">
+                    Create New Entry
+                  </h2>
+                </div>
+                <div className="flex items-center space-x-2 text-gray-500 group-hover:text-gray-600 transition">
+                  <HiMiniPencilSquare className="w-16 h-16 mt-4 text-black" />
+                  <p className="mt-4">Click to start writing...</p>
+                </div>
               </button>
             ) : (
               <div className="fixed inset-0 backdrop-blur-sm bg-cover z-50 p-6 flex items-center justify-center">
                 <div className="bg-white w-[900px] h-full rounded-none p-6 shadow-2xl overflow-auto">
-                  <div className="flex justify-center items-center mb-6 relative">
-                    <h2 className="text-3xl font-bold text-amber-500 text-center w-full">
+                  <div className="flex justify-center rounded-lg items-center mb-6 relative">
+                    <h2 className="text-xl font-bold text-black text-center w-full">
                       {editingEntry
-                        ? `Edit Diary Entry`
-                        : ` Diary Entry for ${selectedDate.toDateString()}`}
+                        ? `📖 Edit Diary Entry`
+                        : `📖 Diary Entry for ${selectedDate.toDateString()}`}
                     </h2>
                     <button
                       onClick={() => setShowEntryForm(false)}
@@ -151,7 +157,7 @@ const Dashboard = () => {
                       placeholder="Title"
                       value={form.title}
                       onChange={handleInputChange}
-                      className="w-full border p-4 text-xl rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      className="w-full border p-4 text-xl rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                       required
                     />
                     <textarea
@@ -159,7 +165,7 @@ const Dashboard = () => {
                       placeholder="Write your thoughts..."
                       value={form.content}
                       onChange={handleInputChange}
-                      className="w-full border p-4 text-lg rounded-md h-[60vh] resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      className="w-full border p-4 text-lg rounded-md h-[60vh] resize-none focus:outline-none focus:ring-2 focus:ring-black"
                       required
                     />
                     <div className="flex justify-end space-x-4">
@@ -182,20 +188,25 @@ const Dashboard = () => {
               </div>
             )}
           </div>
-          
 
-         
+
+
 
           {/* Calendar Card */}
-          <div className="row-span-2 bg-gradient-to-br from-stone-600 to-slate-900 p-6 rounded-3xl shadow-lg text-center border border-gray-300">
-            <h2 className="text-2xl font-bold mb-4 text-red-400 bg-clip-text"> My Calendar</h2>
+          <div className="row-span-2 bg-gradient-to-br from-black to-[#07000e] p-6 rounded-3xl text-center shadow-xl border border-purple-500/30 backdrop-blur-sm bg-white/10 [&_.react-calendar]:w-full [&_.react-calendar]:bg-transparent [&_.react-calendar]:text-yellow-600 [&_.react-calendar__navigation]:mb-4 [&_.react-calendar__navigation]:flex [&_.react-calendar__navigation]:justify-between [&_.react-calendar__tile]:rounded-xl [&_.react-calendar__tile]:p-3 [&_.react-calendar__tile]:transition  [&_.react-calendar__tile]:cursor-pointer [&_.react-calendar__tile--now]:bg-yellow-400/80 [&_.react-calendar__tile--now]:text-black  [&_.react-calendar__tile--active]:text-white [&_.react-calendar__month-view__days__day--weekend]:text-red-800 [&_.react-calendar]:border-none [&_.react-calendar__tile]:border-none [&_.react-calendar__month-view__days]:border-none [&_.react-calendar__month-view__weekdays]:border-none  ">
+            <h2 className="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-white drop-shadow-md">
+              My Calendar
+            </h2>
             <Calendar
               onClickDay={handleDateSelect}
               tileContent={tileContent}
               tileClassName={tileClassName}
-              className="rounded-xl   mx-auto"
+              
+
             />
           </div>
+
+
 
 
           {/* Empty Section 2 - Placeholder */}
@@ -208,12 +219,12 @@ const Dashboard = () => {
             <h2 className="text-xl font-bold mb-4 text-gray-500">Recomendation</h2>
             {/* This section doesn't contain any data */}
           </div>
-          
+
         </div>
 
         {/* Modal */}
         {showModal && selectedDate && (
-          <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-center items-center">
+          <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-50 flex justify-center items-center">
             <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md relative">
               <button
                 onClick={() => setShowModal(false)}
@@ -235,13 +246,13 @@ const Dashboard = () => {
                         <div className="flex space-x-2 mt-2">
                           <button
                             onClick={() => handleEditEntry(entry)}
-                            className="px-3 py-1 bg-gradient-to-br from-yellow-600 to-green-500 text-white rounded text-sm hover:bg-green-700"
+                            className="px-3 py-1  bg-blue-600 text-white rounded text-sm hover:bg-green-700"
                           >
                             Edit
                           </button>
                           <button
                             onClick={() => handleDeleteEntry(entry.id)}
-                            className="px-3 py-1 bg-gradient-to-br from-yellow-600 to-green-500 text-white rounded text-sm hover:bg-red-700"
+                            className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-red-700"
                           >
                             Delete
                           </button>
@@ -262,7 +273,7 @@ const Dashboard = () => {
                     setEditingEntry(null);
                     setForm({ title: "", content: "" });
                   }}
-                  className="w-full py-2 bg-gradient-to-br from-yellow-600 to-green-500 text-white rounded hover:bg-blue-500 "
+                  className="w-full py-2 bg-blue-600  text-white rounded hover:bg-blue-500 "
                 >
                   New Entry
                 </button>
