@@ -123,7 +123,7 @@ const Dashboard = () => {
               >
                 <div className="bg-black w-full rounded-lg">
                   <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-white mb-2">
-                    Create New Entry
+                    What's On Your Mind 
                   </h2>
                 </div>
                 <div className="flex items-center space-x-2 text-gray-500 group-hover:text-gray-600 transition">

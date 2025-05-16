@@ -1,5 +1,5 @@
 import React from "react";
-import BannerPng from "../../assets/banner.png";
+import BannerPng from "../../assets/10.png";
 import { motion } from "framer-motion";
 
 const Banner2 = () => {
@@ -14,19 +14,11 @@ const Banner2 = () => {
         >
           <div className="text-center md:text-left space-y-4 lg:max-w-[450px]">
             <h1 className="text-4xl font-bold !leading-snug">
-              Join Our Community to Start your Journey
+              Writing Your Thoughts Helps Reduces Stress & Organize Your Mind
             </h1>
             <p className="text-dark2">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Recusandae iusto minima ad ut id eos accusantium aut, aperiam quis
-              incidunt!
+              "Sign up, write your thoughts daily, and let Journify turn them into deep insights and helpful recommendations — all in one secure place."
             </p>
-            <a
-              href="https://chat.whatsapp.com/FQSKgJ5f1eIAhlyF5sVym0"
-              className="primary-btn !mt-8"
-            >
-              Join Now
-            </a>
           </div>
         </motion.div>
         {/* Banner Image */}

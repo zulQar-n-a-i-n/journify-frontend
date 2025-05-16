@@ -2,7 +2,8 @@ import React from "react";
 import Navbar from "../Navbar/Navbar";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import Blob from "../../assets/blob.svg";
-import HeroPng from "../../assets/hero.png";
+import HeroPng from "../../assets/1.png";
+import { Link } from 'react-router-dom';
 import { animate, motion } from "framer-motion";
 
 export const FadeUp = (delay) => {
@@ -39,8 +40,8 @@ const Hero = () => {
               animate="animate"
               className="text-3xl lg:text-5xl font-bold !leading-snug"
             >
-              Let's Learn to build a Website for your business{" "}
-              
+              Write Freely. Reflect Deeply. Heal with AI{" "}
+
             </motion.h1>
             <motion.div
               variants={FadeUp(0.8)}
@@ -48,12 +49,14 @@ const Hero = () => {
               animate="animate"
               className="flex justify-center md:justify-start"
             >
-              <button className="inline-flex bg-yellow-400 text-white font-semibold rounded-lg 
-              hover:bg-teal-400 duration-200 shadow-lg 
-               hover:shadow-xl py-2 px-6  items-center gap-2 group">
-                Get Started
-                <IoIosArrowRoundForward className="text-xl group-hover:translate-x-2 group-hover:-rotate-45 duration-300" />
-              </button>
+              <Link to="/signup">
+                <button className="inline-flex bg-teal-400 text-white font-semibold rounded-lg 
+                hover:bg-teal-400 duration-200 shadow-lg 
+                hover:shadow-xl py-2 px-6  items-center gap-2 group">
+                  Get Started
+                  <IoIosArrowRoundForward className="text-xl group-hover:translate-x-2 group-hover:-rotate-45 duration-300" />
+                </button>
+              </Link>
             </motion.div>
           </div>
         </div>

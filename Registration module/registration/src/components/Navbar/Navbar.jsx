@@ -2,33 +2,10 @@ import React from "react";
 import { IoMdMenu } from "react-icons/io";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import Logo from "../../assets/logo.png";
 
 const NavbarMenu = [
-  {
-    id: 1,
-    title: "Home",
-    path: "/",
-  },
-  {
-    id: 2,
-    title: "Services",
-    link: "",
-  },
-  {
-    id: 3,
-    title: "About Us",
-    link: "",
-  },
-  {
-    id: 4,
-    title: "Our Team",
-    link: "",
-  },
-  {
-    id: 5,
-    title: "Contact Us",
-    link: "",
-  },
+
 ];
 const Navbar = ({ className = "" } ) => {
   return (
@@ -36,11 +13,15 @@ const Navbar = ({ className = "" } ) => {
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
-        className="container mx-auto px-4 sm:px-8 lg:px-16 xl:px-20 2xl:px-24 py-10 flex justify-between items-center ">
+        className="container mx-auto px-10 sm:px-8 lg:px-16 xl:px-20 2xl:px-24 py-2 flex justify-between items-center ">
       
         {/* Logo section */}
         <div>
-          <h1 className="font-bold text-2xl">Journify</h1>
+          <img
+            src={Logo}
+            alt="Journify Logo"
+              className="h-20 sm:h-24 w-auto object-contain transform scale-150"
+          />
         </div>
         {/* Menu section */}
         <div className="hidden lg:block">
@@ -59,14 +40,14 @@ const Navbar = ({ className = "" } ) => {
             <div className="flex space-x-1">
              <Link
                to="/Login2"
-               className="inline-flex bg-yellow-400 text-white font-semibold rounded-lg 
+               className="inline-flex bg-teal-400 text-white font-semibold rounded-lg 
                hover:bg-teal-400 duration-200 shadow-lg 
                hover:shadow-xl  items-center gap-2 group text-sm py-1 px-3 ">Login 
              </Link>
 
              <Link
                to="/Signup"
-               className="inline-flex bg-yellow-400 text-white font-semibold rounded-lg 
+               className="inline-flex bg-teal-400 text-white font-semibold rounded-lg 
                hover:bg-teal-400 duration-200 shadow-lg 
                hover:shadow-xl  items-center gap-2 group text-sm py-1 px-3 ">Sign Up
              </Link>
