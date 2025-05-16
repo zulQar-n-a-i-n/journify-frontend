@@ -4,18 +4,17 @@ const Dashnav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="flex items-center justify-between bg-red-600 px-6 py-1 shadow-md relative">
+    <nav className="flex  bg-gray-200 rounded-md px-3 py-3 items-center relative">
       
       {/* Center title */}
-      <h1 className="absolute left-1/2  text-white font-mono text-xl font-bold">
-        Journify
-      </h1>
+      
+      <img src="/logo.png" alt="logo" className='h-40  absolute pl-12  w-auto' />
 
       {/* Right side Settings */}
       <div className="ml-auto relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-white text-xs font-bold text-red-600 px-2 py-1 rounded-lg shadow hover:bg-gray-300 transition"
+          className=" text-md font-bold text-black px-3 py-3 rounded-lg  hover:bg-yellow-100 transition"
         >
           Settings
         </button>
