@@ -86,10 +86,57 @@ const Dashboard = () => {
 
     if (view === "month") {
       if (currentStr === todayStr)
-        return "bg-yellow-300 text-black rounded-full";
+        return "!bg-yellow-400  text-black rounded-full";
       if (currentStr === selectedStr)
-        return "bg-blue-400 text-white rounded-full";
+        return "!bg-blue-600 text-white rounded-full";
     }
+
+    if (view === "year") {
+      const now = new Date();
+      const currentMonth = now.getMonth();
+      const currentYear = now.getFullYear();
+
+      if (
+        date.getMonth() === currentMonth &&
+        date.getFullYear() === currentYear
+      ) {
+        return "!bg-yellow-400  rounded-xl"; // 👈 style for current month
+      }
+
+      // Optional: add styling for selectedDate's month
+      if (
+        selectedDate &&
+        date.getMonth() === selectedDate.getMonth() &&
+        date.getFullYear() === selectedDate.getFullYear()
+      ) {
+        return "!bg-blue-600  rounded-xl"; // 👈 style for selected month
+      }
+    }
+
+
+
+
+    if (view === "decade") {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+
+      // Highlight current year
+      if (date.getFullYear() === currentYear) {
+        return "!bg-yellow-400  rounded-xl"; // 👈 current year
+      }
+
+      // Highlight selected year (from selectedDate)
+      if (
+        selectedDate &&
+        date.getFullYear() === selectedDate.getFullYear()
+      ) {
+        return "!bg-blue-600  rounded-xl"; // 👈 selected year
+      }
+    }
+
+
+
+
     return "";
   };
 
@@ -193,7 +240,7 @@ const Dashboard = () => {
 
 
           {/* Calendar Card */}
-          <div className="row-span-2 bg-gradient-to-br from-black to-[#07000e] p-6 rounded-3xl text-center shadow-xl border border-purple-500/30 backdrop-blur-sm bg-white/10 [&_.react-calendar]:w-full [&_.react-calendar]:bg-transparent [&_.react-calendar]:text-yellow-600 [&_.react-calendar__navigation]:mb-4 [&_.react-calendar__navigation]:flex [&_.react-calendar__navigation]:justify-between [&_.react-calendar__tile]:rounded-xl [&_.react-calendar__tile]:p-3 [&_.react-calendar__tile]:transition  [&_.react-calendar__tile]:cursor-pointer [&_.react-calendar__tile--now]:bg-yellow-400/80 [&_.react-calendar__tile--now]:text-black  [&_.react-calendar__tile--active]:text-white [&_.react-calendar__month-view__days__day--weekend]:text-red-800 [&_.react-calendar]:border-none [&_.react-calendar__tile]:border-none [&_.react-calendar__month-view__days]:border-none [&_.react-calendar__month-view__weekdays]:border-none  ">
+          <div className="row-span-2 bg-gradient-to-br from-black to-[#07000e] p-6 rounded-3xl text-center shadow-xl border border-purple-500/30 backdrop-blur-sm bg-white/10 [&_.react-calendar]:w-full [&_.react-calendar]:bg-transparent [&_.react-calendar]:text-yellow-600 [&_.react-calendar__navigation]:mb-4 [&_.react-calendar__navigation]:flex [&_.react-calendar__navigation]:justify-between [&_.react-calendar__tile]:rounded-xl [&_.react-calendar__tile]:p-3 [&_.react-calendar__tile]:transition     [&_.react-calendar]:border-none  ">
             <h2 className="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-white drop-shadow-md">
               My Calendar
             </h2>
@@ -201,7 +248,7 @@ const Dashboard = () => {
               onClickDay={handleDateSelect}
               tileContent={tileContent}
               tileClassName={tileClassName}
-              
+
 
             />
           </div>
