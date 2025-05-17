@@ -28,11 +28,10 @@ const Subscribe = () => {
         >
           <div className="text-center space-y-4 lg:max-w-[430px] mx-auto">
             <h1 className="text-4xl font-bold !leading-snug">
-              why choose us
+              Why Choose Us
             </h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Recusandae iusto minima
+              Trusted by thousands to improve mental well-being every day. Join a growing community of emotionally aware individuals
             </p>
             <a
               href=""
