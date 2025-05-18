@@ -86,9 +86,9 @@ const Dashboard = () => {
 
     if (view === "month") {
       if (currentStr === todayStr)
-        return "!bg-yellow-400  text-black rounded-full";
+        return "!bg-blue-600  !text-white rounded-full";
       if (currentStr === selectedStr)
-        return "!bg-blue-600 text-white rounded-full";
+        return "!bg-inherit !text-white rounded-full";
     }
 
     if (view === "year") {
@@ -100,7 +100,7 @@ const Dashboard = () => {
         date.getMonth() === currentMonth &&
         date.getFullYear() === currentYear
       ) {
-        return "!bg-yellow-400  rounded-xl"; // 👈 style for current month
+        return "!bg-blue-600 !text-white  rounded-xl"; // 👈 style for current month
       }
 
       // Optional: add styling for selectedDate's month
@@ -109,7 +109,7 @@ const Dashboard = () => {
         date.getMonth() === selectedDate.getMonth() &&
         date.getFullYear() === selectedDate.getFullYear()
       ) {
-        return "!bg-blue-600  rounded-xl"; // 👈 style for selected month
+        return "!bg-inherit rounded-xl"; // 👈 style for selected month
       }
     }
 
@@ -122,17 +122,21 @@ const Dashboard = () => {
 
       // Highlight current year
       if (date.getFullYear() === currentYear) {
-        return "!bg-yellow-400  rounded-xl"; // 👈 current year
+        return "!bg-blue-600 !text-white  rounded-xl"; // 👈 current year
       }
 
-      // Highlight selected year (from selectedDate)
-      if (
-        selectedDate &&
-        date.getFullYear() === selectedDate.getFullYear()
-      ) {
-        return "!bg-blue-600  rounded-xl"; // 👈 selected year
+
+    }
+
+    if (view === "century") {
+      const now = new Date(); 
+      const currentDecade = Math.floor(now.getFullYear() / 10);
+      const tileDecade = Math.floor(date.getFullYear() / 10);
+      if (tileDecade === currentDecade) {
+        return "!bg-blue-600 !text-white rounded-xl"; // Highlight current decade
       }
     }
+
 
 
 
@@ -170,7 +174,7 @@ const Dashboard = () => {
               >
                 <div className="bg-black w-full rounded-lg">
                   <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-white mb-2">
-                    What's On Your Mind 
+                    What's On Your Mind
                   </h2>
                 </div>
                 <div className="flex items-center space-x-2 text-gray-500 group-hover:text-gray-600 transition">
@@ -180,7 +184,7 @@ const Dashboard = () => {
               </button>
             ) : (
               <div className="fixed inset-0 backdrop-blur-sm bg-cover z-50 p-6 flex items-center justify-center">
-                <div className="bg-white w-[900px] h-full rounded-none p-6 shadow-2xl overflow-auto">
+                <div className="bg-white w-[900px] h-full rounded-2xl p-6 shadow-2xl overflow-auto scrollbar-hide">
                   <div className="flex justify-center rounded-lg items-center mb-6 relative">
                     <h2 className="text-xl font-bold text-black text-center w-full">
                       {editingEntry
@@ -293,13 +297,13 @@ const Dashboard = () => {
                         <div className="flex space-x-2 mt-2">
                           <button
                             onClick={() => handleEditEntry(entry)}
-                            className="px-3 py-1  bg-blue-600 text-white rounded text-sm hover:bg-green-700"
+                            className="px-3 py-1  bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
                           >
                             Edit
                           </button>
                           <button
                             onClick={() => handleDeleteEntry(entry.id)}
-                            className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-red-700"
+                            className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
                           >
                             Delete
                           </button>
