@@ -64,7 +64,7 @@ const ResetPassword = () => {
             <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
                 <div className="flex items-center justify-center mb-4">
                     <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-50">
-                        <MdLock className="text-3xl text-green-500" />
+                        <MdLock className="text-3xl text-teal-400" />
                     </div>
                 </div>
 
@@ -79,7 +79,7 @@ const ResetPassword = () => {
                             <MdLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
                             <input
 
-                                className="w-full p-2 pl-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                className="w-full p-2 pl-10 border rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-600"
                                 id="password"
                                 type="password"
                                 placeholder="Enter your Password"
@@ -99,7 +99,7 @@ const ResetPassword = () => {
                             <input
                                 type="password"
                                 id="confirm-password"
-                                className="w-full p-2 pl-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                className="w-full p-2 pl-10 border rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-600"
                                 placeholder="Re-enter Password"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -111,13 +111,13 @@ const ResetPassword = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-[#8FBF7F] hover:bg-[#7BAF6F] text-white p-2 rounded-lg transition-all mt-4"
+                        className="w-full bg-teal-400 hover:bg-teal-400 text-white p-2 rounded-lg transition-all mt-4"
                     >
                         Reset Password
                     </button>
                 </form>
                 <div className="text-center mt-4">
-                    <Link to="/Login2" className="font-semibold text-black hover:text-indigo-500">
+                    <Link to="/Login2" className="font-semibold text-black hover:text-teal-400">
                      Back to login
                     </Link>
                 </div>

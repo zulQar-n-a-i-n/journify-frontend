@@ -9,7 +9,7 @@ import ResetPassword from './Resetpassword.jsx';
 import CheckEmailpage from './CheckMail.jsx'
 import PasswordSuccess from './PasswordSuccess';
 
-import Dashboard from './pages/Dashbord.jsx';
+// import Dashboard from './pages/Dashbord.jsx';
 
 
 const App = () => {
@@ -30,7 +30,7 @@ const App = () => {
 
 
         
-        <Route path="/" element={<Dashboard/>} />
+        <Route path="/" element={< Home1  />} />
         
         
       </Routes>
