@@ -46,7 +46,7 @@ const ForgotPassword = () => {
             <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
                 <div className="flex items-center justify-center mb-4">
                                     <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-50">
-                                        <FiKey className="text-3xl text-[#8FBF7F]" />
+                                        <FiKey className="text-3xl text-teal-400" />
                                     </div>
                                 </div>
                 <h2 className="text-2xl font-bold text-center mb-6 text-gray-700">Forgot Password</h2>
@@ -59,7 +59,7 @@ const ForgotPassword = () => {
                             <MdEmail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
                             <input
                                 type="email"
-                                className="w-full p-2 pl-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                className="w-full p-2 pl-10 border rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-600"
                                 placeholder="Enter your email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -70,13 +70,13 @@ const ForgotPassword = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-[#8FBF7F] hover:bg-[#7BAF6F] text-white p-2 rounded-lg transition-all mt-4"
+                        className="w-full bg-teal-400 hover:bg-teal-400 text-white p-2 rounded-lg transition-all mt-4"
                     >
                         Send Reset Link
                     </button>
                 </form>
                 <div className="text-center mt-14">
-                    <Link to="/Login2" className="font-semibold text-xs text-black hover:text-indigo-500">
+                    <Link to="/Login2" className="font-semibold text-xs text-black hover:text-teal-600">
                      Back to login
                     </Link>
                 </div>

@@ -86,10 +86,61 @@ const Dashboard = () => {
 
     if (view === "month") {
       if (currentStr === todayStr)
-        return "bg-yellow-300 text-black rounded-full";
+        return "!bg-blue-600  !text-white rounded-full";
       if (currentStr === selectedStr)
-        return "bg-blue-400 text-white rounded-full";
+        return "!bg-inherit !text-white rounded-full";
     }
+
+    if (view === "year") {
+      const now = new Date();
+      const currentMonth = now.getMonth();
+      const currentYear = now.getFullYear();
+
+      if (
+        date.getMonth() === currentMonth &&
+        date.getFullYear() === currentYear
+      ) {
+        return "!bg-blue-600 !text-white  rounded-xl"; // 👈 style for current month
+      }
+
+      // Optional: add styling for selectedDate's month
+      if (
+        selectedDate &&
+        date.getMonth() === selectedDate.getMonth() &&
+        date.getFullYear() === selectedDate.getFullYear()
+      ) {
+        return "!bg-inherit rounded-xl"; // 👈 style for selected month
+      }
+    }
+
+
+
+
+    if (view === "decade") {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+
+      // Highlight current year
+      if (date.getFullYear() === currentYear) {
+        return "!bg-blue-600 !text-white  rounded-xl"; // 👈 current year
+      }
+
+
+    }
+
+    if (view === "century") {
+      const now = new Date(); 
+      const currentDecade = Math.floor(now.getFullYear() / 10);
+      const tileDecade = Math.floor(date.getFullYear() / 10);
+      if (tileDecade === currentDecade) {
+        return "!bg-blue-600 !text-white rounded-xl"; // Highlight current decade
+      }
+    }
+
+
+
+
+
     return "";
   };
 
@@ -123,7 +174,7 @@ const Dashboard = () => {
               >
                 <div className="bg-black w-full rounded-lg">
                   <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-white mb-2">
-                    What's On Your Mind 
+                    What's On Your Mind
                   </h2>
                 </div>
                 <div className="flex items-center space-x-2 text-gray-500 group-hover:text-gray-600 transition">
@@ -133,7 +184,7 @@ const Dashboard = () => {
               </button>
             ) : (
               <div className="fixed inset-0 backdrop-blur-sm bg-cover z-50 p-6 flex items-center justify-center">
-                <div className="bg-white w-[900px] h-full rounded-none p-6 shadow-2xl overflow-auto">
+                <div className="bg-white w-[900px] h-full rounded-2xl p-6 shadow-2xl overflow-auto scrollbar-hide">
                   <div className="flex justify-center rounded-lg items-center mb-6 relative">
                     <h2 className="text-xl font-bold text-black text-center w-full">
                       {editingEntry
@@ -193,7 +244,7 @@ const Dashboard = () => {
 
 
           {/* Calendar Card */}
-          <div className="row-span-2 bg-gradient-to-br from-black to-[#07000e] p-6 rounded-3xl text-center shadow-xl border border-purple-500/30 backdrop-blur-sm bg-white/10 [&_.react-calendar]:w-full [&_.react-calendar]:bg-transparent [&_.react-calendar]:text-yellow-600 [&_.react-calendar__navigation]:mb-4 [&_.react-calendar__navigation]:flex [&_.react-calendar__navigation]:justify-between [&_.react-calendar__tile]:rounded-xl [&_.react-calendar__tile]:p-3 [&_.react-calendar__tile]:transition  [&_.react-calendar__tile]:cursor-pointer [&_.react-calendar__tile--now]:bg-yellow-400/80 [&_.react-calendar__tile--now]:text-black  [&_.react-calendar__tile--active]:text-white [&_.react-calendar__month-view__days__day--weekend]:text-red-800 [&_.react-calendar]:border-none [&_.react-calendar__tile]:border-none [&_.react-calendar__month-view__days]:border-none [&_.react-calendar__month-view__weekdays]:border-none  ">
+          <div className="row-span-2 bg-gradient-to-br from-black to-[#07000e] p-6 rounded-3xl text-center shadow-xl border border-purple-500/30 backdrop-blur-sm bg-white/10 [&_.react-calendar]:w-full [&_.react-calendar]:bg-transparent [&_.react-calendar]:text-yellow-600 [&_.react-calendar__navigation]:mb-4 [&_.react-calendar__navigation]:flex [&_.react-calendar__navigation]:justify-between [&_.react-calendar__tile]:rounded-xl [&_.react-calendar__tile]:p-3 [&_.react-calendar__tile]:transition     [&_.react-calendar]:border-none  ">
             <h2 className="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-white drop-shadow-md">
               My Calendar
             </h2>
@@ -201,7 +252,7 @@ const Dashboard = () => {
               onClickDay={handleDateSelect}
               tileContent={tileContent}
               tileClassName={tileClassName}
-              
+
 
             />
           </div>
@@ -246,13 +297,13 @@ const Dashboard = () => {
                         <div className="flex space-x-2 mt-2">
                           <button
                             onClick={() => handleEditEntry(entry)}
-                            className="px-3 py-1  bg-blue-600 text-white rounded text-sm hover:bg-green-700"
+                            className="px-3 py-1  bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
                           >
                             Edit
                           </button>
                           <button
                             onClick={() => handleDeleteEntry(entry.id)}
-                            className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-red-700"
+                            className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
                           >
                             Delete
                           </button>

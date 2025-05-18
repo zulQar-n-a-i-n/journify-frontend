@@ -18,7 +18,7 @@ const Subscribe = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         style={bgStyle}
-        
+
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
@@ -33,13 +33,15 @@ const Subscribe = () => {
             <p>
               Trusted by thousands to improve mental well-being every day. Join a growing community of emotionally aware individuals
             </p>
+
             <a
               href=""
-              className="primary-btn !mt-8 inline-flex items-center gap-4 group"
-            >
+              className="primary-btn text-white bg-teal-400 py-2 px-6 rounded-lg  inline-flex items-center gap-4 group">
+
               Subscribe Now
-              <FaBell className="group-hover:animate-bounce group-hover:text-lg duration-200" />
+              <FaBell className="group-hover:animate-bounce text-white group-hover:text-lg duration-200" />
             </a>
+
           </div>
         </motion.div>
       </motion.div>

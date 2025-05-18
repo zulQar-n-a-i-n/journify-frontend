@@ -1,7 +1,7 @@
 
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Router components
-import Home1 from './pages/Home1.jsx';
+// import Home1 from './pages/Home1.jsx';
 import Signup from './Signup.jsx';
 import Loginn from './Login2.jsx';
 import ForgotPassword from './Forgotpassword.jsx';
@@ -30,7 +30,7 @@ const App = () => {
 
 
         
-        <Route path="/" element={<Dashboard/>} />
+        <Route path="/" element={< Dashboard   />} />
         
         
       </Routes>
