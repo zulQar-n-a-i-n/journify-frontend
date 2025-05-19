@@ -158,11 +158,11 @@ const Dashboard = () => {
       </div>
 
 
-      <div className="  bg-gray-200 mx-auto md:px-64  py-6">
+      <div className="  bg-gray-200 mx-auto md:px-64   py-6">
         <div className="grid md:grid-cols-2  md:grid-rows-3 gap-6">
 
           {/* Entry Form Card */}
-          <div className="flex bg-white p-6 rounded-3xl shadow-lg h-[180px]">
+          <div className="flex bg-white p-6 rounded-3xl shadow-lg h-full">
 
             {!showEntryForm ? (
               <button
@@ -246,7 +246,7 @@ const Dashboard = () => {
 
 
           {/* Calendar Card */}
-          <div className="row-span-2 bg-gradient-to-br from-black to-[#07000e] p-6 rounded-3xl text-center shadow-xl border border-purple-500/30 backdrop-blur-sm bg-white/10 [&_.react-calendar]:w-full [&_.react-calendar]:bg-transparent [&_.react-calendar]:text-yellow-600 [&_.react-calendar__navigation]:mb-4 [&_.react-calendar__navigation]:flex [&_.react-calendar__navigation]:justify-between [&_.react-calendar__tile]:rounded-xl [&_.react-calendar__tile]:p-3 [&_.react-calendar__tile]:transition     [&_.react-calendar]:border-none   [&_.react-calendar__navigation button:hover]:bg-transparent  ">
+          <div className="row-span-2 bg-gradient-to-br from-black to-[#07000e] p-6 rounded-3xl text-center shadow-xl border border-purple-500/30 backdrop-blur-sm bg-white/10 [&_.react-calendar]:w-full  [&_.react-calendar]:bg-transparent [&_.react-calendar]:text-yellow-600 [&_.react-calendar__navigation]:mb-4 [&_.react-calendar__navigation]:flex [&_.react-calendar__navigation]:justify-between [&_.react-calendar__tile]:rounded-xl [&_.react-calendar__tile]:p-3 [&_.react-calendar__tile]:transition     [&_.react-calendar]:border-none   [&_.react-calendar__navigation button:hover]:bg-transparent  ">
             <h2 className="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-white drop-shadow-md">
               My Calendar
             </h2>

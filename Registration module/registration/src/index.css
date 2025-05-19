@@ -6,10 +6,13 @@
 @layer base {
   .react-calendar__navigation button:hover {
     background-color: #fef9c3 !important;
+    color:black;
     
   }
 
   .react-calendar__navigation button {
     @apply rounded-full !bg-inherit; 
   }
+
+
 }
