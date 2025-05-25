@@ -49,7 +49,7 @@ function Loginn() {
       });
       console.log("response",response.data);
       navigate("/homepage");
-      alert("login successfuly");
+      // alert("login successfuly");
       
     } catch (error) {
       console.log("error occoured",error);
