@@ -1,9 +1,5 @@
 
 
-<<<<<<< HEAD
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Router components
-import Home1 from './pages/Home1.jsx';
-=======
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Router components
 // // import Home1 from './pages/Home1.jsx';
 // import Signup from './Signup.jsx';
@@ -57,7 +53,6 @@ import Home1 from './pages/Home1.jsx';
 
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
->>>>>>> 7cdd7026c67153ef9f1d786ba3ba5826d91904a7
 import Signup from './Signup.jsx';
 import Loginn from './Login2.jsx';
 import ForgotPassword from './Forgotpassword.jsx';
@@ -80,15 +75,6 @@ const App = () => {
         <Route path="/login2" element={<Loginn />} />
          <Route path="/" element={< Home1 />} />
 
-<<<<<<< HEAD
-        <Route path="/login2" element={<Loginn/>} />
-
-
-        
-        <Route path="/" element={<Dashboard/>} />
-        
-        
-=======
         {/* ✅ Protect Dashboard route */}
         <Route
           path="/Dashboard"
@@ -98,7 +84,6 @@ const App = () => {
             </PrivateRoute>
           }
         />
->>>>>>> 7cdd7026c67153ef9f1d786ba3ba5826d91904a7
       </Routes>
     </Router>
   );
