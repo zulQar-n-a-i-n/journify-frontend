@@ -1,9 +1,11 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { HiMiniPencilSquare } from "react-icons/hi2";
 import Dashnav from "../components/Navbar/Dashnav.jsx";
+import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
+
 
 const Dashboard = () => {
   const [entries, setEntries] = useState([]);
@@ -13,37 +15,76 @@ const Dashboard = () => {
   const [form, setForm] = useState({ title: "", content: "" });
   const [editingEntry, setEditingEntry] = useState(null);
 
+  // const token = localStorage.getItem("token");
+  // const axiosInstance = axios.create({
+  //   baseURL: "http://localhost:8000/api/dashboard/", // ✅ adjust as needed
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  // });
+
+  const fetchEntries = async () => {
+    try {
+      const res = await axiosInstance.get("http://127.0.0.1:8000/api/dashboard/entries/");
+      setEntries(res.data);
+    } catch (error) {
+      console.error("Failed to load entries", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchEntries();
+  }, []);
+
   const handleInputChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleNewEntry = (e) => {
+  const handleNewEntry = async (e) => {
     e.preventDefault();
     const newEntry = {
       ...form,
       date: selectedDate ? selectedDate.toISOString() : new Date().toISOString(),
-      id: Date.now(),
     };
-    setEntries([...entries, newEntry]);
-    setForm({ title: "", content: "" });
-    setShowEntryForm(false);
-    setShowModal(false);
+
+    try {
+      const res = await axiosInstance.post("http://127.0.0.1:8000/api/dashboard/entries/", newEntry);
+      setEntries([...entries, res.data]);
+      setForm({ title: "", content: "" });
+      setShowEntryForm(false);
+      setShowModal(false);
+    } catch (err) {
+      console.error("Failed to save entry", err);
+      alert("Error saving entry.");
+    }
   };
 
-  const handleUpdateEntry = (e) => {
+  const handleUpdateEntry = async (e) => {
     e.preventDefault();
-    setEntries(
-      entries.map((entry) =>
-        entry.id === editingEntry.id ? { ...form, id: entry.id, date: entry.date } : entry
-      )
-    );
-    setEditingEntry(null);
-    setForm({ title: "", content: "" });
-    setShowEntryForm(false);
+    try {
+      const res = await axiosInstance.put(`http://127.0.0.1:8000/api/dashboard/entries/${editingEntry.id}/`, form);
+      setEntries(
+        entries.map((entry) =>
+          entry.id === editingEntry.id ? res.data : entry
+        )
+      );
+      setEditingEntry(null);
+      setForm({ title: "", content: "" });
+      setShowEntryForm(false);
+    } catch (err) {
+      console.error("Failed to update entry", err);
+      alert("Error updating entry.");
+    }
   };
 
-  const handleDeleteEntry = (id) => {
-    setEntries(entries.filter((entry) => entry.id !== id));
-    setShowModal(false);  // Close the modal after deleting
+  const handleDeleteEntry = async (id) => {
+    try {
+      await axiosInstance.delete(`http://127.0.0.1:8000/api/dashboard/entries/${id}/`);
+      setEntries(entries.filter((entry) => entry.id !== id));
+      setShowModal(false);
+    } catch (err) {
+      console.error("Failed to delete entry", err);
+      alert("Error deleting entry.");
+    }
   };
 
   const getEntriesByDate = (date) =>
@@ -51,7 +92,6 @@ const Dashboard = () => {
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
-    const dateEntries = getEntriesByDate(date);
     setShowModal(true);
   };
 
@@ -67,11 +107,11 @@ const Dashboard = () => {
       const entriesCount = getEntriesByDate(date).length;
       if (entriesCount > 0) {
         return (
-          <div className="flex  justify-center mt-1">
+          <div className="flex justify-center mt-1">
             {[...Array(Math.min(entriesCount, 3))].map((_, i) => (
               <div key={i} className="w-1 h-1 bg-green-500 rounded-full mx-0.5" />
             ))}
-            {entriesCount > 3 && <span className=" text-xs">+{entriesCount - 3}</span>}
+            {entriesCount > 3 && <span className="text-xs">+{entriesCount - 3}</span>}
           </div>
         );
       }
@@ -80,70 +120,49 @@ const Dashboard = () => {
   };
 
   const tileClassName = ({ date, view }) => {
-     
     const todayStr = new Date().toDateString();
     const selectedStr = selectedDate?.toDateString();
     const currentStr = date.toDateString();
 
-    
-
     if (view === "month") {
-      if (currentStr === todayStr)
-        return "!bg-blue-600  !text-white rounded-full";
-      if (currentStr === selectedStr)
-        return "!bg-inherit !text-white rounded-full";
+      if (currentStr === todayStr) return "!bg-blue-600 !text-white rounded-full";
+      if (currentStr === selectedStr) return "!bg-inherit !text-white rounded-full";
     }
 
     if (view === "year") {
       const now = new Date();
       const currentMonth = now.getMonth();
       const currentYear = now.getFullYear();
-
-      if (
-        date.getMonth() === currentMonth &&
-        date.getFullYear() === currentYear
-      ) {
-        return "!bg-blue-600 !text-white  rounded-full"; // 👈 style for current month
+      if (date.getMonth() === currentMonth && date.getFullYear() === currentYear) {
+        return "!bg-blue-600 !text-white rounded-full";
       }
-
-      // Optional: add styling for selectedDate's month
       if (
         selectedDate &&
         date.getMonth() === selectedDate.getMonth() &&
         date.getFullYear() === selectedDate.getFullYear()
       ) {
-        return "!bg-inherit rounded-full"; // 👈 style for selected month
+        return "!bg-inherit rounded-full";
       }
     }
-
-
-
 
     if (view === "decade") {
       const now = new Date();
       const currentYear = now.getFullYear();
-
-      // Highlight current year
       if (date.getFullYear() === currentYear) {
-        return "!bg-blue-600 !text-white  rounded-full"; // 👈 current year
+        return "!bg-blue-600 !text-white rounded-full";
       }
-      
-
-
     }
 
     if (view === "century") {
-      const now = new Date(); 
+      const now = new Date();
       const currentDecade = Math.floor(now.getFullYear() / 10);
       const tileDecade = Math.floor(date.getFullYear() / 10);
       if (tileDecade === currentDecade) {
-        return "!bg-blue-600 !text-white rounded-full"; // Highlight current decade
+        return "!bg-blue-600 !text-white rounded-full";
       }
     }
 
-
-
-    return "rounded-full   hover:!bg-[#fef9c3] hover:text-black";
+    return "rounded-full hover:!bg-[#fef9c3] hover:text-black";
   };
 
   const isCurrentDate = (date) => {
@@ -151,19 +170,14 @@ const Dashboard = () => {
   };
 
   return (
-    <div className=" min-h-screen  bg-gray-200">
+    <div className="min-h-screen bg-gray-200">
+      <Dashnav />
 
-      <div >
-        <Dashnav />
-      </div>
-
-
-      <div className="  bg-gray-200 mx-auto md:px-64   py-6">
-        <div className="grid md:grid-cols-2  md:grid-rows-3 gap-6">
+      <div className="bg-gray-200 mx-auto md:px-64 py-6">
+        <div className="grid md:grid-cols-2 md:grid-rows-3 gap-6">
 
           {/* Entry Form Card */}
           <div className="flex bg-white p-6 rounded-3xl shadow-lg h-full">
-
             {!showEntryForm ? (
               <button
                 onClick={() => {
@@ -187,7 +201,7 @@ const Dashboard = () => {
             ) : (
               <div className="fixed inset-0 backdrop-blur-sm bg-cover z-50 p-6 flex items-center justify-center">
                 <div className="bg-white w-[900px] h-full rounded-2xl p-6 shadow-2xl overflow-auto scrollbar-hide">
-                  <div className="flex justify-center rounded-lg items-center mb-6 relative">
+                  <div className="flex justify-center items-center mb-6 relative">
                     <h2 className="text-xl font-bold text-black text-center w-full">
                       {editingEntry
                         ? `📖 Edit Diary Entry`
@@ -242,11 +256,8 @@ const Dashboard = () => {
             )}
           </div>
 
-
-
-
-          {/* Calendar Card */}
-          <div className="row-span-2 bg-gradient-to-br from-black to-[#07000e] p-6 rounded-3xl text-center shadow-xl border border-purple-500/30 backdrop-blur-sm bg-white/10 [&_.react-calendar]:w-full  [&_.react-calendar]:bg-transparent [&_.react-calendar]:text-yellow-600 [&_.react-calendar__navigation]:mb-4 [&_.react-calendar__navigation]:flex [&_.react-calendar__navigation]:justify-between [&_.react-calendar__tile]:rounded-xl [&_.react-calendar__tile]:p-3 [&_.react-calendar__tile]:transition     [&_.react-calendar]:border-none   [&_.react-calendar__navigation button:hover]:bg-transparent  ">
+          {/* Calendar */}
+          <div className="row-span-2 bg-gradient-to-br from-black to-[#07000e] p-6 rounded-3xl text-center shadow-xl border border-purple-500/30 backdrop-blur-sm bg-white/10 [&_.react-calendar]:w-full [&_.react-calendar]:bg-transparent [&_.react-calendar]:text-yellow-600 [&_.react-calendar__navigation]:mb-4 [&_.react-calendar__navigation]:flex [&_.react-calendar__navigation]:justify-between [&_.react-calendar__tile]:rounded-xl [&_.react-calendar__tile]:p-3 [&_.react-calendar__tile]:transition [&_.react-calendar]:border-none [&_.react-calendar__navigation button:hover]:bg-transparent">
             <h2 className="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-white drop-shadow-md">
               My Calendar
             </h2>
@@ -254,25 +265,17 @@ const Dashboard = () => {
               onClickDay={handleDateSelect}
               tileContent={tileContent}
               tileClassName={tileClassName}
-
-
             />
           </div>
 
-
-
-
-          {/* Empty Section 2 - Placeholder */}
+          {/* Placeholders */}
           <div className="row-span-2 bg-gray-200 p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
             <h2 className="text-xl font-bold mb-4 text-gray-500">Emotions</h2>
-            {/* This section doesn't contain any data */}
           </div>
 
           <div className="bg-gray-200 p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
-            <h2 className="text-xl font-bold mb-4 text-gray-500">Recomendation</h2>
-            {/* This section doesn't contain any data */}
+            <h2 className="text-xl font-bold mb-4 text-gray-500">Recommendation</h2>
           </div>
-
         </div>
 
         {/* Modal */}
@@ -299,7 +302,7 @@ const Dashboard = () => {
                         <div className="flex space-x-2 mt-2">
                           <button
                             onClick={() => handleEditEntry(entry)}
-                            className="px-3 py-1  bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
+                            className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
                           >
                             Edit
                           </button>
@@ -326,7 +329,7 @@ const Dashboard = () => {
                     setEditingEntry(null);
                     setForm({ title: "", content: "" });
                   }}
-                  className="w-full py-2 bg-blue-600  text-white rounded hover:bg-blue-500 "
+                  className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-500"
                 >
                   New Entry
                 </button>
