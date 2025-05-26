@@ -108,16 +108,14 @@ const Dashboard = () => {
       if (entriesCount > 0) {
         return (
           <div className="flex justify-center mt-1">
-            {[...Array(Math.min(entriesCount, 3))].map((_, i) => (
-              <div key={i} className="w-1 h-1 bg-green-500 rounded-full mx-0.5" />
-            ))}
-            {entriesCount > 3 && <span className="text-xs">+{entriesCount - 3}</span>}
+            <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
           </div>
         );
       }
     }
     return null;
   };
+
 
   const tileClassName = ({ date, view }) => {
     const todayStr = new Date().toDateString();
