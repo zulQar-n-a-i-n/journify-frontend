@@ -9,6 +9,8 @@ import ResetPassword from './Resetpassword.jsx';
 import CheckEmailpage from './CheckMail.jsx'
 import PasswordSuccess from './PasswordSuccess';
 
+
+import PersonalProfile from './pages/account.jsx';
 import Dashboard from './pages/Dashbord.jsx';
 
 
@@ -27,10 +29,11 @@ const App = () => {
         <Route path="/PasswordSuccess" element={<PasswordSuccess />} />
 
         <Route path="/login2" element={<Loginn/>} />
+        <Route path="/account" element={<PersonalProfile/>} />
 
 
         
-        <Route path="/" element={< Dashboard   />} />
+        <Route path="/" element={<Dashboard/>} />
         
         
       </Routes>
