@@ -15,13 +15,13 @@ const Dashboard = () => {
   const [form, setForm] = useState({ title: "", content: "" });
   const [editingEntry, setEditingEntry] = useState(null);
 
-  // const token = localStorage.getItem("token");
-  // const axiosInstance = axios.create({
-  //   baseURL: "http://localhost:8000/api/dashboard/", // ✅ adjust as needed
-  //   headers: {
-  //     Authorization: `Bearer ${token}`,
-  //   },
-  // });
+  const token = localStorage.getItem("token");
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:8000/api/dashboard/", // ✅ adjust as needed
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   const fetchEntries = async () => {
     try {
