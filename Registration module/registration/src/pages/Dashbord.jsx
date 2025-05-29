@@ -259,11 +259,13 @@ const Dashboard = () => {
             <h2 className="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-white drop-shadow-md">
               My Calendar
             </h2>
-            <Calendar
-              onClickDay={handleDateSelect}
-              tileContent={tileContent}
-              tileClassName={tileClassName}
-            />
+            <div className="w-full overflow-hidden">
+              <Calendar
+                onClickDay={handleDateSelect}
+                tileContent={tileContent}
+                tileClassName={tileClassName}
+              />
+            </div>
           </div>
 
           {/* Placeholders */}

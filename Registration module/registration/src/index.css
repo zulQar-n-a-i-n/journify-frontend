@@ -11,7 +11,7 @@
   }
 
   .react-calendar__navigation button {
-    @apply rounded-full !bg-inherit; 
+    @apply rounded-full !bg-inherit ; 
   }
 
 
