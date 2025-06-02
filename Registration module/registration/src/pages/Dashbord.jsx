@@ -15,17 +15,10 @@ const Dashboard = () => {
   const [form, setForm] = useState({ title: "", content: "" });
   const [editingEntry, setEditingEntry] = useState(null);
 
-  const token = localStorage.getItem("token");
-  const axiosInstance = axios.create({
-    baseURL: "http://localhost:8000/api/dashboard/", // ✅ adjust as needed
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
 
   const fetchEntries = async () => {
     try {
-      const res = await axiosInstance.get("http://127.0.0.1:8000/api/dashboard/entries/");
+      const res = await axiosInstance.get("entries/");
       setEntries(res.data);
     } catch (error) {
       console.error("Failed to load entries", error);
@@ -42,43 +35,52 @@ const Dashboard = () => {
   const handleNewEntry = async (e) => {
     e.preventDefault();
     const newEntry = {
-      ...form,
-      date: selectedDate ? selectedDate.toISOString() : new Date().toISOString(),
+      title: form.title,
+      content: form.content,
+      date: new Date().toISOString().split("T")[0], // outputs "2025-06-01"
     };
-
+    console.log("Submitting entry:", newEntry);
     try {
-      const res = await axiosInstance.post("http://127.0.0.1:8000/api/dashboard/entries/", newEntry);
+      
+      const res = await axiosInstance.post("entries/", newEntry);
       setEntries([...entries, res.data]);
       setForm({ title: "", content: "" });
       setShowEntryForm(false);
       setShowModal(false);
     } catch (err) {
-      console.error("Failed to save entry", err);
-      alert("Error saving entry.");
+  console.error("Failed to save entry", err.response?.data || err);
+  alert("Error saving entry.");
     }
   };
 
   const handleUpdateEntry = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axiosInstance.put(`http://127.0.0.1:8000/api/dashboard/entries/${editingEntry.id}/`, form);
-      setEntries(
-        entries.map((entry) =>
-          entry.id === editingEntry.id ? res.data : entry
-        )
-      );
-      setEditingEntry(null);
-      setForm({ title: "", content: "" });
-      setShowEntryForm(false);
-    } catch (err) {
-      console.error("Failed to update entry", err);
-      alert("Error updating entry.");
-    }
-  };
+  e.preventDefault();
+
+  try {
+    const res = await axiosInstance.put(`entries/${editingEntry.id}/`, {
+      title: form.title,
+      content: form.content,
+      date: form.date || editingEntry.date, // ✅ Ensure 'date' is included
+    });
+
+    setEntries(
+      entries.map((entry) =>
+        entry.id === editingEntry.id ? res.data : entry
+      )
+    );
+    setEditingEntry(null);
+    setForm({ title: "", content: "", date: "" }); // ✅ Reset 'date' too
+    setShowEntryForm(false);
+  } catch (err) {
+    console.error("Failed to update entry", err);
+    alert("Error updating entry.");
+  }
+};
+
 
   const handleDeleteEntry = async (id) => {
     try {
-      await axiosInstance.delete(`http://127.0.0.1:8000/api/dashboard/entries/${id}/`);
+      await axiosInstance.delete(`entries/${id}/`);
       setEntries(entries.filter((entry) => entry.id !== id));
       setShowModal(false);
     } catch (err) {

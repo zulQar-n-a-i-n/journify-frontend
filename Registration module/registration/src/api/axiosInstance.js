@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
 // Request interceptor to add the token
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("access");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -28,7 +28,7 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshToken = localStorage.getItem("refresh_token");
+        const refreshToken = localStorage.getItem("refresh");
         const response = await axios.post("http://127.0.0.1:8000/api/token/refresh/", {
           refresh: refreshToken,
         });
@@ -36,7 +36,7 @@ axiosInstance.interceptors.response.use(
         const newAccessToken = response.data.access;
 
         // Update localStorage
-        localStorage.setItem("token", newAccessToken);
+        localStorage.setItem("access", newAccessToken);
 
         // Update Authorization header
         axiosInstance.defaults.headers.Authorization = `Bearer ${newAccessToken}`;
@@ -45,8 +45,8 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(originalRequest); // Retry the original request
       } catch (refreshError) {
         console.error("Refresh token failed", refreshError);
-        localStorage.removeItem("token");
-        localStorage.removeItem("refresh_token");
+        localStorage.removeItem("access");
+        localStorage.removeItem("refresh");
         window.location.href = "/login"; // Redirect to login if refresh fails
         return Promise.reject(refreshError);
       }

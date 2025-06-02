@@ -49,11 +49,11 @@ function Loginn() {
       });
 
 
-      const token = response.data.token;
-      // 2. Store token in localStorage (or cookie, if needed)
-      localStorage.setItem('token', token);
-
+      const { access, refresh } = response.data;
+      localStorage.setItem('access', access);
+      localStorage.setItem('refresh', refresh);
       localStorage.setItem('isLoggedIn', 'true');
+
       console.log("response", response.data);
       navigate("/Dashboard");
       alert("login successfuly");

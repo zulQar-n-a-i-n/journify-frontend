@@ -71,6 +71,8 @@ const App = () => {
         <Route path="/ResetPassword/:uidb64/:token" element={<ResetPassword />} />
         <Route path="/PasswordSuccess" element={<PasswordSuccess />} />
         <Route path="/login2" element={<Loginn />} />
+        <Route path="/login" element={<Loginn />} />
+
          <Route path="/" element={< Home1 />} />
 
         {/* ✅ Protect Dashboard route */}

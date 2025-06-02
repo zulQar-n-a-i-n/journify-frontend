@@ -63,10 +63,10 @@ function Signup() {
         password,
       });
       console.log("response", response.data);
-    
+      alert("Signup successful!");
       // Navigate to the Login page after successful registration
       navigate("/Login2");
-      // alert("Signup successful!");
+     
     } catch (error) {
       console.log("error occurred", error);
       alert("Signup failed");
