@@ -10,7 +10,9 @@ import './index.css';
 // import ResetPassword from './Resetpassword.jsx';
 // import CheckEmailpage from './CheckMail.jsx'
 // import PasswordSuccess from './PasswordSuccess';
+
 import App from './App.jsx';
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
