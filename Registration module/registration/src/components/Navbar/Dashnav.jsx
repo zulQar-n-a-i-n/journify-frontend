@@ -8,8 +8,8 @@ const Dashnav = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
     setIsOpen(false);
     setShowProfile(false);
     navigate('/Login2');
