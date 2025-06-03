@@ -9,7 +9,9 @@ import PasswordSuccess from './PasswordSuccess.jsx';
 import Dashboard from './pages/Dashbord.jsx';
 import Home1 from './pages/Home1.jsx';
 import PrivateRoute from './routes/privateRoute.jsx';
-import  PersonalProfile from './pages/account.jsx'
+import  PersonalProfile from './pages/account.jsx';
+import PlanCard from './components/Pricing/Pricing.jsx';
+
 
 const App = () => {
   return (
@@ -23,6 +25,7 @@ const App = () => {
         <Route path="/login2" element={<Loginn />} />
         <Route path="/login" element={<Loginn />} />
         <Route path="/account" element={<PersonalProfile/>} />
+        <Route path="/Pricing" element={<PlanCard/>} />
 
         <Route path="/" element={<Home1/>} />
 
