@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import userAvatar from '../assets/user-avatar2.png';
+import axiosInstance from '../api/axiosInstance';
 
  function PersonalProfile({ onClose }) {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const accessToken = localStorage.getItem('accessToken');
-        const response = await axios.get('http://localhost:8000/api/user/profile/', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        setUserData(response.data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
+  const fetchUserData = async () => {
+    try {
+      const response = await axiosInstance.get('user/');
+      setUserData(response.data);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
 
-    fetchUserData();
-  }, []);
+  fetchUserData();
+}, []);
 
   return (
     <div className="fixed top-4 right-4 z-50 bg-white rounded-lg shadow-xl h-auto w-1/4 border">
