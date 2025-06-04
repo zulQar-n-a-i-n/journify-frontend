@@ -299,8 +299,7 @@ const Dashboard = () => {
                   {getEntriesByDate(selectedDate).map((entry) => (
                     <div key={entry.id} className="mb-4 p-3 border rounded-lg">
                       <h3 className="font-semibold">{entry.title}</h3>
-                      <p className="text-gray-700 mt-2">{entry.content}</p>
-                      {isCurrentDate(selectedDate) && (
+                      
                         <div className="flex space-x-2 mt-2">
                           <button
                             onClick={() => handleEditEntry(entry)}
@@ -315,7 +314,7 @@ const Dashboard = () => {
                             Delete
                           </button>
                         </div>
-                      )}
+                     
                     </div>
                   ))}
                 </div>
