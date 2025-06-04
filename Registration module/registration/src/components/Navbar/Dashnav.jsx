@@ -18,7 +18,7 @@ const Dashnav = () => {
   return (
     <>
       <nav className="flex bg-gray-200 rounded-md px-3 py-3 items-center relative z-10">
-        <img src="/logo.png" alt="logo" className="h-20 sm:h-24 pl-28 w-auto object-contain transform scale-150" />
+        <img src="/logo.png" alt="logo" className="h-16 sm:h-24 pl-28 w-auto object-contain transform scale-150" />
 
         <div className="ml-auto pr-12 relative">
           <button

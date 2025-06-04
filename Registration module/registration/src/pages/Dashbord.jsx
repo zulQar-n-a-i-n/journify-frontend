@@ -173,7 +173,7 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-200">
       <Dashnav />
 
-      <div className="bg-gray-200 mx-auto md:px-64 py-6">
+      <div className="bg-gray-200 mx-auto md:px-64 pt-1 pb-6">
         <div className="grid md:grid-cols-2 md:grid-rows-3 gap-6">
 
           {/* Entry Form Card */}
@@ -282,8 +282,10 @@ const Dashboard = () => {
 
         {/* Modal */}
         {showModal && selectedDate && (
-          <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-50 flex justify-center items-center">
-            <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md relative">
+          <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-50 flex justify-center items-center"
+           onClick={() => setShowModal(false)} >
+           
+            <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md relative" onClick={(e) => e.stopPropagation()}>
               <button
                 onClick={() => setShowModal(false)}
                 className="absolute top-2 right-3 text-gray-400 hover:text-red-500 text-xl"
