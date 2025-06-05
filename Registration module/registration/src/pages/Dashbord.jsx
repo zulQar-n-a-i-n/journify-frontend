@@ -193,7 +193,7 @@ const Dashboard = () => {
                     What's On Your Mind
                   </h2>
                 </div>
-                <div className="flex items-center space-x-2 text-gray-500 group-hover:text-gray-600 transition">
+                <div className="flex flex-wrap justify-center items-center text-gray-500 group-hover:text-gray-600 transition">
                   <HiMiniPencilSquare className="w-16 h-16 mt-4 text-black" />
                   <p className="mt-4">Click to start writing...</p>
                 </div>
