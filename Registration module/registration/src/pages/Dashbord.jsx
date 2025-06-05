@@ -41,41 +41,41 @@ const Dashboard = () => {
     };
     console.log("Submitting entry:", newEntry);
     try {
-      
+
       const res = await axiosInstance.post("entries/", newEntry);
       setEntries([...entries, res.data]);
       setForm({ title: "", content: "" });
       setShowEntryForm(false);
       setShowModal(false);
     } catch (err) {
-  console.error("Failed to save entry", err.response?.data || err);
-  alert("Error saving entry.");
+      console.error("Failed to save entry", err.response?.data || err);
+      alert("Error saving entry.");
     }
   };
 
   const handleUpdateEntry = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const res = await axiosInstance.put(`entries/${editingEntry.id}/`, {
-      title: form.title,
-      content: form.content,
-      date: form.date || editingEntry.date, // ✅ Ensure 'date' is included
-    });
+    try {
+      const res = await axiosInstance.put(`entries/${editingEntry.id}/`, {
+        title: form.title,
+        content: form.content,
+        date: form.date || editingEntry.date, // ✅ Ensure 'date' is included
+      });
 
-    setEntries(
-      entries.map((entry) =>
-        entry.id === editingEntry.id ? res.data : entry
-      )
-    );
-    setEditingEntry(null);
-    setForm({ title: "", content: "", date: "" }); // ✅ Reset 'date' too
-    setShowEntryForm(false);
-  } catch (err) {
-    console.error("Failed to update entry", err);
-    alert("Error updating entry.");
-  }
-};
+      setEntries(
+        entries.map((entry) =>
+          entry.id === editingEntry.id ? res.data : entry
+        )
+      );
+      setEditingEntry(null);
+      setForm({ title: "", content: "", date: "" }); // ✅ Reset 'date' too
+      setShowEntryForm(false);
+    } catch (err) {
+      console.error("Failed to update entry", err);
+      alert("Error updating entry.");
+    }
+  };
 
 
   const handleDeleteEntry = async (id) => {
@@ -184,7 +184,7 @@ const Dashboard = () => {
                   setSelectedDate(new Date());
                   setShowEntryForm(true);
                   setEditingEntry(null);
-                  setForm({ title: "", content: "" });
+                  
                 }}
                 className="w-full h-full flex flex-col items-center justify-center group"
               >
@@ -199,8 +199,11 @@ const Dashboard = () => {
                 </div>
               </button>
             ) : (
-              <div className="fixed inset-0 backdrop-blur-sm bg-cover z-50 p-6 flex items-center justify-center">
-                <div className="bg-white w-[900px] h-full rounded-2xl p-6 shadow-2xl overflow-auto scrollbar-hide">
+              <div className="fixed inset-0 backdrop-blur-sm bg-black bg-opacity-40 z-50 p-6 flex items-center justify-center" 
+               onClick={() => setShowEntryForm(false)}>
+
+                <div className="bg-white w-[900px] h-full rounded-2xl p-6 shadow-2xl overflow-auto scrollbar-hide"
+                  onClick={(e) => e.stopPropagation()}>
                   <div className="flex justify-center items-center mb-6 relative">
                     <h2 className="text-xl font-bold text-black text-center w-full">
                       {editingEntry
@@ -283,8 +286,8 @@ const Dashboard = () => {
         {/* Modal */}
         {showModal && selectedDate && (
           <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-50 flex justify-center items-center"
-           onClick={() => setShowModal(false)} >
-           
+            onClick={() => setShowModal(false)} >
+
             <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md relative" onClick={(e) => e.stopPropagation()}>
               <button
                 onClick={() => setShowModal(false)}
@@ -301,22 +304,22 @@ const Dashboard = () => {
                   {getEntriesByDate(selectedDate).map((entry) => (
                     <div key={entry.id} className="mb-4 p-3 border rounded-lg">
                       <h3 className="font-semibold">{entry.title}</h3>
-                      
-                        <div className="flex space-x-2 mt-2">
-                          <button
-                            onClick={() => handleEditEntry(entry)}
-                            className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
-                          >
-                            Edit
-                          </button>
-                          <button
-                            onClick={() => handleDeleteEntry(entry.id)}
-                            className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
-                          >
-                            Delete
-                          </button>
-                        </div>
-                     
+
+                      <div className="flex space-x-2 mt-2">
+                        <button
+                          onClick={() => handleEditEntry(entry)}
+                          className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDeleteEntry(entry.id)}
+                          className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
+                        >
+                          Delete
+                        </button>
+                      </div>
+
                     </div>
                   ))}
                 </div>
@@ -330,7 +333,7 @@ const Dashboard = () => {
                     setShowModal(false);
                     setShowEntryForm(true);
                     setEditingEntry(null);
-                    setForm({ title: "", content: "" });
+                    
                   }}
                   className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-500"
                 >
