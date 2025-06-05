@@ -184,7 +184,7 @@ const Dashboard = () => {
                   setSelectedDate(new Date());
                   setShowEntryForm(true);
                   setEditingEntry(null);
-                  
+
                 }}
                 className="w-full h-full flex flex-col items-center justify-center group"
               >
@@ -199,8 +199,14 @@ const Dashboard = () => {
                 </div>
               </button>
             ) : (
-              <div className="fixed inset-0 backdrop-blur-sm bg-black bg-opacity-40 z-50 p-6 flex items-center justify-center" 
-               onClick={() => setShowEntryForm(false)}>
+              <div className="fixed inset-0 backdrop-blur-sm bg-black bg-opacity-40 z-50 p-6 flex items-center justify-center"
+                onClick={() => {
+                  if (editingEntry) {
+                    setForm({ title: "", content: "" }); 
+                    setEditingEntry(null);
+                  }
+                  setShowEntryForm(false);
+                }}>
 
                 <div className="bg-white w-[900px] h-full rounded-2xl p-6 shadow-2xl overflow-auto scrollbar-hide"
                   onClick={(e) => e.stopPropagation()}>
@@ -241,7 +247,13 @@ const Dashboard = () => {
                     <div className="flex justify-end space-x-4">
                       <button
                         type="button"
-                        onClick={() => setShowEntryForm(false)}
+                        onClick={() => {
+                          if (editingEntry) {
+                            setForm({ title: "", content: "" }); 
+                            setEditingEntry(null);
+                          }
+                          setShowEntryForm(false);
+                        }}
                         className="px-6 py-2 border border-gray-400 rounded-md hover:bg-gray-100"
                       >
                         Cancel
@@ -290,7 +302,13 @@ const Dashboard = () => {
 
             <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md relative" onClick={(e) => e.stopPropagation()}>
               <button
-                onClick={() => setShowModal(false)}
+                onClick={() => {
+                  if (editingEntry) {
+                    setForm({ title: "", content: "" });
+                    setEditingEntry(null);
+                  }
+                  setShowEntryForm(false);
+                }}
                 className="absolute top-2 right-3 text-gray-400 hover:text-red-500 text-xl"
               >
                 &times;
@@ -333,7 +351,7 @@ const Dashboard = () => {
                     setShowModal(false);
                     setShowEntryForm(true);
                     setEditingEntry(null);
-                    
+
                   }}
                   className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-500"
                 >
