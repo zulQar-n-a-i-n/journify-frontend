@@ -14,10 +14,20 @@ const Dashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const [showEntryForm, setShowEntryForm] = useState(false);
   const [form, setForm] = useState({ title: "", content: "" });
-  const [editingEntry, setEditingEntry] = useState(null);
   const [updateEmotion, setUpdateEmotion] = useState(0);
+  const [latestResult, setLatestResult] = useState(null);
+
+  const isReadOnlyEntry = selectedDate && selectedDate.toDateString() !== new Date().toDateString();
 
 
+  const fetchLatestResult = async () => {
+    try {
+      const res = await axiosInstance.get("latest_result/");
+      setLatestResult(res.data);
+    } catch (err) {
+      console.error("Failed to fetch latest result", err);
+    }
+  };
 
   const fetchEntries = async () => {
     try {
@@ -29,6 +39,7 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
+    fetchLatestResult();
     fetchEntries();
   }, []);
 
@@ -50,6 +61,7 @@ const Dashboard = () => {
       setForm({ title: "", content: "" });
       setShowEntryForm(false);
       setShowModal(false);
+      await fetchLatestResult();
       setUpdateEmotion((prev) => prev + 1);
 
     } catch (err) {
@@ -58,29 +70,6 @@ const Dashboard = () => {
     }
   };
 
-  const handleUpdateEntry = async (e) => {
-    e.preventDefault();
-
-    try {
-      const res = await axiosInstance.put(`entries/${editingEntry.id}/`, {
-        title: form.title,
-        content: form.content,
-        date: form.date || editingEntry.date, // ✅ Ensure 'date' is included
-      });
-
-      setEntries(
-        entries.map((entry) =>
-          entry.id === editingEntry.id ? res.data : entry
-        )
-      );
-      setEditingEntry(null);
-      setForm({ title: "", content: "", date: "" }); // ✅ Reset 'date' too
-      setShowEntryForm(false);
-    } catch (err) {
-      console.error("Failed to update entry", err);
-      alert("Error updating entry.");
-    }
-  };
 
 
   const handleDeleteEntry = async (id) => {
@@ -102,12 +91,7 @@ const Dashboard = () => {
     setShowModal(true);
   };
 
-  const handleEditEntry = (entry) => {
-    setEditingEntry(entry);
-    setForm({ title: entry.title, content: entry.content });
-    setShowModal(false);
-    setShowEntryForm(true);
-  };
+
 
   const tileContent = ({ date, view }) => {
     if (view === "month") {
@@ -206,10 +190,7 @@ const Dashboard = () => {
             ) : (
               <div className="fixed inset-0 backdrop-blur-sm bg-black bg-opacity-40 z-50 p-6 flex items-center justify-center"
                 onClick={() => {
-                  if (editingEntry) {
-                    setForm({ title: "", content: "" });
-                    setEditingEntry(null);
-                  }
+
                   setShowEntryForm(false);
                 }}>
 
@@ -217,10 +198,9 @@ const Dashboard = () => {
                   onClick={(e) => e.stopPropagation()}>
                   <div className="flex justify-center items-center mb-6 relative">
                     <h2 className="text-xl font-bold text-black text-center w-full">
-                      {editingEntry
-                        ? `📖 Edit Diary Entry`
-                        : `📖 Diary Entry for ${selectedDate.toDateString()}`}
+                      📖 Diary Entry for {selectedDate.toDateString()}
                     </h2>
+
                     <button
                       onClick={() => setShowEntryForm(false)}
                       className="text-3xl text-gray-500 hover:text-red-500"
@@ -230,13 +210,15 @@ const Dashboard = () => {
                   </div>
 
                   <form
-                    onSubmit={editingEntry ? handleUpdateEntry : handleNewEntry}
+                    onSubmit={isReadOnlyEntry ? (e) => e.preventDefault() : handleNewEntry}
                     className="space-y-6"
                   >
+
                     <input
                       name="title"
                       placeholder="Title"
                       value={form.title}
+                      readOnly={isReadOnlyEntry}
                       onChange={handleInputChange}
                       className="w-full border p-4 text-xl rounded-md focus:outline-none focus:ring-2 focus:ring-black"
                       required
@@ -253,22 +235,21 @@ const Dashboard = () => {
                       <button
                         type="button"
                         onClick={() => {
-                          if (editingEntry) {
-                            setForm({ title: "", content: "" });
-                            setEditingEntry(null);
-                          }
+
                           setShowEntryForm(false);
                         }}
                         className="px-6 py-2 border border-gray-400 rounded-md hover:bg-gray-100"
                       >
                         Cancel
                       </button>
-                      <button
-                        type="submit"
-                        className="px-8 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                      >
-                        {editingEntry ? "Update Entry" : "Save Entry"}
-                      </button>
+                      {!isReadOnlyEntry && (
+                        <button
+                          type="submit"
+                          className="px-8 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                        >
+                          Save Entry
+                        </button>
+                      )}
                     </div>
                   </form>
                 </div>
@@ -311,10 +292,7 @@ const Dashboard = () => {
             <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md relative" onClick={(e) => e.stopPropagation()}>
               <button
                 onClick={() => {
-                  if (editingEntry) {
-                    setForm({ title: "", content: "" });
-                    setEditingEntry(null);
-                  }
+
                   setShowModal(false);
                 }}
                 className="absolute top-2 right-3 text-gray-400 hover:text-red-500 text-xl"
@@ -333,11 +311,16 @@ const Dashboard = () => {
 
                       <div className="flex space-x-2 mt-2">
                         <button
-                          onClick={() => handleEditEntry(entry)}
+                          onClick={() => {
+                            setForm({ title: entry.title, content: entry.content });
+                            setShowModal(false);
+                            setShowEntryForm(true);
+                          }}
                           className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
                         >
-                          Edit
+                          Open Entry
                         </button>
+
                         <button
                           onClick={() => handleDeleteEntry(entry.id)}
                           className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
