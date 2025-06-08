@@ -9,7 +9,7 @@ const fixedColors = [
   "#facc15", // Yellow
 ];
 
-const EmotionChart = ({ refreshFlag }) => {
+const EmotionChart = ({ data }) => {
   const [emotionEntries, setEmotionEntries] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -22,9 +22,12 @@ const EmotionChart = ({ refreshFlag }) => {
         color: fixedColors[index % fixedColors.length],
       }));
       setEmotionEntries(entries);
-      setLoading(false);
+    } else {
+      setEmotionEntries([]);
     }
+    setLoading(false);
   }, [data]);
+
 
 
   if (loading) return <div className="text-gray-500">Loading emotion data...</div>;
