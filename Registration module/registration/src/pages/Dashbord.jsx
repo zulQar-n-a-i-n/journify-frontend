@@ -15,9 +15,7 @@ const Dashboard = () => {
   const [showEntryForm, setShowEntryForm] = useState(false);
   const [form, setForm] = useState({ title: "", content: "" });
   const [editingEntry, setEditingEntry] = useState(null);
-  const [viewOnlyEntry, setViewOnlyEntry] = useState(null);
   const [updateEmotion, setUpdateEmotion] = useState(0);
-
 
 
 
@@ -105,18 +103,11 @@ const Dashboard = () => {
   };
 
   const handleEditEntry = (entry) => {
-    // Only allow editing if the date is today
-    const entryDate = new Date(entry.date);
-    const today = new Date();
-
-    const isToday = entryDate.toDateString() === today.toDateString();
-
-    setEditingEntry(isToday ? entry : null);
+    setEditingEntry(entry);
     setForm({ title: entry.title, content: entry.content });
     setShowModal(false);
     setShowEntryForm(true);
   };
-
 
   const tileContent = ({ date, view }) => {
     if (view === "month") {
@@ -272,15 +263,12 @@ const Dashboard = () => {
                       >
                         Cancel
                       </button>
-                      {selectedDate?.toDateString() === new Date().toDateString() && (
-                        <button
-                          type="submit"
-                          className="px-8 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                        >
-                          {editingEntry ? "Update Entry" : "Save Entry"}
-                        </button>
-                      )}
-
+                      <button
+                        type="submit"
+                        className="px-8 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                      >
+                        {editingEntry ? "Update Entry" : "Save Entry"}
+                      </button>
                     </div>
                   </form>
                 </div>
@@ -344,25 +332,12 @@ const Dashboard = () => {
                       <h3 className="font-semibold">{entry.title}</h3>
 
                       <div className="flex space-x-2 mt-2">
-                        {new Date(entry.date).toDateString() === new Date().toDateString() ? (
-                          <button
-                            onClick={() => handleEditEntry(entry)}
-                            className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
-                          >
-                            Edit
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() => {
-                              setViewOnlyEntry(entry);
-                              setShowModal(false);
-                            }}
-                            className="px-3 py-1 bg-gray-600 text-white rounded text-sm hover:bg-gray-500"
-                          >
-                            Open Entry
-                          </button>
-                        )}
-
+                        <button
+                          onClick={() => handleEditEntry(entry)}
+                          className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
+                        >
+                          Edit
+                        </button>
                         <button
                           onClick={() => handleDeleteEntry(entry.id)}
                           className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
@@ -394,36 +369,12 @@ const Dashboard = () => {
             </div>
           </div>
         )}
-
-
-          {/* modal 2 */}
-        {viewOnlyEntry && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-50 flex justify-center items-center"
-            onClick={() => setViewOnlyEntry(null)}
-          >
-            <div
-              className="bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl relative"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setViewOnlyEntry(null)}
-                className="absolute top-2 right-3 text-gray-400 hover:text-red-500 text-xl"
-              >
-                &times;
-              </button>
-              <h2 className="text-xl font-bold mb-4">📖 Viewing Entry</h2>
-              <h3 className="font-semibold text-lg mb-2">{viewOnlyEntry.title}</h3>
-              <p className="whitespace-pre-wrap text-gray-800 border p-4 rounded-md max-h-[60vh] overflow-auto">
-                {viewOnlyEntry.content}
-              </p>
-            </div>
-          </div>
-        )}
-
       </div>
     </div>
   );
 };
 
 export default Dashboard;
+
+
+
