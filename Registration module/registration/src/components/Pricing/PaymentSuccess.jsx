@@ -3,7 +3,7 @@
 import { GrFormCheckmark } from "react-icons/gr";
 import { Link } from "react-router-dom";
 
-const PasswordSuccess = () => {
+const PaymentSuccess = () => {
 
 
 
@@ -16,16 +16,14 @@ const PasswordSuccess = () => {
                         <GrFormCheckmark className="text-5xl text-teal-400" />
                     </div>
                 </div>
-                <h2 className="text-2xl font-bold text-center mb-6 text-gray-700">Password Reset</h2>
-                <p className="font-semibold">Your password has been successfully reset.</p>
-                <p className="text-center font-semibold">Click below to login</p>
+                <h2 className="text-2xl font-bold text-center mb-6 text-gray-700">Payment Successfully</h2>
+                <p className="font-semibold text-center">You have successfully upgraded to the Premium plan.Dive into all the premium features and enjoy a better experience. </p>
 
                 <div className="text-center mt-12">
-
                     <Link to="/Login2"
                         className="w-full rounded-md bg-teal-400 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-teal-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
                     >
-                        Back to Login Page
+                        Go to Dashboard
                     </Link>
                 </div>
             </div>
@@ -33,4 +31,4 @@ const PasswordSuccess = () => {
     );
 };
 
-export default PasswordSuccess;
+export default PaymentSuccess;

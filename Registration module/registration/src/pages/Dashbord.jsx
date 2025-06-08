@@ -5,6 +5,7 @@ import { HiMiniPencilSquare } from "react-icons/hi2";
 import Dashnav from "../components/Navbar/Dashnav.jsx";
 import axios from "axios";
 import axiosInstance from "../api/axiosInstance";
+import EmotionChart from "../components/EmotionChart/EmotionChart.jsx";
 
 
 const Dashboard = () => {
@@ -14,6 +15,8 @@ const Dashboard = () => {
   const [showEntryForm, setShowEntryForm] = useState(false);
   const [form, setForm] = useState({ title: "", content: "" });
   const [editingEntry, setEditingEntry] = useState(null);
+  const [updateEmotion, setUpdateEmotion] = useState(0);
+
 
 
   const fetchEntries = async () => {
@@ -47,6 +50,8 @@ const Dashboard = () => {
       setForm({ title: "", content: "" });
       setShowEntryForm(false);
       setShowModal(false);
+      setUpdateEmotion((prev) => prev + 1);
+
     } catch (err) {
       console.error("Failed to save entry", err.response?.data || err);
       alert("Error saving entry.");
@@ -202,7 +207,7 @@ const Dashboard = () => {
               <div className="fixed inset-0 backdrop-blur-sm bg-black bg-opacity-40 z-50 p-6 flex items-center justify-center"
                 onClick={() => {
                   if (editingEntry) {
-                    setForm({ title: "", content: "" }); 
+                    setForm({ title: "", content: "" });
                     setEditingEntry(null);
                   }
                   setShowEntryForm(false);
@@ -249,7 +254,7 @@ const Dashboard = () => {
                         type="button"
                         onClick={() => {
                           if (editingEntry) {
-                            setForm({ title: "", content: "" }); 
+                            setForm({ title: "", content: "" });
                             setEditingEntry(null);
                           }
                           setShowEntryForm(false);
@@ -286,8 +291,11 @@ const Dashboard = () => {
           </div>
 
           {/* Placeholders */}
-          <div className="row-span-2 bg-gray-200 p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
-            <h2 className="text-xl font-bold mb-4 text-gray-500">Emotions</h2>
+          <div className="row-span-2 bg-white p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
+            <h2 className="text-2xl font-bold mb-14 text-gray-500">Emotions</h2>
+
+            <EmotionChart refreshFlag={updateEmotion} />
+
           </div>
 
           <div className="bg-gray-200 p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
@@ -307,7 +315,7 @@ const Dashboard = () => {
                     setForm({ title: "", content: "" });
                     setEditingEntry(null);
                   }
-                  setShowEntryForm(false);
+                  setShowModal(false);
                 }}
                 className="absolute top-2 right-3 text-gray-400 hover:text-red-500 text-xl"
               >
