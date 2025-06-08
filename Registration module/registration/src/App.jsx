@@ -11,6 +11,7 @@ import Home1 from './pages/Home1.jsx';
 import PrivateRoute from './routes/privateRoute.jsx';
 import  PersonalProfile from './pages/account.jsx';
 import PlanCard from './components/Pricing/Pricing.jsx';
+import PaymentSuccess from './components/Pricing/PaymentSuccess.jsx';
 
 
 const App = () => {
