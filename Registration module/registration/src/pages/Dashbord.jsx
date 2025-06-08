@@ -14,7 +14,6 @@ const Dashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const [showEntryForm, setShowEntryForm] = useState(false);
   const [form, setForm] = useState({ title: "", content: "" });
-  const [updateEmotion, setUpdateEmotion] = useState(0);
   const [latestResult, setLatestResult] = useState(null);
 
   const isReadOnlyEntry = selectedDate && selectedDate.toDateString() !== new Date().toDateString();
@@ -62,7 +61,7 @@ const Dashboard = () => {
       setShowEntryForm(false);
       setShowModal(false);
       await fetchLatestResult();
-      setUpdateEmotion((prev) => prev + 1);
+      
 
     } catch (err) {
       console.error("Failed to save entry", err.response?.data || err);
@@ -171,6 +170,7 @@ const Dashboard = () => {
               <button
                 onClick={() => {
                   setSelectedDate(new Date());
+                  setForm({ title: "", content: "" });
                   setShowEntryForm(true);
                  
 
@@ -276,7 +276,7 @@ const Dashboard = () => {
           <div className="row-span-2 bg-white p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
             <h2 className="text-2xl font-bold mb-14 text-gray-500">Emotions</h2>
 
-            <EmotionChart refreshFlag={updateEmotion} />
+            <EmotionChart data={latestResult} />
 
           </div>
 
@@ -321,7 +321,7 @@ const Dashboard = () => {
                           }}
                           className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
                         >
-                          Open Entry
+                          Open 
                         </button>
 
                         <button
