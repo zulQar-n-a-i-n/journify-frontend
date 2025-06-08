@@ -9,7 +9,7 @@ const fixedColors = [
   "#facc15", // Yellow
 ];
 
-const EmotionChart = () => {
+const EmotionChart = ({refreshFlag}) => {
   const [emotionEntries, setEmotionEntries] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -35,7 +35,7 @@ const EmotionChart = () => {
     };
 
     fetchEmotionData();
-  }, []);
+  }, [refreshFlag]);
 
   if (loading) return <div className="text-gray-500">Loading emotion data...</div>;
   if (emotionEntries.length === 0) return <div className="text-red-500">No emotion data available.</div>;
@@ -50,7 +50,7 @@ const EmotionChart = () => {
           </div>
 
           {/* Progress Bar */}
-          <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden relative">
+          <div className="flex-1 h-6 bg-gray-200 rounded-full overflow-hidden relative">
             <div
               className="h-full rounded-full transition-all duration-500"
               style={{
