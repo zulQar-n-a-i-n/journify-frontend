@@ -172,7 +172,7 @@ const Dashboard = () => {
                 onClick={() => {
                   setSelectedDate(new Date());
                   setShowEntryForm(true);
-                  setEditingEntry(null);
+                 
 
                 }}
                 className="w-full h-full flex flex-col items-center justify-center group"
@@ -227,6 +227,7 @@ const Dashboard = () => {
                       name="content"
                       placeholder="Write your thoughts..."
                       value={form.content}
+                      readOnly={isReadOnlyEntry}
                       onChange={handleInputChange}
                       className="w-full border p-4 text-lg rounded-md h-[60vh] resize-none focus:outline-none focus:ring-2 focus:ring-black"
                       required
@@ -314,6 +315,8 @@ const Dashboard = () => {
                           onClick={() => {
                             setForm({ title: entry.title, content: entry.content });
                             setShowModal(false);
+                            setSelectedDate(new Date(entry.date));
+
                             setShowEntryForm(true);
                           }}
                           className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
