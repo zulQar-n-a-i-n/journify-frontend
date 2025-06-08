@@ -17,7 +17,7 @@ const EmotionChart = ({refreshFlag}) => {
   useEffect(() => {
     const fetchEmotionData = async () => {
       try {
-        const response = await axiosInstance.get("/latest-emotion/");
+        const response = await axiosInstance.get("/latest-results/");
         setEmotionData(response.data); // Expected: { desire: 62, neutral: 19, ... }
         setLoading(false);
       } catch (error) {
