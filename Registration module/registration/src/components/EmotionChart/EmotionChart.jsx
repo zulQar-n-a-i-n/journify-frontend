@@ -9,33 +9,23 @@ const fixedColors = [
   "#facc15", // Yellow
 ];
 
-const EmotionChart = ({refreshFlag}) => {
+const EmotionChart = ({ refreshFlag }) => {
   const [emotionEntries, setEmotionEntries] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // EmotionChart.jsx
   useEffect(() => {
-    const fetchEmotionData = async () => {
-      try {
-        const response = await axiosInstance.get("/latest_result/");
-        const data = response.data; // e.g. { "desire": 50, "joy": 30, ... }
+    if (data) {
+      const entries = Object.entries(data).map(([emotion, percentage], index) => ({
+        emotion,
+        percentage,
+        color: fixedColors[index % fixedColors.length],
+      }));
+      setEmotionEntries(entries);
+      setLoading(false);
+    }
+  }, [data]);
 
-        // Convert object to array and keep the order as received
-        const entries = Object.entries(data).map(([emotion, percentage], index) => ({
-          emotion,
-          percentage,
-          color: fixedColors[index % fixedColors.length], // Assign color based on order
-        }));
-
-        setEmotionEntries(entries);
-        setLoading(false);
-      } catch (error) {
-        console.error("Failed to fetch emotion data", error);
-        setLoading(false);
-      }
-    };
-
-    fetchEmotionData();
-  }, [refreshFlag]);
 
   if (loading) return <div className="text-gray-500">Loading emotion data...</div>;
   if (emotionEntries.length === 0) return <div className="text-red-500">No emotion data available.</div>;
