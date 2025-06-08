@@ -2,8 +2,16 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../api/axiosInstance";
 
-const EmotionChart = () => {
-  const [emotionData, setEmotionData] = useState(null);
+const fixedColors = [
+  "#60a5fa", // Blue
+  "#4ade80", // Green
+  "#f87171", // Red
+  "#9ca3af", // Gray
+  "#facc15", // Yellow
+];
+
+const EmotionChart = ({refreshFlag}) => {
+  const [emotionEntries, setEmotionEntries] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,7 +27,7 @@ const EmotionChart = () => {
     };
 
     fetchEmotionData();
-  }, []);
+  }, [refreshFlag]);
 
   if (loading) return <div className="text-gray-500">Loading emotion data...</div>;
   if (!emotionData) return <div className="text-red-500">No emotion data available.</div>;
@@ -42,16 +50,16 @@ const EmotionChart = () => {
               {emotion}
             </div>
 
-            {/* Bar (Center) */}
-            <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden relative">
-              <div
-                className="h-full rounded-full transition-all duration-500"
-                style={{
-                  width: `${percentage}%`,
-                  backgroundColor: emotionColors[emotion] || "#ddd",
-                }}
-              />
-            </div>
+          {/* Progress Bar */}
+          <div className="flex-1 h-6 bg-gray-200 rounded-full overflow-hidden relative">
+            <div
+              className="h-full rounded-full transition-all duration-500"
+              style={{
+                width: `${percentage}%`,
+                backgroundColor: color,
+              }}
+            />
+          </div>
 
             {/* Percentage (Right) */}
             <div className="w-12 text-sm text-right font-semibold text-gray-700">

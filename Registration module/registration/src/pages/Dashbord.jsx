@@ -15,6 +15,8 @@ const Dashboard = () => {
   const [showEntryForm, setShowEntryForm] = useState(false);
   const [form, setForm] = useState({ title: "", content: "" });
   const [editingEntry, setEditingEntry] = useState(null);
+  const [updateEmotion, setUpdateEmotion] = useState(0);
+
 
 
   const fetchEntries = async () => {
@@ -48,6 +50,8 @@ const Dashboard = () => {
       setForm({ title: "", content: "" });
       setShowEntryForm(false);
       setShowModal(false);
+      setUpdateEmotion((prev) => prev + 1);
+
     } catch (err) {
       console.error("Failed to save entry", err.response?.data || err);
       alert("Error saving entry.");
@@ -288,10 +292,10 @@ const Dashboard = () => {
 
           {/* Placeholders */}
           <div className="row-span-2 bg-white p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
-            <h2 className="text-xl font-bold mb-4 text-gray-500">Emotions</h2>
-            
-              <EmotionChart />
-            
+            <h2 className="text-2xl font-bold mb-14 text-gray-500">Emotions</h2>
+
+            <EmotionChart refreshFlag={updateEmotion} />
+
           </div>
 
           <div className="bg-gray-200 p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
