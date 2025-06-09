@@ -2,6 +2,7 @@ import { BookOpen } from "lucide-react";
 
 
 export const parseLinks = (text) => {
+    if (!text) return null;
     const urlRegex = /(\bhttps?:\/\/[^\s]+|\bwww\.[^\s]+)/gi;
     const parts = text.split(urlRegex);
 
