@@ -431,7 +431,7 @@ const Dashboard = () => {
               </button>
               <h2 className="text-xl font-bold mb-4">📘  Recommendation</h2>
               <p className="text-gray-800 whitespace-pre-line">
-                {parseLinks(recommendation.recommendation || "")}              </p>
+                {parseLinks(recommendation || "")}              </p>
             </div>
           </div>
         )}
