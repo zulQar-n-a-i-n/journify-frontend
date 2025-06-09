@@ -38,7 +38,6 @@ const RecommendationBox = ({ recommendation, onClick }) => {
         >
             <BookOpen className="text-blue-500 mt-1" />
             <div>
-                <h2 className="text-xl font-semibold">Your Personalized Recommendation</h2>
                 <p className="mt-2 text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
                     {parseLinks(previewText)}
                 </p>

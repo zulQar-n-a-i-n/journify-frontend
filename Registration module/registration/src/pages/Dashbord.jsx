@@ -6,7 +6,7 @@ import Dashnav from "../components/Navbar/Dashnav.jsx";
 import axios from "axios";
 import axiosInstance from "../api/axiosInstance";
 import EmotionChart from "../components/EmotionChart/EmotionChart.jsx";
-import RecommendationBox from "../components/Recommendation/Recommendation.jsx";
+import RecommendationBox, { parseLinks } from "../components/Recommendation/Recommendation.jsx";
 
 
 const Dashboard = () => {
@@ -429,7 +429,7 @@ const Dashboard = () => {
               >
                 &times;
               </button>
-              <h2 className="text-xl font-bold mb-4">📘 Full Recommendation</h2>
+              <h2 className="text-xl font-bold mb-4">📘  Recommendation</h2>
               <p className="text-gray-800 whitespace-pre-line">
                 {parseLinks(recommendation.recommendation)}              </p>
             </div>
