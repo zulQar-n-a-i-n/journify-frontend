@@ -18,6 +18,8 @@ const Dashboard = () => {
   const [unsavedCurrentEntry, setUnsavedCurrentEntry] = useState({ title: "", content: "" });
   const [latestResult, setLatestResult] = useState(null);
   const [recommendation, setRecommendation] = useState("");
+  const [showRecommendationModal, setShowRecommendationModal] = useState(false);
+
 
 
 
@@ -330,7 +332,10 @@ const Dashboard = () => {
 
           <div className="bg-white p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
             <h2 className="text-xl font-bold mb-4 text-gray-500">Recommendation</h2>
-            <RecommendationBox recommendation={recommendation} />
+            <RecommendationBox
+              recommendation={recommendation}
+              onClick={() => setShowRecommendationModal(true)}
+            />
           </div>
         </div>
 
@@ -405,6 +410,36 @@ const Dashboard = () => {
             </div>
           </div>
         )}
+
+
+        {/* recommendatin modal */}
+
+        {showRecommendationModal && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-50 flex justify-center items-center"
+            onClick={() => setShowRecommendationModal(false)}
+          >
+            <div
+              className="bg-white p-6 rounded-xl shadow-lg w-full max-w-lg relative max-h-[80vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setShowRecommendationModal(false)}
+                className="absolute top-2 right-3 text-gray-400 hover:text-red-500 text-xl"
+              >
+                &times;
+              </button>
+              <h2 className="text-xl font-bold mb-4">📘 Full Recommendation</h2>
+              <p className="text-gray-800 whitespace-pre-line">
+                {parseLinks(recommendation.recommendation)}              </p>
+            </div>
+          </div>
+        )}
+
+
+
+
+
       </div>
     </div>
   );
