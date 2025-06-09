@@ -51,8 +51,8 @@ const Dashboard = () => {
   // recomendation ky lye
   const fetchRecommendation = async () => {
     try {
-      const res = await axiosInstance.get('latest_recommendation/');
-      setRecommendation(res.data);
+      const res = await axiosInstance.get("recommendation/");
+      setRecommendation(res.data.recommendation);
     } catch (err) {
       console.error("Failed to fetch recommendation", err);
     }
