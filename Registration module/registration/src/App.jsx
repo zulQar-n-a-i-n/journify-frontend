@@ -14,6 +14,7 @@ import PlanCard from './components/Pricing/Pricing.jsx';
 import PaymentSuccess from './components/Pricing/PaymentSuccess.jsx';
 
 
+
 const App = () => {
   return (
     <Router>
@@ -28,7 +29,7 @@ const App = () => {
         <Route path="/account" element={<PersonalProfile/>} />
         <Route path="/Pricing" element={<PlanCard/>} />
 
-        <Route path="/" element={<Home1/>} />
+        <Route path="/" element={<Dashboard/>} />
 
         {/* ✅ Protect Dashboard route */}
         <Route

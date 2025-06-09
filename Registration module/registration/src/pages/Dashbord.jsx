@@ -6,6 +6,7 @@ import Dashnav from "../components/Navbar/Dashnav.jsx";
 import axios from "axios";
 import axiosInstance from "../api/axiosInstance";
 import EmotionChart from "../components/EmotionChart/EmotionChart.jsx";
+import RecommendationBox from "../components/Recommendation/Recommendation.jsx";
 
 
 const Dashboard = () => {
@@ -16,10 +17,13 @@ const Dashboard = () => {
   const [form, setForm] = useState({ title: "", content: "" });
   const [unsavedCurrentEntry, setUnsavedCurrentEntry] = useState({ title: "", content: "" });
   const [latestResult, setLatestResult] = useState(null);
+  const [recommendation, setRecommendation] = useState("");
+
+
 
   const isReadOnlyEntry = selectedDate && selectedDate.toDateString() !== new Date().toDateString();
 
-
+  // emotin ky lye latest result fetch 
   const fetchLatestResult = async () => {
     try {
       const res = await axiosInstance.get("latest_result/");
@@ -42,6 +46,25 @@ const Dashboard = () => {
     fetchLatestResult();
     fetchEntries();
   }, []);
+
+
+  // recomendation ky lye
+  const fetchRecommendation = async () => {
+    try {
+      const res = await axiosInstance.get("recommendation/");
+      setRecommendation(res.data.recommendation);
+    } catch (err) {
+      console.error("Failed to fetch recommendation", err);
+    }
+  };
+
+
+  useEffect(() => {
+    if (latestResult) {
+      fetchRecommendation(); // fetch recommendation whenever emotion changes
+    }
+  }, [latestResult]);
+
 
   const handleInputChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -307,6 +330,7 @@ const Dashboard = () => {
 
           <div className="bg-gray-200 p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
             <h2 className="text-xl font-bold mb-4 text-gray-500">Recommendation</h2>
+            <RecommendationBox recommendation={recommendation} />
           </div>
         </div>
 
