@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axiosInstance from "../../api/axiosInstance";
 
 const fixedColors = [
   "#60a5fa", // Blue

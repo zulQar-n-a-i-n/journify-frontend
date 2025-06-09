@@ -14,6 +14,7 @@ import PlanCard from './components/Pricing/Pricing.jsx';
 import PaymentSuccess from './components/Pricing/PaymentSuccess.jsx';
 
 
+
 const App = () => {
   return (
     <Router>
