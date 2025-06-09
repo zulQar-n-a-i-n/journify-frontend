@@ -14,6 +14,7 @@ const Dashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const [showEntryForm, setShowEntryForm] = useState(false);
   const [form, setForm] = useState({ title: "", content: "" });
+  const [unsavedCurrentEntry, setUnsavedCurrentEntry] = useState({ title: "", content: "" });
   const [latestResult, setLatestResult] = useState(null);
 
   const isReadOnlyEntry = selectedDate && selectedDate.toDateString() !== new Date().toDateString();
@@ -58,10 +59,11 @@ const Dashboard = () => {
       const res = await axiosInstance.post("entries/", newEntry);
       setEntries([...entries, res.data]);
       setForm({ title: "", content: "" });
+      setUnsavedCurrentEntry({ title: "", content: "" });
       setShowEntryForm(false);
       setShowModal(false);
       await fetchLatestResult();
-      
+
 
     } catch (err) {
       console.error("Failed to save entry", err.response?.data || err);
@@ -169,12 +171,22 @@ const Dashboard = () => {
             {!showEntryForm ? (
               <button
                 onClick={() => {
-                  setSelectedDate(new Date());
-                  setForm({ title: "", content: "" });
-                  setShowEntryForm(true);
-                 
+                  const today = new Date();
+                  setSelectedDate(today);
 
+                  // Restore only if it's today and there's something unsaved
+                  if (
+                    today.toDateString() === new Date().toDateString() &&
+                    (unsavedCurrentEntry.title || unsavedCurrentEntry.content)
+                  ) {
+                    setForm(unsavedCurrentEntry);
+                  } else {
+                    setForm({ title: "", content: "" });
+                  }
+
+                  setShowEntryForm(true);
                 }}
+
                 className="w-full h-full flex flex-col items-center justify-center group"
               >
                 <div className="bg-black w-full rounded-lg">
@@ -191,7 +203,13 @@ const Dashboard = () => {
               <div className="fixed inset-0 backdrop-blur-sm bg-black bg-opacity-40 z-50 p-6 flex items-center justify-center"
                 onClick={() => {
 
+                  if (isCurrentDate(selectedDate)) {
+                    setUnsavedCurrentEntry(form); // save draft if today
+                  } else {
+                    setForm({ title: "", content: "" }); // reset if not today
+                  }
                   setShowEntryForm(false);
+
                 }}>
 
                 <div className="bg-white w-[900px] h-full rounded-2xl p-6 shadow-2xl overflow-auto scrollbar-hide"
@@ -202,7 +220,14 @@ const Dashboard = () => {
                     </h2>
 
                     <button
-                      onClick={() => setShowEntryForm(false)}
+                      onClick={() => {
+                        if (isCurrentDate(selectedDate)) {
+                          setUnsavedCurrentEntry(form); // save draft if today
+                        } else {
+                          setForm({ title: "", content: "" }); // reset if not today
+                        }
+                        setShowEntryForm(false);
+                      }}
                       className="text-3xl text-gray-500 hover:text-red-500"
                     >
                       &times;
@@ -314,14 +339,15 @@ const Dashboard = () => {
                         <button
                           onClick={() => {
                             setForm({ title: entry.title, content: entry.content });
+                            setUnsavedCurrentEntry({ title: "", content: "" }); // clear unsaved
                             setShowModal(false);
                             setSelectedDate(new Date(entry.date));
-
                             setShowEntryForm(true);
                           }}
+
                           className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
                         >
-                          Open 
+                          Open
                         </button>
 
                         <button
