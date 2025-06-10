@@ -30,16 +30,16 @@ const RecommendationBox = ({ recommendation, onClick }) => {
     if (!recommendation)
         return <p className="text-gray-400">No recommendation available.</p>;
 
-    const previewText = recommendation?.slice(0, 100) + (recommendation?.length > 100 ? "..." : "");
+    const previewText = recommendation?.slice(0, 130) + (recommendation?.length > 130? "..." : "");
 
     return (
         <div
             onClick={onClick}
-            className="cursor-pointer flex items-start bg-transparent gap-3 mb-4 hover:bg-gray-100 p-3 rounded-lg transition"
+            className="cursor-pointer flex items-start bg-transparent  mb-2 hover:bg-gray-300 p-3 rounded-lg transition"
         >
-            <BookOpen className="text-blue-500 mt-1" />
+            
             <div>
-                <p className="mt-2 text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
+                <p className="mt-2 text-black  leading-relaxed whitespace-pre-line">
                     {parseLinks(previewText)}
                 </p>
             </div>
