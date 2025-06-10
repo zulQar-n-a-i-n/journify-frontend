@@ -214,7 +214,7 @@ const Dashboard = () => {
 
                 className="w-full h-full flex flex-col items-center justify-center group"
               >
-                <div className="bg-black w-full rounded-lg">
+                <div className="bg-black w-1/2 rounded-lg">
                   <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-white mb-2">
                     What's On Your Mind
                   </h2>
@@ -330,8 +330,8 @@ const Dashboard = () => {
 
           </div>
 
-          <div className="bg-white p-2 rounded-3xl shadow-lg text-center border border-gray-300 ">
-            <h2 className="text-xl font-bold mb-2 text-gray-500">Recommendation</h2>
+          <div className="bg-white p-6 rounded-3xl shadow-lg text-center border border-gray-300 hover:bg-gray-200">
+            <h2 className="text-xl font-bold mb-3 text-gray-500">Recommendation</h2>
             <RecommendationBox
               recommendation={recommendation}
               onClick={() => setShowRecommendationModal(true)}
