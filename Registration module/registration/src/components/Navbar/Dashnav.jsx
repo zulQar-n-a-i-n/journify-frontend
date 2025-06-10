@@ -137,7 +137,7 @@ const Dashnav = () => {
       {/* report generation modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl max-h-[90vh] overflow-auto">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm max-h-[90vh] overflow-auto">
             {loading ? (
               <div className="text-center text-xl font-semibold">
                 <p className="animate-pulse text-blue-600">Generating report...</p>
