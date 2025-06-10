@@ -19,6 +19,13 @@ const Dashnav = () => {
     navigate('/Login2');
   };
 
+// report generating modal close after refresh
+   useEffect(() => {
+    setShowModal(false);
+    setLoading(false);
+    setPdfUrl(null);
+  }, []);
+
 
   // report generation ky lye code
   const handleGenerateReport = async () => {
