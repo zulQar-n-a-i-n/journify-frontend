@@ -214,8 +214,8 @@ const Dashboard = () => {
 
                 className="w-full h-full flex flex-col items-center justify-center group"
               >
-                <div className="bg-black w-1/2 rounded-lg">
-                  <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-white mb-2">
+                <div className="bg-black w-1/2 rounded-xl">
+                  <h2 className="text-2xl font-bold pt-1 text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-white mb-2">
                     What's On Your Mind
                   </h2>
                 </div>

@@ -28,7 +28,7 @@ export const parseLinks = (recomendation) => {
 
 const RecommendationBox = ({ recommendation, onClick }) => {
     if (!recommendation)
-        return <p className="text-gray-400">No recommendation available.</p>;
+        return <p className="text-gray-400 p-7">No recommendation available.</p>;
 
     const previewText = recommendation?.slice(0, 140) + (recommendation?.length > 140? "..." : "");
 

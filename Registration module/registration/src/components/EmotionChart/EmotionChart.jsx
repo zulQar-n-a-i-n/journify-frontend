@@ -29,8 +29,8 @@ const EmotionChart = ({ data }) => {
 
 
 
-  if (loading) return <div className="text-gray-500">Loading emotion data...</div>;
-  if (emotionEntries.length === 0) return <div className="text-red-500">No emotion data available.</div>;
+  if (loading) return <div className="text-gray-500 p-20">Loading emotion data...</div>;
+  if (emotionEntries.length === 0) return <div className="text-gray-400 p-20">No emotion data available.</div>;
 
   return (
     <div className="space-y-6">
