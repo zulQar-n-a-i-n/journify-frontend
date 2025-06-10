@@ -54,7 +54,7 @@ const Dashboard = () => {
   const fetchRecommendation = async () => {
     try {
       const res = await axiosInstance.get('latest_recommendation/');
-      setRecommendation(res.data);
+      setRecommendation(res.data.recommendation);
     } catch (err) {
       console.error("Failed to fetch recommendation", err);
     }
@@ -431,7 +431,7 @@ const Dashboard = () => {
               </button>
               <h2 className="text-xl font-bold mb-4">📘  Recommendation</h2>
               <p className="text-gray-800 whitespace-pre-line">
-                {parseLinks(recommendation || "")}              </p>
+                {parseLinks(recommendation )}  </p>
             </div>
           </div>
         )}
