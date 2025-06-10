@@ -22,48 +22,48 @@ const Dashnav = () => {
 
   // report generation ky lye code
   const handleGenerateReport = async () => {
-  try {
-    setShowModal(true);
-    setLoading(true);
+    try {
+      setShowModal(true);
+      setLoading(true);
 
-    const response = await axiosInstance.get('report/download/', {
-      responseType: 'blob',
-    });
+      const response = await axiosInstance.get('report/download/', {
+        responseType: 'blob',
+      });
 
-    const contentType = response.headers['content-type'];
+      const contentType = response.headers['content-type'];
 
-    // Handle JSON responses (errors)
-    if (contentType === 'application/json') {
-      const reader = new FileReader();
-      reader.onload = () => {
-        try {
-          const jsonResponse = JSON.parse(reader.result);
-          if (jsonResponse.success === false) {
-            setShowModal(false);
-            navigate('/pricing/'); // Redirect only for known errors
+      // Handle JSON responses (errors)
+      if (contentType === 'application/json') {
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const jsonResponse = JSON.parse(reader.result);
+            if (jsonResponse.success === false) {
+              setShowModal(false);
+              navigate('/pricing/'); // Redirect only for known errors
+            }
+          } catch (e) {
+            console.error('Failed to parse JSON:', e);
           }
-        } catch (e) {
-          console.error('Failed to parse JSON:', e);
-        }
-      };
-      reader.readAsText(response.data);
-    } 
-    // Handle PDF (success)
-    else if (contentType === 'application/pdf') {
-      const blob = new Blob([response.data], { type: 'application/pdf' });
-      const url = URL.createObjectURL(blob);
-      setLoading(false);
-      setPdfUrl(url); // No delay needed (remove setTimeout)
+        };
+        reader.readAsText(response.data);
+      }
+      // Handle PDF (success)
+      else if (contentType === 'application/pdf') {
+        const blob = new Blob([response.data], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        setLoading(false);
+        setPdfUrl(url); // No delay needed (remove setTimeout)
+      }
+    } catch (error) {
+      // Only redirect for specific errors (not all)
+      if (error.response && error.response.status === 403) {
+        navigate('/pricing/');
+      } else {
+        console.error('Error generating report:', error);
+      }
     }
-  } catch (error) {
-    // Only redirect for specific errors (not all)
-    if (error.response && error.response.status === 403) {
-      navigate('/pricing/');
-    } else {
-      console.error('Error generating report:', error);
-    }
-  }
-};
+  };
 
   return (
     <>
@@ -148,10 +148,12 @@ const Dashnav = () => {
                   <a
                     href={pdfUrl}
                     download="report.pdf"
+                    onClick={() => setShowModal(false)} // close modal on download
                     className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                   >
                     Download Report
                   </a>
+
                   <button
                     onClick={() => setShowModal(false)}
                     className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400"
