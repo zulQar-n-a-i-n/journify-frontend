@@ -1,10 +1,10 @@
 import { BookOpen } from "lucide-react";
 
 
-export const parseLinks = (text) => {
-    if (!text) return null;
+export const parseLinks = (recomendation) => {
+    if (!recomendation) return null;
     const urlRegex = /(\bhttps?:\/\/[^\s]+|\bwww\.[^\s]+)/gi;
-    const parts = text.split(urlRegex);
+    const parts = recomendation.split(urlRegex);
 
     return parts.map((part, index) => {
         if (part.match(urlRegex)) {
@@ -30,7 +30,7 @@ const RecommendationBox = ({ recommendation, onClick }) => {
     if (!recommendation)
         return <p className="text-gray-400">No recommendation available.</p>;
 
-    const previewText = recommendation.recommendation?.slice(0, 100) + (recommendation.recommendation?.length > 100 ? "..." : "");
+    const previewText = recommendation?.slice(0, 100) + (recommendation?.length > 100 ? "..." : "");
 
     return (
         <div
