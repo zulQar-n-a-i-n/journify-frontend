@@ -29,7 +29,7 @@ const App = () => {
         <Route path="/account" element={<PersonalProfile/>} />
         <Route path="/Pricing" element={<PlanCard/>} />
 
-        <Route path="/" element={<Dashboard/>} />
+        <Route path="/" element={<Home1/>} />
 
         {/* ✅ Protect Dashboard route */}
         <Route

@@ -23,9 +23,9 @@ function PersonalProfile({ onClose }) {
       className="fixed inset-0 z-40 bg-black bg-opacity-40 "
       onClick={onClose}
     >
-      <div onClick={(e) => e.stopPropagation()}> 
+      <div onClick={(e) => e.stopPropagation()}>
 
-        <div className="fixed top-4 right-4 z-50 bg-white rounded-2xl  h-auto w-1/4 border flex">
+        <div className="fixed top-4 right-4 z-50 bg-white rounded-2xl  h-1/2 w-1/4 border flex">
 
           {/* Left: Avatar & Username Full Height */}
           <div className="w-40 h-auto bg-black text-white flex flex-col items-center mx-1 my-1  p-4 rounded-2xl">
@@ -38,27 +38,31 @@ function PersonalProfile({ onClose }) {
 
             {/* Top Bar: Close Button */}
             <div className="flex justify-between items-center px-4 py-2 border-b">
-              <h2 className="text-2xl font-black text-black">Account Detail</h2>
+              <h2 className="text-2xl font-bold text-black">Account Detail</h2>
               <button onClick={onClose} className="text-red-500  font-bold text-xl">×</button>
             </div>
 
             {/* Info Section */}
-            <div className="p-4 pb-24 space-y-12">
+            <div className="p-3 pb-20 space-y-8">
               <div>
-                <h6 className="text-lg  font-extrabold ">Email</h6>
-                <p className="mt-3 text-sm">{userData?.email || 'Loading...'}</p>
+                <h6 className="text-lg  font-bold  ">Email</h6>
+                <p className="mt-2 text-sm font-semibold">{userData?.email || 'Loading...'}</p>
               </div>
 
               <div>
-                <h6 className="text-lg  font-extrabold ">Date Joined</h6>
-                <p className="mt-3 text-sm">
+                <h6 className="text-lg  font-bold ">Date Joined</h6>
+                <p className="mt-2 text-sm font-semibold">
                   {userData?.date_joined ? new Date(userData.date_joined).toLocaleDateString() : 'Loading...'}
                 </p>
               </div>
 
               <div>
-                <h6 className="text-lg  font-extrabold ">Account Type</h6>
-                <p className="mt-3 text-sm">{userData?.account_type || 'Loading...'}</p>
+                <h6 className="text-lg  font-bold ">Account Type</h6>
+                <p className="mt-2 text-sm font-semibold ">{userData?.account_type || 'Loading...'}</p>
+              </div>
+              <div>
+                <h6 className="text-lg  font-bold ">Total Entries</h6>
+                <p className="mt-2 text-sm font-semibold">{userData?.email || 'Loading...'}</p>
               </div>
             </div>
           </div>
