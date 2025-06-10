@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PersonalProfile from '../../pages/account';
+import axiosInstance from "../../api/axiosInstance";
 
 const Dashnav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,7 +39,7 @@ const Dashnav = () => {
           const text = reader.result;
           if (text === 'false') {
             setShowModal(false);
-            navigate('/price/');
+            navigate('/pricing/');
           }
         };
         reader.readAsText(response.data);
@@ -54,7 +55,7 @@ const Dashnav = () => {
       }
     } catch (error) {
       console.error('Error generating report:', error);
-      navigate('/price/');
+      navigate('/pricing/');
     }
   };
 
