@@ -19,7 +19,7 @@ const Dashnav = () => {
     <>
       <nav className="flex bg-gray-200 rounded-md  py-4 items-center justify-between  relative z-10">
         
-          <h1 className="text-2xl  pl-64  sm:text-4xl font-bold text-black transform origin-left scale-95">
+          <h1 className="text-2xl  pl-32  sm:text-4xl font-bold text-black transform origin-left scale-95">
             Journify
           </h1>
         
