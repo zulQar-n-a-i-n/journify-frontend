@@ -22,47 +22,48 @@ const Dashnav = () => {
 
   // report generation ky lye code
   const handleGenerateReport = async () => {
-    try {
-      setShowModal(true);
-      setLoading(true);
+  try {
+    setShowModal(true);
+    setLoading(true);
 
-      const response = await axiosInstance.get('report/download/', {
-        responseType: 'blob',
-      });
+    const response = await axiosInstance.get('report/download/', {
+      responseType: 'blob',
+    });
 
-      const contentType = response.headers['content-type'];
+    const contentType = response.headers['content-type'];
 
-      if (contentType === 'application/json') {
-        // Check if response is literally "false"
-        const reader = new FileReader();
-        reader.onload = () => {
-          const text = reader.result;
-          if (text === 'false') {
+    // Handle JSON responses (errors)
+    if (contentType === 'application/json') {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const jsonResponse = JSON.parse(reader.result);
+          if (jsonResponse.success === false) {
             setShowModal(false);
-            navigate('/pricing/');
+            navigate('/pricing/'); // Redirect only for known errors
           }
-        };
-        reader.readAsText(response.data);
-      } else if (contentType === 'application/pdf') {
-        const blob = new Blob([response.data], { type: 'application/pdf' });
-        const url = URL.createObjectURL(blob);
-
-        // Delay 10 seconds before showing the PDF
-        setTimeout(() => {
-          setLoading(false);
-          setPdfUrl(url);
-        }, 10000);
-      }
-    } catch (error) {
-      console.error('Error generating report:', error);
-      navigate('/pricing/');
+        } catch (e) {
+          console.error('Failed to parse JSON:', e);
+        }
+      };
+      reader.readAsText(response.data);
+    } 
+    // Handle PDF (success)
+    else if (contentType === 'application/pdf') {
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      setLoading(false);
+      setPdfUrl(url); // No delay needed (remove setTimeout)
     }
-  };
-
-
-
-
-
+  } catch (error) {
+    // Only redirect for specific errors (not all)
+    if (error.response && error.response.status === 403) {
+      navigate('/pricing/');
+    } else {
+      console.error('Error generating report:', error);
+    }
+  }
+};
 
   return (
     <>
