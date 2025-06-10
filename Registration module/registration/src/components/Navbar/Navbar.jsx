@@ -17,7 +17,7 @@ const Navbar = ({ className = "" }) => {
 
         {/* Logo section */}
         <div>
-          <h1 className="text-2xl  sm:text-4xl font-bold text-black transform scale-125">
+          <h1 className="text-2xl  sm:text-4xl font-bold text-black transform scale-95">
             Journify
           </h1>
         </div>

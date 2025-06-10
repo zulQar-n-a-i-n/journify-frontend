@@ -19,7 +19,7 @@ const Dashnav = () => {
     <>
       <nav className="flex bg-gray-200 rounded-md  py-4 items-center justify-between  relative z-10">
         
-          <h1 className="text-2xl  pl-44  sm:text-4xl font-bold text-black transform origin-left scale-125">
+          <h1 className="text-2xl  pl-64  sm:text-4xl font-bold text-black transform origin-left scale-95">
             Journify
           </h1>
         
@@ -27,7 +27,7 @@ const Dashnav = () => {
         <div className=" relative">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-md font-bold mr-40 text-black px-3 py-3 rounded-lg hover:bg-yellow-100 transition"
+            className="text-xl font-bold mr-24 text-black px-3 py-3 rounded-lg hover:bg-yellow-100 transition"
           >
             Settings
           </button>
