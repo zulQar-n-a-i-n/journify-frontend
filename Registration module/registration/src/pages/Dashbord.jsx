@@ -330,8 +330,8 @@ const Dashboard = () => {
 
           </div>
 
-          <div className="bg-white p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
-            <h2 className="text-xl font-bold mb-4 text-gray-500">Recommendation</h2>
+          <div className="bg-white p-2 rounded-3xl shadow-lg text-center border border-gray-300 ">
+            <h2 className="text-xl font-bold mb-2 text-gray-500">Recommendation</h2>
             <RecommendationBox
               recommendation={recommendation}
               onClick={() => setShowRecommendationModal(true)}
