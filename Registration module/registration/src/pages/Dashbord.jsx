@@ -188,7 +188,7 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-200">
       <Dashnav />
 
-      <div className="bg-gray-200 mx-auto md:px-64 pt-1 pb-6">
+      <div className="bg-gray-200 mx-auto md:px-64 pt-4 pb-6">
         <div className="grid md:grid-cols-2 md:grid-rows-3 gap-6">
 
           {/* Entry Form Card */}

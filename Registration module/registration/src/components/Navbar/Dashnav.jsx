@@ -17,13 +17,17 @@ const Dashnav = () => {
 
   return (
     <>
-      <nav className="flex bg-gray-200 rounded-md px-3 py-3 items-center relative z-10">
-        <img src="/logo.png" alt="logo" className="h-16 sm:h-24 pl-28 w-auto object-contain transform scale-150" />
+      <nav className="flex bg-gray-200 rounded-md  py-4 items-center justify-between  relative z-10">
+        
+          <h1 className="text-2xl  pl-44  sm:text-4xl font-bold text-black transform origin-left scale-125">
+            Journify
+          </h1>
+        
 
-        <div className="ml-auto pr-12 relative">
+        <div className=" relative">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-md font-bold text-black px-3 py-3 rounded-lg hover:bg-yellow-100 transition"
+            className="text-md font-bold mr-40 text-black px-3 py-3 rounded-lg hover:bg-yellow-100 transition"
           >
             Settings
           </button>
@@ -34,7 +38,7 @@ const Dashnav = () => {
                 className="fixed inset-0 z-10 bg-transparent"
                 onClick={() => setIsOpen(false)}
               />
-              <div className="absolute flex justify-center right-0 mt-0 py-1  bg-white border shadow-md rounded-md w-32 z-20">
+              <div className="absolute flex justify-center right-0 mt-0 py-1  bg-white border shadow-md rounded-md w-44 z-20">
                 <ul>
                   <li
                     onClick={() => {
@@ -45,12 +49,22 @@ const Dashnav = () => {
                   >
                     Account
                   </li>
+
+                  <li
+
+                    className="px-4 py-2 text-lg hover:bg-gray-200 hover:rounded-md cursor-pointer"
+                  >
+                    Generate Report
+                  </li>
+
                   <li
                     onClick={handleLogout}
                     className="px-4 py-2 text-lg hover:bg-gray-200 hover:rounded-md cursor-pointer"
                   >
                     Logout
                   </li>
+
+
                 </ul>
               </div>
             </>

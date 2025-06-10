@@ -13,30 +13,19 @@ const Navbar = ({ className = "" }) => {
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
-        className="container mx-auto px-10 sm:px-8 lg:px-16 xl:px-20 2xl:px-24 py-2 flex justify-between items-center ">
+        className="container mx-auto px-10 sm:px-8 lg:px-16 xl:px-20 2xl:px-24 pt-8 pb-8 flex justify-between  items-center  ">
 
         {/* Logo section */}
         <div>
-          <img
-            src={Logo}
-            alt="Journify Logo"
-            className="h-20 sm:h-24 w-auto object-contain transform scale-150"
-          />
+          <h1 className="text-2xl  sm:text-4xl font-bold text-black transform scale-125">
+            Journify
+          </h1>
         </div>
+
         {/* Menu section */}
         <div className="hidden lg:block">
           <ul className="flex items-center gap-3">
-            {NavbarMenu.map((menu) => (
-              <li key={menu.id}>
-                <Link
-                  to={menu.path}
-                  className="inline-block py-2 px-3 hover:text-secondary relative group"
-                >
-                  <div className="w-2 h-2 bg-secondary absolute mt-4 rounded-full left-1/2 -translate-x-1/2 top-1/2 bottom-0 group-hover:block hidden"></div>
-                  {menu.title}
-                </Link>
-              </li>
-            ))}
+
             <div className="flex space-x-1">
               <Link
                 to="/Login2"
