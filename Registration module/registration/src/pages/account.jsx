@@ -62,7 +62,7 @@ function PersonalProfile({ onClose }) {
               </div>
               <div>
                 <h6 className="text-lg  font-bold ">Total Entries</h6>
-                <p className="mt-2 text-sm font-semibold">{userData?.email || 'Loading...'}</p>
+                <p className="mt-2 text-sm font-semibold">{userData?.total_entries || 'Loading...'}</p>
               </div>
             </div>
           </div>
