@@ -12,6 +12,7 @@ import PrivateRoute from './routes/privateRoute.jsx';
 import  PersonalProfile from './pages/account.jsx';
 import PlanCard from './components/Pricing/Pricing.jsx';
 import PaymentSuccess from './components/Pricing/PaymentSuccess.jsx';
+import PaymentCancel from './components/Pricing/PaymentCancel.jsx';
 
 
 
@@ -28,6 +29,8 @@ const App = () => {
         <Route path="/login" element={<Loginn />} />
         <Route path="/account" element={<PersonalProfile/>} />
         <Route path="/Pricing" element={<PlanCard/>} />
+        <Route path="/PaymentCancel" element={<PaymentCancel/>} />
+        <Route path="/PaymentSuccess" element={<PaymentSuccess/>} />
 
         <Route path="/" element={<Home1/>} />
 
