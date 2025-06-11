@@ -2,14 +2,24 @@ import React from 'react';
 import axios from 'axios';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe('pk_test_YourPublicKeyHere'); // Replace with your real key
+const stripePromise = loadStripe('pk_test_51RYiBWKIQIzn9dUVEauyTmoSgBgvgFsCE6EHEaBj1IMDxcPsZTUNP3X0RHbBVGmKkinfLqsMpH4e4KvlRb2LrYM700vMEt0yr4'); // Replace with your real key
 
 const handleCheckout = async (priceId) => {
   try {
     const stripe = await stripePromise;
-    const response = await axios.post('http://localhost:8000/create-checkout-session/', { priceId });
-    const sessionId = response.data.id;
+    const token = localStorage.getItem("access");
 
+    const response = await axios.post(
+      'http://127.0.0.1:8000/payment/create-checkout-session/',
+      { priceId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const sessionId = response.data.id;
     const result = await stripe.redirectToCheckout({ sessionId });
 
     if (result.error) {
@@ -20,6 +30,8 @@ const handleCheckout = async (priceId) => {
     alert('Payment initialization failed. Please try again.');
   }
 };
+
+
 
 const Pricing = () => (
   <div className="flex flex-col items-center justify-center min-h-screen p-10 text-gray-700 bg-gray-100 md:p-20">
@@ -33,7 +45,7 @@ const Pricing = () => (
           <div className="flex items-center">
             <span className="text-3xl">$</span>
             <span className="font-bold text-5xl">0</span>
-            <span className="text-2xl text-gray-500">/mo</span>
+            <span className="text-2xl text-gray-500"></span>
           </div>
         </div>
         <div className="p-10">
@@ -48,23 +60,23 @@ const Pricing = () => (
       {/* Premium Plan */}
       <div className="flex flex-col flex-grow mt-8 overflow-hidden bg-white rounded-lg shadow-lg">
         <div className="flex flex-col items-center p-10 bg-gray-200">
-          <span className="font-semibold">Premium Plan</span>
+          <span className="font-semibold">Premium</span>
           <div className="flex items-center">
             <span className="text-3xl">$</span>
-            <span className="font-bold text-5xl">99</span>
-            <span className="text-2xl text-gray-500">/mo</span>
+            <span className="font-bold text-5xl">20</span>
+            <span className="text-2xl text-gray-500"></span>
           </div>
         </div>
         <div className="p-10">
           <ul>
-            <li className="flex items-center"><span className="ml-2">★ Jedi Knight</span></li>
-            <li className="flex items-center"><span className="ml-2">★ Sit on council</span></li>
-            <li className="flex items-center"><span className="ml-2">★ Stock options</span></li>
+            <li className="flex items-center"><span className="ml-2">★ Go Premium to Generate Report</span></li>
+            <li className="flex items-center"><span className="ml-2">★ Pay Once</span></li>
+            <li className="flex items-center"><span className="ml-2">★ Get Lifetime Access</span></li>
           </ul>
         </div>
         <div className="flex px-10 pb-10 justify-center">
           <button
-            onClick={() => handleCheckout('price_12345')}
+            onClick={() => handleCheckout('price_1RYingKIQIzn9dUVVCp3g1kx')}
             className="flex items-center justify-center w-full h-12 px-6 text-white text-sm font-bold uppercase bg-teal-400 hover:bg-teal-300 rounded-lg"
           >
             Join now
