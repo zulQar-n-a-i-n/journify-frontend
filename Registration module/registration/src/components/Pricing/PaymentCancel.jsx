@@ -18,13 +18,22 @@ const PaymentCancel = () => {
                 </div>
                 <p className="font-semibold text-center"> Oops! Your payment didn’t go through. Don’t worry you can try again anytime. </p>
 
-                <div className="text-center mt-12">
+                <div className="text-center flex  gap-3 justify-center  mt-12">
                     <Link to="/Pricing"
-                        className="w-full rounded-md bg-teal-400 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-teal-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
+                        className="w-auto rounded-md  bg-teal-400 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-teal-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
                     >
                         Try Again
                     </Link>
+
+                    <Link to="/Pricing"
+                        className="w-auto rounded-md  bg-teal-400 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-teal-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
+                    >
+                        Go To Dashboard
+                    </Link>
+
+                    
                 </div>
+                
             </div>
         </div>
     );

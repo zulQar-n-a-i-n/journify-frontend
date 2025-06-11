@@ -38,27 +38,11 @@ const Pricing = () => (
     <h2 className="text-4xl font-bold">Pricing Plan</h2>
     <div className="flex flex-wrap gap-8 items-center justify-center w-full max-w-4xl mt-8">
       
-      {/* Free Plan */}
-      <div className="flex flex-col flex-grow mt-8 overflow-hidden bg-white rounded-lg shadow-lg">
-        <div className="flex flex-col items-center p-10 bg-gray-200">
-          <span className="font-semibold">Free</span>
-          <div className="flex items-center">
-            <span className="text-3xl">$</span>
-            <span className="font-bold text-5xl">0</span>
-            <span className="text-2xl text-gray-500"></span>
-          </div>
-        </div>
-        <div className="p-10">
-          <ul>
-            <li className="flex items-center"><span className="ml-2">★ Lightsaber</span></li>
-            <li className="flex items-center"><span className="ml-2">★ Robe</span></li>
-            <li className="flex items-center"><span className="ml-2">★ Insurance</span></li>
-          </ul>
-        </div>
-      </div>
+      
+      
 
       {/* Premium Plan */}
-      <div className="flex flex-col flex-grow mt-8 overflow-hidden bg-white rounded-lg shadow-lg">
+      <div className="flex flex-col w-full max-w-md mt-8 overflow-hidden bg-white rounded-lg shadow-lg">
         <div className="flex flex-col items-center p-10 bg-gray-200">
           <span className="font-semibold">Premium</span>
           <div className="flex items-center">
@@ -67,11 +51,11 @@ const Pricing = () => (
             <span className="text-2xl text-gray-500"></span>
           </div>
         </div>
-        <div className="p-10">
+        <div className="p-10  ">
           <ul>
-            <li className="flex items-center"><span className="ml-2">★ Go Premium to Generate Report</span></li>
-            <li className="flex items-center"><span className="ml-2">★ Pay Once</span></li>
-            <li className="flex items-center"><span className="ml-2">★ Get Lifetime Access</span></li>
+            <li ><span className="ml-2">★ Go Premium to Generate Report</span></li>
+            <li ><span className="ml-2">★ Pay Once</span></li>
+            <li ><span className="ml-2">★ Get Lifetime Access</span></li>
           </ul>
         </div>
         <div className="flex px-10 pb-10 justify-center">
@@ -79,7 +63,7 @@ const Pricing = () => (
             onClick={() => handleCheckout('price_1RYingKIQIzn9dUVVCp3g1kx')}
             className="flex items-center justify-center w-full h-12 px-6 text-white text-sm font-bold uppercase bg-teal-400 hover:bg-teal-300 rounded-lg"
           >
-            Join now
+            Purchase Now
           </button>
         </div>
       </div>

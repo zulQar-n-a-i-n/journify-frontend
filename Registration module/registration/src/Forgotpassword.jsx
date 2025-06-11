@@ -70,13 +70,13 @@ const ForgotPassword = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-teal-400 hover:bg-teal-400 text-white p-2 rounded-lg transition-all mt-4"
+                        className="w-full bg-teal-400 hover:bg-teal-300 text-white p-2 rounded-lg transition-all mt-4"
                     >
                         Send Reset Link
                     </button>
                 </form>
                 <div className="text-center mt-14">
-                    <Link to="/Login2" className="font-semibold text-xs text-black hover:text-teal-600">
+                    <Link to="/Login2" className="font-semibold text-xs text-black hover:text-teal-400">
                      Back to login
                     </Link>
                 </div>
