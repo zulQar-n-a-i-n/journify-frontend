@@ -457,7 +457,7 @@ const Dashboard = () => {
 
         {/* after saving modal show when recommendation fetch modal close */}
         {isSavingAndAnalyzing && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black backdrop-blur-sm bg-opacity-50">
             <div className="text-center text-xl font-semibold">
               <p className="animate-pulse text-blue-600">Saving and Analyzing Diary Entry...</p>
             </div>
