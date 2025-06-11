@@ -34,7 +34,7 @@ const App = () => {
 
         <Route path="/" element={<Home1/>} />
 
-        {/* ✅ Protect Dashboard route */}
+        
         <Route
           path="/Dashboard"
           element={

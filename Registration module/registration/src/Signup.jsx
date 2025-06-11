@@ -175,7 +175,7 @@ function Signup() {
             <div>
               <button
                 type="submit"
-                className="w-full rounded-md bg-[#2dd4bf] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#2dd4bf] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2dd4bf]"
+                className="w-full rounded-md bg-teal-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2dd4bf]"
               >
                 Register
               </button>
@@ -185,7 +185,7 @@ function Signup() {
           {/* Navigation to Login Page */}
           <p className="mt-6 text-center text-sm text-black">
             Already have an Account?{" "}
-            <Link to="/login2" className="font-semibold text-black hover:text-indigo-500">
+            <Link to="/login2" className="font-semibold text-black hover:text-teal-400">
               Login
             </Link>
           </p>

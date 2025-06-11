@@ -30,14 +30,14 @@ const Navbar = ({ className = "" }) => {
               <Link
                 to="/Login2"
                 className="inline-flex bg-teal-400 text-white font-semibold rounded-lg 
-               hover:bg-teal-400 duration-200 shadow-lg 
+               hover:bg-teal-300 duration-200 shadow-lg 
                hover:shadow-xl  items-center gap-2 group text-sm py-1 px-3 ">Login
               </Link>
 
               <Link
                 to="/Signup"
                 className="inline-flex bg-teal-400 text-white font-semibold rounded-lg 
-               hover:bg-teal-400 duration-200 shadow-lg 
+               hover:bg-teal-300 duration-200 shadow-lg 
                hover:shadow-xl  items-center gap-2 group text-sm py-1 px-3 ">Sign Up
               </Link>
 
@@ -46,7 +46,7 @@ const Navbar = ({ className = "" }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex bg-teal-400 text-white font-semibold rounded-lg 
-             hover:bg-teal-400 duration-200 shadow-lg 
+             hover:bg-teal-300  duration-200 shadow-lg 
              hover:shadow-xl items-center gap-2 group text-sm py-1 px-3"
               >
                 Admin
