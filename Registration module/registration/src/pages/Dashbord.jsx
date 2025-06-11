@@ -19,6 +19,8 @@ const Dashboard = () => {
   const [latestResult, setLatestResult] = useState(null);
   const [recommendation, setRecommendation] = useState("");
   const [showRecommendationModal, setShowRecommendationModal] = useState(false);
+  const [isSavingAndAnalyzing, setIsSavingAndAnalyzing] = useState(false);
+
 
 
 
@@ -73,6 +75,8 @@ const Dashboard = () => {
 
   const handleNewEntry = async (e) => {
     e.preventDefault();
+    setIsSavingAndAnalyzing(true);
+
     const newEntry = {
       title: form.title,
       content: form.content,
@@ -88,12 +92,16 @@ const Dashboard = () => {
       setShowEntryForm(false);
       setShowModal(false);
       await fetchLatestResult();
+      await fetchRecommendation();
 
 
     } catch (err) {
       console.error("Failed to save entry", err.response?.data || err);
       alert("Error saving entry.");
+    } finally {
+      setIsSavingAndAnalyzing(false); // Hide modal when all done
     }
+
   };
 
 
@@ -431,7 +439,18 @@ const Dashboard = () => {
               </button>
               <h2 className="text-xl font-bold mb-4">📘  Recommendation</h2>
               <p className="text-gray-800 whitespace-pre-line">
-                {parseLinks(recommendation )}  </p>
+                {parseLinks(recommendation)}  </p>
+            </div>
+          </div>
+        )}
+
+
+
+        {/* after saving modal show when recommendation fetch modal close */}
+        {isSavingAndAnalyzing && (
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center">
+            <div className="text-center text-xl font-semibold">
+              <p className="animate-pulse text-blue-600">Saving and Analyzing diary entry...</p>
             </div>
           </div>
         )}
