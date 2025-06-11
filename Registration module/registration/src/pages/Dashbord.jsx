@@ -20,6 +20,8 @@ const Dashboard = () => {
   const [recommendation, setRecommendation] = useState("");
   const [showRecommendationModal, setShowRecommendationModal] = useState(false);
   const [isSavingAndAnalyzing, setIsSavingAndAnalyzing] = useState(false);
+  const [calendarKey, setCalendarKey] = useState(0);  //delete hony ka bad rerender 
+
 
 
 
@@ -110,6 +112,8 @@ const Dashboard = () => {
     try {
       await axiosInstance.delete(`entries/${id}/`);
       setEntries(entries.filter((entry) => entry.id !== id));
+
+      setCalendarKey(prev => prev + 1);
       setShowModal(false);
     } catch (err) {
       console.error("Failed to delete entry", err);
@@ -323,6 +327,7 @@ const Dashboard = () => {
             </h2>
             <div className="w-full overflow-hidden">
               <Calendar
+                key={calendarKey}
                 onClickDay={handleDateSelect}
                 tileContent={tileContent}
                 tileClassName={tileClassName}
@@ -448,9 +453,11 @@ const Dashboard = () => {
 
         {/* after saving modal show when recommendation fetch modal close */}
         {isSavingAndAnalyzing && (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center">
-            <div className="text-center text-xl font-semibold">
-              <p className="animate-pulse text-blue-600">Saving and Analyzing diary entry...</p>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm max-h-[90vh] overflow-auto">
+              <div className="text-center text-xl font-semibold">
+                <p className="animate-pulse text-blue-600">Saving and Analyzing diary entry...</p>
+              </div>
             </div>
           </div>
         )}
