@@ -20,7 +20,6 @@ const Dashboard = () => {
   const [recommendation, setRecommendation] = useState("");
   const [showRecommendationModal, setShowRecommendationModal] = useState(false);
   const [isSavingAndAnalyzing, setIsSavingAndAnalyzing] = useState(false);
-  const [calendarKey, setCalendarKey] = useState(0);  //delete hony ka bad rerender 
 
 
 
@@ -113,8 +112,13 @@ const Dashboard = () => {
       await axiosInstance.delete(`entries/${id}/`);
       setEntries(entries.filter((entry) => entry.id !== id));
 
-      setCalendarKey(prev => prev + 1);
+
       setShowModal(false);
+
+      await fetchLatestResult();
+      await fetchRecommendation();
+
+
     } catch (err) {
       console.error("Failed to delete entry", err);
       alert("Error deleting entry.");
@@ -327,7 +331,7 @@ const Dashboard = () => {
             </h2>
             <div className="w-full overflow-hidden">
               <Calendar
-                key={calendarKey}
+
                 onClickDay={handleDateSelect}
                 tileContent={tileContent}
                 tileClassName={tileClassName}
