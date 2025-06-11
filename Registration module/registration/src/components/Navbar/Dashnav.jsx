@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PersonalProfile from '../../pages/account';
 import axiosInstance from "../../api/axiosInstance";
