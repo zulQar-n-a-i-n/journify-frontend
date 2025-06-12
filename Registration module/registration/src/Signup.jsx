@@ -56,6 +56,8 @@ function Signup() {
       return;
     }
 
+   
+
     try {
       const response = await axios.post("http://127.0.0.1:8000/api/register/", {
         username,
@@ -68,9 +70,16 @@ function Signup() {
       navigate("/Login2");
      
     } catch (error) {
-      console.log("error occurred", error);
-      alert("Signup failed");
+     console.log("error occurred", error);
+    if (error.response?.data?.error === "Username already taken") {
+      alert("This username is already in use. Please try another.");
+    } 
+    else if (error.response?.data?.error === "Email already exist") {
+      alert("This email is already in use. Please try another.");}
+    else {
+      alert("Signup failed. Please try again later.");
     }
+  }
 
     setUsername("");
     setEmail("");
