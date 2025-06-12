@@ -22,9 +22,9 @@ function Signup() {
 
   const validate = () => {
     let valid = true;
-    let newErrors = { username: "" , email: "" , password: "" };
+    let newErrors = { username: "", email: "", password: "" };
     if (!usernameRegex.test(username)) {
-      newErrors.username = "Username must be at least 4 characters and cannot start with number and a space.";
+      newErrors.username = "Username must be at least 4 characters and cannot start with number,special character or space.";
       valid = false;
     }
     if (!emailRegex.test(email)) {
@@ -32,8 +32,8 @@ function Signup() {
       valid = false;
     }
     if (!passwordRegex.test(password)) {
-      newErrors.password ="Password must be at least 6 characters, leters,numbers and special characters(not at start)";
-         valid = false;
+      newErrors.password = "Password must be at least 6 characters, leters,numbers and special characters(not at start)";
+      valid = false;
     }
     if (password !== confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match!";
@@ -47,16 +47,16 @@ function Signup() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    
+
     if (!validate()) return;
-    
+
 
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
 
-   
+
 
     try {
       const response = await axios.post("http://127.0.0.1:8000/api/register/", {
@@ -68,18 +68,22 @@ function Signup() {
       alert("Signup successful!");
       // Navigate to the Login page after successful registration
       navigate("/Login2");
-     
+
     } catch (error) {
-     console.log("error occurred", error);
-    if (error.response?.data?.error === "Username already taken") {
-      alert("This username is already in use. Please try another.");
-    } 
-    else if (error.response?.data?.error === "Email already exist") {
-      alert("This email is already in use. Please try another.");}
-    else {
-      alert("Signup failed. Please try again later.");
+      console.log("error occurred", error);
+
+      const responseErrors = error.response?.data;
+
+      if (responseErrors?.username) {
+        alert(responseErrors.username[0]);
+      } else if (responseErrors?.email) {
+        alert(responseErrors.email[0]);
+      } else if (responseErrors?.error) {
+        alert(responseErrors.error);
+      } else {
+        alert("Signup failed. Please try again later.");
+      }
     }
-  }
 
     setUsername("");
     setEmail("");
@@ -113,7 +117,7 @@ function Signup() {
                   className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                 />
               </div>{errors.username && <p className="text-red-500 text-xs mt-1">{errors.username}</p>}
-          
+
             </div>
 
             {/* Email Field */}
@@ -122,8 +126,8 @@ function Signup() {
                 Email Address
               </label>
               <div className="mt-2 relative">
-              <MdEmail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
-   
+                <MdEmail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
+
                 <input
                   id="email"
                   name="email"
@@ -135,7 +139,7 @@ function Signup() {
                   className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                 />
               </div>{errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
-        
+
             </div>
 
             {/* Password Field */}
@@ -156,7 +160,7 @@ function Signup() {
                   className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                 />
               </div> {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
-          
+
             </div>
 
             {/* Confirm Password Field */}
@@ -177,7 +181,7 @@ function Signup() {
                   className="block w-full rounded-md bg-gray-50 pl-10 pr-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
                 />
               </div>{errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
-        
+
             </div>
 
             {/* Register Button */}
