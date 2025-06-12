@@ -51,6 +51,15 @@ const Dashnav = () => {
               setShowModal(false);
               navigate('/pricing/'); // Or handle error specifically
             }
+            else if(jsonResponse.success === true) {
+              setLoading(false);
+              setShowModal(false);
+              setCustomModal({
+                title: 'Not Enough Entries',
+                message: 'You need at least 5 diary entries to generate a report.',
+              });
+            }
+
           } catch (e) {
             console.error('Failed to parse JSON:', e);
           }
@@ -67,15 +76,6 @@ const Dashnav = () => {
       }
 
       // Case 3: Unknown or invalid response type (e.g., text/plain)
-      else {
-        setLoading(false);
-        setShowModal(false);
-        setCustomModal({
-          title: 'Not Enough Entries',
-          message: 'You need at least 5 diary entries to generate a report.',
-        });
-      }
-
     } catch (error) {
       setLoading(false);
       setShowModal(false);
@@ -191,7 +191,7 @@ const Dashnav = () => {
       )}
 
 
-     {/* if entries less than 5 this modal show  */}
+      {/* if entries less than 5 this modal show  */}
       {customModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
