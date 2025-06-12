@@ -30,62 +30,75 @@ const Dashnav = () => {
 
 
   // report generation ky lye code
-  const handleGenerateReport = async () => {
-    try {
-      setShowModal(true);
-      setLoading(true);
+const handleGenerateReport = async () => {
+  try {
+    setShowModal(true);
+    setLoading(true);
 
-      const response = await axiosInstance.get('report/download/', {
-        responseType: 'blob',
-      });
+    const response = await axiosInstance.get('report/download/', {
+      responseType: 'blob',
+    });
 
-      const contentType = response.headers['content-type'];
+    const contentType = response.headers['content-type'];
 
-      // Case 1: Handle JSON error response
-      if (contentType === 'application/json') {
-        const reader = new FileReader();
-        reader.onload = () => {
-          try {
-            const jsonResponse = JSON.parse(reader.result);
-            if (jsonResponse.success === false) {
-              setShowModal(false);
-              navigate('/pricing/'); // Or handle error specifically
-            }
-          } catch (e) {
-            console.error('Failed to parse JSON:', e);
+    if (contentType === 'application/json') {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const jsonResponse = JSON.parse(reader.result);
+
+          // Case 1: Free user
+          if (jsonResponse.success === false) {
+            setShowModal(false);
+            navigate('/pricing/');
+            return;
           }
-        };
-        reader.readAsText(response.data);
-      }
 
-      // Case 2: Handle successful PDF response
-      else if (contentType === 'application/pdf') {
-        const blob = new Blob([response.data], { type: 'application/pdf' });
-        const url = URL.createObjectURL(blob);
-        setLoading(false);
-        setPdfUrl(url);
-      }
+          // Case 2: Premium user but less than 5 entries
+          if (jsonResponse.success === true && jsonResponse.not_enough_entries) {
+            setShowModal(false);
+            setCustomModal({
+              title: 'Not Enough Entries',
+              message: 'You need at least 5 diary entries to generate a report.',
+            });
+            return;
+          }
 
-      // Case 3: Unknown or invalid response type (e.g., text/plain)
-      else {
-        setLoading(false);
-        setShowModal(false);
-        setCustomModal({
-          title: 'Not Enough Entries',
-          message: 'You need at least 5 diary entries to generate a report.',
-        });
-      }
-
-    } catch (error) {
-      setLoading(false);
-      setShowModal(false);
-      if (error.response && error.response.status === 403) {
-        navigate('/pricing/');
-      } else {
-        console.error('Error generating report:', error);
-      }
+        } catch (e) {
+          console.error('Failed to parse JSON:', e);
+        }
+      };
+      reader.readAsText(response.data);
     }
-  };
+
+    // Case 3: PDF success
+    else if (contentType === 'application/pdf') {
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      setLoading(false);
+      setPdfUrl(url);
+    }
+
+    // Unexpected content type
+    else {
+      setShowModal(false);
+      setCustomModal({
+        title: 'Unexpected Response',
+        message: 'Something went wrong. Please try again later.',
+      });
+    }
+
+  } catch (error) {
+    setLoading(false);
+    setShowModal(false);
+    if (error.response && error.response.status === 403) {
+      navigate('/pricing/');
+    } else {
+      console.error('Error generating report:', error);
+    }
+  }
+};
+
 
 
   return (
