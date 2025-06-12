@@ -37,6 +37,7 @@ const Dashnav = () => {
 
       const response = await axiosInstance.get('report/download/', {
         responseType: 'blob',
+        validateStatus: () => true
       });
 
       const contentType = response.headers['content-type'];
@@ -47,18 +48,19 @@ const Dashnav = () => {
         reader.onload = () => {
           try {
             const jsonResponse = JSON.parse(reader.result);
-            if (jsonResponse.success === false) {
+            if (jsonResponse.success === false && jsonResponse.error === 403) {
               setShowModal(false);
               navigate('/pricing/'); // Or handle error specifically
             }
-            else if(jsonResponse.success === true) {
+            else if (jsonResponse.success === false && jsonResponse.error === 200) {
               setLoading(false);
               setShowModal(false);
               setCustomModal({
                 title: 'Not Enough Entries',
-                message: 'You need at least 5 diary entries to generate a report.',
+                message: jsonResponse.error,
               });
             }
+
 
           } catch (e) {
             console.error('Failed to parse JSON:', e);
