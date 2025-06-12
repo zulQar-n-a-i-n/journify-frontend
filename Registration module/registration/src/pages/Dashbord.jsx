@@ -307,7 +307,7 @@ const Dashboard = () => {
                         }}
                         className="px-6 py-2 border border-gray-400 rounded-md hover:bg-gray-100"
                       >
-                        Cancel
+                        Close
                       </button>
                       {!isReadOnlyEntry && (
                         <button

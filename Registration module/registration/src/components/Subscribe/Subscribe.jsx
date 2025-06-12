@@ -2,7 +2,6 @@ import React from "react";
 import { FaBell } from "react-icons/fa";
 import BgImage from "../../assets/bg.png";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 
 const bgStyle = {
   backgroundImage: `url(${BgImage})`,
@@ -15,7 +14,7 @@ const Subscribe = () => {
   return (
     <section className="bg-[#f7f7f7]">
       <motion.div
-        className="container mx-auto px-4 sm:px-8 lg:px-16 xl:px-20 2xl:px-24 py-24 md:py-48"
+        className="container mx-auto px-4 sm:px-8 lg:px-16 xl:px-20 2xl:px-24 py-24 md:py-60"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         style={bgStyle}
@@ -33,13 +32,7 @@ const Subscribe = () => {
               a growing community of emotionally aware individuals
             </p>
 
-            <Link
-              to="/Pricing"
-              className="primary-btn text-white bg-teal-400 py-2 px-6 rounded-lg inline-flex items-center gap-4 group"
-            >
-              Subscribe Now
-              <FaBell className="group-hover:animate-bounce text-white group-hover:text-lg duration-200" />
-            </Link>
+            
           </div>
         </motion.div>
       </motion.div>

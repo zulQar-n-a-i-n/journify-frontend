@@ -19,8 +19,8 @@ const Dashnav = () => {
     navigate('/Login2');
   };
 
-// report generating modal close after refresh
-   useEffect(() => {
+  // report generating modal close after refresh
+  useEffect(() => {
     setShowModal(false);
     setLoading(false);
     setPdfUrl(null);
@@ -62,6 +62,18 @@ const Dashnav = () => {
         setLoading(false);
         setPdfUrl(url); // No delay needed (remove setTimeout)
       }
+
+
+      else {
+        setLoading(false);
+        setShowModal(false);
+        setCustomModal({
+          title: 'Not Enough Entries',
+          message: 'You Should Have Atleast 5 Diary Entries to Generate Report!',
+        });
+      }
+
+
     } catch (error) {
       // Only redirect for specific errors (not all)
       if (error.response && error.response.status === 403) {
