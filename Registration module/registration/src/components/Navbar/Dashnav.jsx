@@ -45,9 +45,21 @@ const Dashnav = () => {
         reader.onload = () => {
           try {
             const jsonResponse = JSON.parse(reader.result);
+
+            // Case 1: Premium required
             if (jsonResponse.success === false) {
               setShowModal(false);
-              navigate('/pricing/'); // Redirect only for known errors
+              navigate('/pricing/');
+            }
+
+            // ✅ Case 2: Valid account, but not enough entries
+            else if (jsonResponse.success === true && jsonResponse.error) {
+              setLoading(false);
+              setShowModal(false);
+              setCustomModal({
+                title: 'Not Enough Entries',
+                message: jsonResponse.error,
+              });
             }
           } catch (e) {
             console.error('Failed to parse JSON:', e);
@@ -55,6 +67,7 @@ const Dashnav = () => {
         };
         reader.readAsText(response.data);
       }
+
       // Handle PDF (success)
       else if (contentType === 'application/pdf') {
         const blob = new Blob([response.data], { type: 'application/pdf' });
