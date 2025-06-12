@@ -9,6 +9,8 @@ const Dashnav = () => {
   const [pdfUrl, setPdfUrl] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [customModal, setCustomModal] = useState(null);
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -39,27 +41,15 @@ const Dashnav = () => {
 
       const contentType = response.headers['content-type'];
 
-      // Handle JSON responses (errors)
+      // Case 1: Handle JSON error response
       if (contentType === 'application/json') {
         const reader = new FileReader();
         reader.onload = () => {
           try {
             const jsonResponse = JSON.parse(reader.result);
-
-            // Case 1: Premium required
             if (jsonResponse.success === false) {
               setShowModal(false);
-              navigate('/pricing/');
-            }
-
-            // ✅ Case 2: Valid account, but not enough entries
-            else if (jsonResponse.success === true && jsonResponse.error) {
-              setLoading(false);
-              setShowModal(false);
-              setCustomModal({
-                title: 'Not Enough Entries',
-                message: jsonResponse.error,
-              });
+              navigate('/pricing/'); // Or handle error specifically
             }
           } catch (e) {
             console.error('Failed to parse JSON:', e);
@@ -68,16 +58,27 @@ const Dashnav = () => {
         reader.readAsText(response.data);
       }
 
-      // Handle PDF (success)
+      // Case 2: Handle successful PDF response
       else if (contentType === 'application/pdf') {
         const blob = new Blob([response.data], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
         setLoading(false);
-        setPdfUrl(url); // No delay needed (remove setTimeout)
+        setPdfUrl(url);
+      }
+
+      // Case 3: Unknown or invalid response type (e.g., text/plain)
+      else {
+        setLoading(false);
+        setShowModal(false);
+        setCustomModal({
+          title: 'Not Enough Entries',
+          message: 'You need at least 5 diary entries to generate a report.',
+        });
       }
 
     } catch (error) {
-      // Only redirect for specific errors (not all)
+      setLoading(false);
+      setShowModal(false);
       if (error.response && error.response.status === 403) {
         navigate('/pricing/');
       } else {
@@ -85,6 +86,7 @@ const Dashnav = () => {
       }
     }
   };
+
 
   return (
     <>
@@ -187,6 +189,24 @@ const Dashnav = () => {
           </div>
         </div>
       )}
+
+
+     {/* if entries less than 5 this modal show  */}
+      {customModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+            <h2 className="text-xl font-bold mb-2">{customModal.title}</h2>
+            <p className="mb-4">{customModal.message}</p>
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+              onClick={() => setCustomModal(null)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
 
 
 
