@@ -207,7 +207,7 @@ const handleGenerateReport = async () => {
      {/* if entries less than 5 this modal show  */}
       {customModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white flex items-center justify-center text-center p-6 rounded-lg shadow-lg max-w-sm w-full">
+          <div className="bg-white flex flex-col items-center justify-center text-center p-6 rounded-lg shadow-lg max-w-sm w-full">
             <h2 className="text-xl text-center  font-bold mb-2">{customModal.title}</h2>
             <p className="mb-4">{customModal.message}</p>
             <button
