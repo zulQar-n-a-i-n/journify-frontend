@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe('pk_test_51RYiBWKIQIzn9dUVEauyTmoSgBgvgFsCE6EHEaBj1IMDxcPsZTUNP3X0RHbBVGmKkinfLqsMpH4e4KvlRb2LrYM700vMEt0yr4'); // Replace with your real key
+const stripePromise = loadStripe('pk_test_51RZNkdGhkYWBeh5uJtD3M6PsJRXTFeI3WLZgDF4v0oJTzLaBC8R4zzyurveMBI3zcsXVPKCTH027AQ5atqTz8ZuG00bqQvKpES'); // Replace with your real key
 
 const handleCheckout = async (priceId) => {
   try {
@@ -60,7 +60,7 @@ const Pricing = () => (
         </div>
         <div className="flex px-10 pb-10 justify-center">
           <button
-            onClick={() => handleCheckout('price_1RYingKIQIzn9dUVVCp3g1kx')}
+            onClick={() => handleCheckout('price_1RZOiQGhkYWBeh5uXb7nRLjK')}
             className="flex items-center justify-center w-full h-12 px-6 text-white text-sm font-bold uppercase bg-teal-400 hover:bg-teal-300 rounded-lg"
           >
             Purchase Now
