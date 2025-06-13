@@ -59,7 +59,7 @@ const handleGenerateReport = async () => {
             setShowModal(false);
             setCustomModal({
               title: 'Not Enough Entries',
-              message: 'You need at least 5 diary entries to generate a report.',
+              message: 'You need at least 1 diary entries to generate report.',
             });
             return;
           }
