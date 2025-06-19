@@ -165,14 +165,13 @@ function Loginn() {
           </p>
         </div>
 
-        {/* Animation Section with Gray Background */}
+        
         {/* Animation Section */}
         <div className="hidden sm:flex w-1/2 justify-center items-center relative bg-gray-300 overflow-hidden">
           {/* Lottie Animation */}
           <Lottie animationData={animationData} className="w-3/4 h-3/4" />
 
-          {/* Bottom Half Section (blurred) */}
-          {/* <div className="absolute bottom-0 left-0 w-full h-1/2 backdrop-blur-md rounded-b-lg"></div> */}
+          
         </div>
       </div>
     </div>

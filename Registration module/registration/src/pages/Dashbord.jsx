@@ -11,22 +11,19 @@ import RecommendationBox, { parseLinks } from "../components/Recommendation/Reco
 
 const Dashboard = () => {
   const [entries, setEntries] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [showModal, setShowModal] = useState(false);
-  const [showEntryForm, setShowEntryForm] = useState(false);
   const [form, setForm] = useState({ title: "", content: "" });
-  const [unsavedCurrentEntry, setUnsavedCurrentEntry] = useState({ title: "", content: "" });
   const [latestResult, setLatestResult] = useState(null);
   const [recommendation, setRecommendation] = useState("");
   const [showRecommendationModal, setShowRecommendationModal] = useState(false);
   const [isSavingAndAnalyzing, setIsSavingAndAnalyzing] = useState(false);
+  const [showEntryForm, setShowEntryForm] = useState(false);
+  const [unsavedForm, setUnsavedForm] = useState({ title: "", content: "" });
+  const [isReadOnlyEntry, setIsReadOnlyEntry] = useState(false);
 
 
 
-
-
-
-  const isReadOnlyEntry = selectedDate && selectedDate.toDateString() !== new Date().toDateString();
 
   // emotin ky lye latest result fetch 
   const fetchLatestResult = async () => {
@@ -89,7 +86,7 @@ const Dashboard = () => {
       const res = await axiosInstance.post("entries/", newEntry);
       setEntries([...entries, res.data]);
       setForm({ title: "", content: "" });
-      setUnsavedCurrentEntry({ title: "", content: "" });
+      setUnsavedForm({ title: "", content: "" });
       setShowEntryForm(false);
       setShowModal(false);
       await fetchLatestResult();
@@ -106,18 +103,45 @@ const Dashboard = () => {
   };
 
 
+  const handleClose = () => {
+    if (!isReadOnlyEntry) {
+      setUnsavedForm(form); // only store in New Entry mode
+    }
+    setShowEntryForm(false);
+  };
+
+
+  const handleNewEntryClick = () => {
+
+    if (unsavedForm.title || unsavedForm.content) {
+      setForm(unsavedForm);
+    } else {
+      setForm({ title: "", content: "" });
+    }
+    setIsReadOnlyEntry(false);
+    setShowModal(false);
+    setShowEntryForm(true);
+  };
+
+
+  const handleViewEntryClick = (entry) => {
+    setIsReadOnlyEntry(true);
+    setShowModal(false);
+    setForm({ title: entry.title, content: entry.content });
+    setShowEntryForm(true);
+  };
+
+
+
 
   const handleDeleteEntry = async (id) => {
     try {
       await axiosInstance.delete(`entries/${id}/`);
       setEntries(entries.filter((entry) => entry.id !== id));
-
-
       setShowModal(false);
 
       await fetchLatestResult();
       await fetchRecommendation();
-
 
     } catch (err) {
       console.error("Failed to delete entry", err);
@@ -128,12 +152,14 @@ const Dashboard = () => {
   const getEntriesByDate = (date) =>
     entries.filter((e) => new Date(e.date).toDateString() === date.toDateString());
 
+
   const handleDateSelect = (date) => {
     setSelectedDate(date);
     setShowModal(true);
   };
 
 
+  // calander ka code
 
   const tileContent = ({ date, view }) => {
     if (view === "month") {
@@ -200,6 +226,11 @@ const Dashboard = () => {
     return new Date().toDateString() === date.toDateString();
   };
 
+
+
+
+  // return jsx
+
   return (
     <div className="min-h-screen bg-gray-200">
       <Dashnav />
@@ -211,22 +242,7 @@ const Dashboard = () => {
           <div className="flex bg-white p-6 rounded-3xl shadow-lg h-full">
             {!showEntryForm ? (
               <button
-                onClick={() => {
-                  const today = new Date();
-                  setSelectedDate(today);
-
-                  // Restore only if it's today and there's something unsaved
-                  if (
-                    today.toDateString() === new Date().toDateString() &&
-                    (unsavedCurrentEntry.title || unsavedCurrentEntry.content)
-                  ) {
-                    setForm(unsavedCurrentEntry);
-                  } else {
-                    setForm({ title: "", content: "" });
-                  }
-
-                  setShowEntryForm(true);
-                }}
+                onClick={handleNewEntryClick}
 
                 className="w-full h-full flex flex-col items-center justify-center group"
               >
@@ -242,33 +258,18 @@ const Dashboard = () => {
               </button>
             ) : (
               <div className="fixed inset-0 backdrop-blur-sm bg-black bg-opacity-40 z-50 p-6 flex items-center justify-center"
-                onClick={() => {
-
-                  if (isCurrentDate(selectedDate)) {
-                    setUnsavedCurrentEntry(form); // save draft if today
-                  } else {
-                    setForm({ title: "", content: "" }); // reset if not today
-                  }
-                  setShowEntryForm(false);
-
-                }}>
+                 onClick={handleClose}>
 
                 <div className="bg-white w-[900px] h-full rounded-2xl p-6 shadow-2xl overflow-auto scrollbar-hide"
                   onClick={(e) => e.stopPropagation()}>
                   <div className="flex justify-center items-center mb-6 relative">
                     <h2 className="text-xl font-bold text-black text-center w-full">
-                      📖 Diary Entry for {selectedDate.toDateString()}
+                      📖 Diary Entry for {selectedDate ? selectedDate.toDateString() : "Unknown Date"}
                     </h2>
 
+
                     <button
-                      onClick={() => {
-                        if (isCurrentDate(selectedDate)) {
-                          setUnsavedCurrentEntry(form); // save draft if today
-                        } else {
-                          setForm({ title: "", content: "" }); // reset if not today
-                        }
-                        setShowEntryForm(false);
-                      }}
+                       onClick={handleClose}
                       className="text-3xl text-gray-500 hover:text-red-500"
                     >
                       &times;
@@ -277,8 +278,8 @@ const Dashboard = () => {
 
                   <form
                     onSubmit={isReadOnlyEntry ? (e) => e.preventDefault() : handleNewEntry}
-                    className="space-y-6"
-                  >
+                    className="space-y-6">
+
 
                     <input
                       name="title"
@@ -299,25 +300,43 @@ const Dashboard = () => {
                       required
                     />
                     <div className="flex justify-end space-x-4">
-                      <button
-                        type="button"
-                        onClick={() => {
-
-                          setShowEntryForm(false);
-                        }}
-                        className="px-6 py-2 border border-gray-400 rounded-md hover:bg-gray-100"
-                      >
-                        Close
-                      </button>
-                      {!isReadOnlyEntry && (
+                      {isReadOnlyEntry ? (
                         <button
-                          type="submit"
-                          className="px-8 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                          type="button"
+                          onClick={() => {
+                            setShowEntryForm(false);
+                          }}
+                          className="px-6 py-2 border border-gray-400 rounded-md hover:bg-gray-100"
                         >
-                          Save Entry
+                          Close
                         </button>
+                      ) : (
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              // Save unsaved form draft if needed
+                              if (form.title || form.content) {
+                                setUnsavedForm(form);
+                              } else {
+                                setUnsavedForm({ title: "", content: "" });
+                              }
+                              setShowEntryForm(false);
+                            }}
+                            className="px-6 py-2 border border-gray-400 rounded-md hover:bg-gray-100"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            type="submit"
+                            className="px-8 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                          >
+                            Save Entry
+                          </button>
+                        </>
                       )}
                     </div>
+
                   </form>
                 </div>
               </div>
@@ -331,7 +350,6 @@ const Dashboard = () => {
             </h2>
             <div className="w-full overflow-hidden">
               <Calendar
-
                 onClickDay={handleDateSelect}
                 tileContent={tileContent}
                 tileClassName={tileClassName}
@@ -342,9 +360,7 @@ const Dashboard = () => {
           {/* Placeholders */}
           <div className="row-span-2 bg-white p-6 rounded-3xl shadow-lg text-center border border-gray-300 ">
             <h2 className="text-2xl font-bold mb-14 text-gray-500">Emotions</h2>
-
             <EmotionChart data={latestResult} />
-
           </div>
 
           <div className="bg-white p-6 rounded-3xl shadow-lg text-center border border-gray-300 hover:bg-gray-200">
@@ -383,18 +399,12 @@ const Dashboard = () => {
 
                       <div className="flex space-x-2 mt-2">
                         <button
-                          onClick={() => {
-                            setForm({ title: entry.title, content: entry.content });
-                            setUnsavedCurrentEntry({ title: "", content: "" }); // clear unsaved
-                            setShowModal(false);
-                            setSelectedDate(new Date(entry.date));
-                            setShowEntryForm(true);
-                          }}
-
-                          className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-500"
+                          onClick={() => handleViewEntryClick(entry)}
+                          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
                         >
                           Open
                         </button>
+
 
                         <button
                           onClick={() => handleDeleteEntry(entry.id)}
@@ -413,17 +423,13 @@ const Dashboard = () => {
 
               {isCurrentDate(selectedDate) && (
                 <button
-                  onClick={() => {
-                    setShowModal(false);
-                    setShowEntryForm(true);
-                    setEditingEntry(null);
-
-                  }}
+                  onClick={handleNewEntryClick}
                   className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-500"
                 >
                   New Entry
                 </button>
               )}
+
             </div>
           </div>
         )}
@@ -464,10 +470,6 @@ const Dashboard = () => {
           </div>
 
         )}
-
-
-
-
 
       </div>
     </div>
