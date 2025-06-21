@@ -306,7 +306,7 @@ const Dashboard = () => {
                     />
 
 
-                    {viewedEntryDetails && (
+                    {isReadOnlyEntry &&  viewedEntryDetails && (
                       <div className="mt-8 p-4  rounded-lg border border-gray-300 shadow-sm space-y-4">
                         <div className="mt-6 p-4 bg-yellow-50 border border-yellow-300 rounded-lg shadow-sm">
                           <h3 className="text-sm text-center font-semibold text-black mb-5">Emotions for this Entry</h3>
