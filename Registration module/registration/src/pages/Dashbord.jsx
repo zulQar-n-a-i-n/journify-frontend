@@ -21,6 +21,9 @@ const Dashboard = () => {
   const [showEntryForm, setShowEntryForm] = useState(false);
   const [unsavedForm, setUnsavedForm] = useState({ title: "", content: "" });
   const [isReadOnlyEntry, setIsReadOnlyEntry] = useState(false);
+  const [viewedEntryDetails, setViewedEntryDetails] = useState(null);//for show emo,recom in readonly
+  const [activeRecommendation, setActiveRecommendation] = useState(null);
+
 
 
 
@@ -39,6 +42,7 @@ const Dashboard = () => {
     try {
       const res = await axiosInstance.get("entries/");
       setEntries(res.data);
+
     } catch (error) {
       console.error("Failed to load entries", error);
     }
@@ -128,6 +132,7 @@ const Dashboard = () => {
     setIsReadOnlyEntry(true);
     setShowModal(false);
     setForm({ title: entry.title, content: entry.content });
+    setViewedEntryDetails(entry);
     setShowEntryForm(true);
   };
 
@@ -258,7 +263,7 @@ const Dashboard = () => {
               </button>
             ) : (
               <div className="fixed inset-0 backdrop-blur-sm bg-black bg-opacity-40 z-50 p-6 flex items-center justify-center"
-                 onClick={handleClose}>
+                onClick={handleClose}>
 
                 <div className="bg-white w-[900px] h-full rounded-2xl p-6 shadow-2xl overflow-auto scrollbar-hide"
                   onClick={(e) => e.stopPropagation()}>
@@ -269,7 +274,7 @@ const Dashboard = () => {
 
 
                     <button
-                       onClick={handleClose}
+                      onClick={handleClose}
                       className="text-3xl text-gray-500 hover:text-red-500"
                     >
                       &times;
@@ -299,6 +304,30 @@ const Dashboard = () => {
                       className="w-full border p-4 text-lg rounded-md h-[60vh] resize-none focus:outline-none focus:ring-2 focus:ring-black"
                       required
                     />
+
+
+                    {viewedEntryDetails && (
+                      <div className="mt-8 p-4  rounded-lg border border-gray-300 shadow-sm space-y-4">
+                        <div className="mt-6 p-4 bg-yellow-50 border border-yellow-300 rounded-lg shadow-sm">
+                          <h3 className="text-sm text-center font-semibold text-black mb-5">Emotions for this Entry</h3>
+                          <EmotionChart data={viewedEntryDetails.result} />
+                        </div>
+
+                        <div className="mt-4 p-4 bg-yellow-50 border border-yellow-300 rounded-lg shadow-sm">
+                          <h3 className="text-sm text-center font-semibold text-black mb-5">Recommendation</h3>
+                          <div className="text-gray-800 text-center text-sm whitespace-pre-line">
+                            <RecommendationBox
+                              recommendation={viewedEntryDetails.recommendation}
+                              onClick={() => setActiveRecommendation(viewedEntryDetails.recommendation)}
+                            />
+
+                          </div>
+                        </div>
+
+                      </div>
+
+                    )}
+
                     <div className="flex justify-end space-x-4">
                       {isReadOnlyEntry ? (
                         <button
@@ -337,6 +366,9 @@ const Dashboard = () => {
                       )}
                     </div>
 
+
+
+
                   </form>
                 </div>
               </div>
@@ -367,7 +399,7 @@ const Dashboard = () => {
             <h2 className="text-xl font-bold mb-3 text-gray-500">Recommendation</h2>
             <RecommendationBox
               recommendation={recommendation}
-              onClick={() => setShowRecommendationModal(true)}
+              onClick={() => setActiveRecommendation(recommendation)}
             />
           </div>
         </div>
@@ -437,22 +469,22 @@ const Dashboard = () => {
 
         {/* recommendatin modal */}
 
-        {showRecommendationModal && (
+        {activeRecommendation  && (
           <div
             className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-50 flex justify-center items-center"
-            onClick={() => setShowRecommendationModal(false)}
+            onClick={() => setActiveRecommendation(null)}
           >
             <div
               className="bg-white p-6 rounded-xl shadow-lg w-full max-w-lg relative max-h-[80vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                onClick={() => setShowRecommendationModal(false)}
+                onClick={() => setActiveRecommendation(null)}
                 className="absolute top-2 right-3 text-gray-400 hover:text-red-500 text-xl"
               >
                 &times;
               </button>
-              <h2 className="text-xl font-bold mb-4">📘  Recommendation</h2>
+              <h2 className="text-xl text-center font-bold mb-4">📘  Recommendation</h2>
               <p className="text-gray-800 whitespace-pre-line">
                 {parseLinks(recommendation)}  </p>
             </div>

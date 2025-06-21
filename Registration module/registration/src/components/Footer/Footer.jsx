@@ -58,10 +58,10 @@ const Footer = () => {
             </p>
           </div>
           {/* second section */}
-          <div class="space-y-4  bg-white px-7 py-7 rounded-xl max-w-[300px]">
-            <h1 class="text-2xl font-bold">Contact Us</h1>
-            <p class="text-dark2">Based in Pakistan. We usually respond within 24 hours. Contact us on:</p>
-            <ul class="list-disc list-inside text-dark2">
+          <div className="space-y-4  bg-white px-7 py-7 rounded-xl max-w-[300px]">
+            <h1 className="text-2xl font-bold">Contact Us</h1>
+            <p className="text-dark2">Based in Pakistan. We usually respond within 24 hours. Contact us on:</p>
+            <ul className="list-disc list-inside text-dark2">
               <li>help@journify.com</li>
               <li>+1 (555) 123-4567</li>
             </ul>
