@@ -38,7 +38,7 @@ function Loginn() {
 
 
   const submitHandler = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // prevents browser from reloading page on an event 
 
     if (!validate()) return;
     try {
