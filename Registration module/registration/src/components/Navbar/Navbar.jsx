@@ -2,14 +2,10 @@ import React from "react";
 import { IoMdMenu } from "react-icons/io";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/logo.png";
 
-const NavbarMenu = [
-
-];
-const Navbar = ({ className = "" }) => {
+const Navbar = () => {
   return (
-    <nav className={`relative z-20 ${className}`}>
+    <nav className={`relative z-20 `}>
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
